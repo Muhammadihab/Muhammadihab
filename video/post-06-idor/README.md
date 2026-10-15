@@ -27,6 +27,6 @@
 ```bash
 node render.mjs preview frames_preview 4     # فريمات المعاينة
 node render.mjs green   frames_green   4     # فريمات الجرين سكرين
-python3 sfx.py timeline.json sfx.wav         # المؤثرات الصوتية
+python3 sfx.py index.timeline.json sfx.wav         # المؤثرات الصوتية
 # المعاينة المباشرة في المتصفح: index.html?play=1   أو   index.html?t=12.5
 ```

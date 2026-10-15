@@ -119,8 +119,34 @@ def riser():
     return s * x ** 2 * .8
 
 
+def notif():
+    return bell([1174.7, 1568], .45, 6, .11) * .4
+
+def vibrate():
+    d = .45; t = t_(d); s = np.sign(np.sin(2*np.pi*150*t)) * (0.5 + 0.5*np.sign(np.sin(2*np.pi*9*t)))
+    return lowpass(s, 500) * env(len(t), r=1.0) * .45
+
+def key():
+    d = .045; n = noise(d)
+    return ((n - lowpass(n, 1800)) * .5 + np.sin(2*np.pi*170*t_(d)) * .6) * env(int(d*SR), curve=11) * .7
+
+def enter():
+    return np.concatenate([key() * 1.3, np.zeros(int(.02*SR))]) + 0
+
+def scribble():
+    d = .5; n = noise(d); b = lowpass(n, 5000) - lowpass(n, 1500)
+    am = 0.5 + 0.5 * np.abs(np.sin(2*np.pi*7*t_(d)))
+    return b * am * np.sin(np.pi*np.linspace(0, 1, len(n))) * .9
+
+def sting():
+    d = 1.0; t = t_(d)
+    s = (np.sin(2*np.pi*55*t) * .8 + np.sin(2*np.pi*311*t) * .25 + np.sin(2*np.pi*329.6*t) * .25) * env(len(t), curve=3.5)
+    return s * .8
+
+
 GEN = dict(click=click, tick=tick, type=type_, pop=pop, whoosh=whoosh, swish=swish, bass=bass, thoom=thoom,
-           glitch=glitch, blip=blip, buzz=buzz, thunk=thunk, chime=chime, success=success, ding=ding, lock=lock, riser=riser)
+           glitch=glitch, blip=blip, buzz=buzz, thunk=thunk, chime=chime, success=success, ding=ding, lock=lock, riser=riser,
+           notif=notif, vibrate=vibrate, key=key, enter=enter, scribble=scribble, sting=sting)
 
 tl = json.load(open(sys.argv[1]))
 dur = tl['DUR']

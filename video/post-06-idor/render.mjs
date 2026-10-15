@@ -1,5 +1,5 @@
 // Renders index.html frame-by-frame with headless Chromium.
-// usage: node render.mjs <mode: preview|green> <outDir> [workers] [from] [to]
+// usage: [PAGE=file.html] node render.mjs <mode: preview|green> <outDir> [workers] [from] [to]
 //        node render.mjs stills <outDir> <t1,t2,...>
 import { createRequire } from 'module';
 import { pathToFileURL } from 'url';
@@ -10,12 +10,13 @@ const { chromium } = require(process.env.PW || '/opt/node22/lib/node_modules/pla
 
 const here = path.dirname(new URL(import.meta.url).pathname);
 const [mode = 'preview', outDir = 'frames', a3, a4, a5] = process.argv.slice(2);
+const PAGE = process.env.PAGE || 'index.html';
 fs.mkdirSync(outDir, { recursive: true });
 
 const browser = await chromium.launch({ args: ['--disable-gpu-vsync', '--force-color-profile=srgb'] });
 async function openPage(m) {
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
-  await page.goto(pathToFileURL(path.join(here, 'index.html')).href + '?mode=' + m);
+  await page.goto(pathToFileURL(path.join(here, PAGE)).href + '?mode=' + m);
   await page.waitForFunction(() => window.__ready === true);
   return page;
 }
@@ -33,7 +34,7 @@ if (mode === 'stills') {
 const workers = +(a3 || 4);
 const page0 = await openPage(mode);
 const tl = await page0.evaluate(() => window.TIMELINE);
-fs.writeFileSync(path.join(here, 'timeline.json'), JSON.stringify(tl, null, 1));
+fs.writeFileSync(path.join(here, PAGE.replace('.html', '') + '.timeline.json'), JSON.stringify(tl, null, 1));
 await page0.close();
 const total = Math.round(tl.DUR * tl.FPS);
 const from = +(a4 || 0), to = +(a5 || total);
