@@ -8,20 +8,26 @@
 @font-face{font-family:Inter;src:url(fonts/inter-latin-600-normal.woff2);font-weight:600}
 @font-face{font-family:Inter;src:url(fonts/inter-latin-800-normal.woff2);font-weight:800}
 @font-face{font-family:Mono;src:url(fonts/jetbrains-mono-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-700-normal.woff2);font-weight:700}
 @font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2);font-weight:400}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-700-normal.woff2);font-weight:700}
 @font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2);font-weight:600}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-700-normal.woff2);font-weight:700}
 @font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
-:root{--danger:#FF4D6D;--secure:#2EE59D;--accent:#7C5CFF;--sel:#3D7BFF}
+:root{--danger:#D2463A;--secure:#4ED69A;--accent:#00CCF2;--orange:#F56A39;--sel:#3D7BFF}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:1080px;height:1920px;overflow:hidden;background:#0B0F1F}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#071A33}
 body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
 .L{position:absolute;left:0;top:0;width:1080px;height:1920px}
 .abs{position:absolute}
 
 /* backdrop */
-#bg{background:linear-gradient(165deg,#0B0F1F 0%,#141A3C 55%,#1A1340 100%);overflow:hidden}
+#bg{background:linear-gradient(165deg,#071A33 0%,#0A2444 55%,#0B335F 100%);overflow:hidden}
 .blob{position:absolute;width:1000px;height:1000px;border-radius:50%;filter:blur(100px)}
-#grid{background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse at 50% 45%,#000 30%,transparent 80%)}
+#grid{background-image:linear-gradient(rgba(0,204,242,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,204,242,.08) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse at 50% 45%,#000 30%,transparent 80%)}
 
 /* camera */
 #cam{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0}
@@ -38,12 +44,12 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 #num{position:relative;padding:0 2px;border-radius:5px;color:#1C2033}
 #num.sel{background:var(--sel);color:#fff}
 #caret{display:inline-block;width:2.5px;height:34px;background:#1C2033;margin-left:2px;vertical-align:middle}
-#loadbar{position:absolute;left:0;top:144px;height:5px;background:linear-gradient(90deg,#3D7BFF,#7C5CFF);box-shadow:0 0 10px #3D7BFF}
+#loadbar{position:absolute;left:0;top:144px;height:5px;background:linear-gradient(90deg,#3D7BFF,#00CCF2);box-shadow:0 0 10px #3D7BFF}
 
 .site{position:absolute;left:0;right:0;top:146px;bottom:0;direction:rtl;color:#1C2033;padding:0 36px}
 .shead{height:96px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E1E4EE}
 .logo{font:700 40px Plex;display:flex;align-items:center;gap:10px}
-.logo i{font-style:normal;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#FF8A3D,#FF4D6D);display:flex;align-items:center;justify-content:center;font-size:30px}
+.logo i{font-style:normal;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#2B3A55,#4A5F7D);color:#fff;font:700 30px Plex;display:flex;align-items:center;justify-content:center;font-size:30px}
 .nav{display:flex;gap:22px;font-size:34px;direction:ltr}
 .ptitle{display:flex;align-items:center;gap:16px;margin-top:30px}
 .ptitle h1{font:700 44px Plex}
@@ -64,7 +70,7 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 
 /* overlays (screen space) */
 .notif{position:absolute;left:70px;width:940px;border-radius:34px;padding:26px 32px;direction:rtl;
-  background:rgba(30,34,58,.62);backdrop-filter:blur(30px) saturate(160%);-webkit-backdrop-filter:blur(30px) saturate(160%);
+  background:rgba(11,51,95,.6);backdrop-filter:blur(30px) saturate(160%);-webkit-backdrop-filter:blur(30px) saturate(160%);
   border:1.5px solid rgba(255,255,255,.25);box-shadow:0 30px 80px rgba(0,0,0,.5),inset 1.5px 1.5px 0 rgba(255,255,255,.25);transform-origin:50% 0}
 .nh{display:flex;align-items:center;gap:14px;font:600 26px Plex;color:rgba(255,255,255,.65)}
 .nh i{width:46px;height:46px;border-radius:12px;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:26px;font-style:normal}
@@ -73,25 +79,27 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 .nmsg{font:600 44px Plex;margin-top:6px;line-height:1.35}
 
 #caps{position:absolute;left:60px;right:60px;top:1330px;height:170px;display:flex;align-items:center;justify-content:center}
-#capbox{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px;direction:rtl;padding:18px 34px;border-radius:28px;max-width:960px;
-  background:rgba(10,12,28,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12)}
+#capbox{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 24px;direction:rtl;padding:18px 34px;border-radius:28px;max-width:960px;
+  background:rgba(7,26,51,.62);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12)}
 .w{font:700 62px Plex;line-height:1.35;display:inline-block;transform-origin:50% 70%;text-shadow:0 4px 18px rgba(0,0,0,.5)}
 
 .key{position:absolute;display:flex;align-items:center;gap:14px;padding:16px 30px;border-radius:20px;font:600 40px Inter;direction:ltr;
   background:rgba(255,255,255,.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1.5px solid rgba(255,255,255,.3);box-shadow:0 14px 34px rgba(0,0,0,.4);transform-origin:50% 50%}
 .key b{display:inline-flex;align-items:center;justify-content:center;min-width:54px;height:54px;padding:0 12px;border-radius:12px;background:rgba(255,255,255,.9);color:#1C2033;font:700 30px Inter;box-shadow:0 4px 0 rgba(0,0,0,.35)}
 .badge{display:inline-flex;align-items:center;gap:12px;white-space:nowrap;padding:16px 36px;border-radius:999px;direction:rtl;
-  background:rgba(40,10,24,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:2.5px solid var(--danger);
-  box-shadow:0 0 34px rgba(255,77,109,.6),inset 0 0 18px rgba(255,77,109,.25);font:700 50px Plex;transform-origin:50% 50%}
+  background:rgba(42,16,24,.62);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:2.5px solid var(--danger);
+  box-shadow:0 0 34px rgba(210,70,58,.6),inset 0 0 18px rgba(210,70,58,.25);font:700 50px Plex;transform-origin:50% 50%}
 
-#spot{position:absolute;border-radius:30px;box-shadow:0 0 0 4000px rgba(6,8,20,.68),0 0 0 4px rgba(255,77,109,.9),0 0 40px rgba(255,77,109,.6)}
+#spot{position:absolute;border-radius:30px;box-shadow:0 0 0 4000px rgba(6,8,20,.68),0 0 0 4px rgba(210,70,58,.9),0 0 40px rgba(210,70,58,.6)}
 #cursor{position:absolute;left:0;top:0;width:40px;height:55px;transform-origin:0 0;filter:drop-shadow(0 6px 8px rgba(0,0,0,.45))}
-#ripple{position:absolute;border-radius:50%;border:3px solid rgba(61,123,255,.95);background:rgba(61,123,255,.18)}
+#ripple{position:absolute;border-radius:50%;border:3px solid rgba(0,204,242,.95);background:rgba(0,204,242,.18)}
 
 #pbTrack{position:absolute;left:64px;top:1556px;width:952px;height:8px;border-radius:4px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18)}
-#pbFill{position:absolute;left:0;top:0;height:100%;border-radius:4px;background:linear-gradient(90deg,#FF4D6D,#7C5CFF 55%,#2EE59D);background-size:952px 100%;box-shadow:0 0 14px rgba(124,92,255,.8)}
+#pbFill{position:absolute;left:0;top:0;height:100%;border-radius:4px;background:linear-gradient(90deg,#D2463A,#00CCF2 55%,#4ED69A);background-size:952px 100%;box-shadow:0 0 14px rgba(0,204,242,.8)}
 .cp{position:absolute;top:-7px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#1a1f3d;border:2px solid rgba(255,255,255,.5)}
 .cpl{position:absolute;top:24px;width:200px;margin-left:-100px;text-align:center;font:600 22px Plex;color:rgba(255,255,255,.55)}
+.ico{width:100%;height:100%;display:block}
+.ar-ico{display:inline-flex;width:58px;height:58px;color:#3FD6F5}
 </style>
 </head>
 <body>
@@ -102,43 +110,43 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 <div id="stage" class="L" style="transform-origin:540px 1000px">
 <div id="cam"><div id="tilt" class="L" style="transform-origin:540px 875px">
   <div id="browser">
-    <div class="chrome"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i><div class="tabt">🛍️ mystore · Order</div></div>
-    <div class="urlrow"><div class="url" id="url">🔒&nbsp;<span class="host">mystore.com</span><span class="pth">/orders/</span><span id="num">1042</span><i id="caret"></i></div></div>
+    <div class="chrome"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i><div class="tabt">mystore · Order</div></div>
+    <div class="urlrow"><div class="url" id="url"><span style="color:#6B7290;width:28px;height:28px;display:inline-flex;margin-right:8px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span class="host">mystore.com</span><span class="pth">/orders/</span><span id="num">1042</span><i id="caret"></i></div></div>
     <div id="loadbar"></div>
     <div class="site">
-      <div class="shead"><div class="logo"><i>🛍️</i>متجرك</div><div class="nav">🛒 👤</div></div>
+      <div class="shead"><div class="logo"><i>م</i>متجرك</div><div class="nav" style="color:#4A5068"><span style="width:38px;height:38px;display:inline-flex"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.5 12h11L21 7H6"/></svg></span><span style="width:38px;height:38px;display:inline-flex"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span></div></div>
       <div class="order" id="o1">
         <div class="ptitle"><h1>تفاصيل الأوردر</h1><span class="onum">#1042</span><span class="status ok">تم الشحن ✓</span></div>
         <div class="card" id="cust1"><h3>بيانات العميل</h3>
-          <div class="row"><span>👤</span><span class="k">الاسم</span><span class="v">أحمد محمود</span></div>
-          <div class="row"><span>📱</span><span class="k">الموبايل</span><span class="v ltr">0100 000 4567</span></div>
-          <div class="row"><span>📍</span><span class="k">العنوان</span><span class="v">١٢ ش مصطفى النحاس، مدينة نصر</span></div>
+          <div class="row"><span class="k">الاسم</span><span class="v">أحمد محمود</span></div>
+          <div class="row"><span class="k">الموبايل</span><span class="v ltr">0100 000 4567</span></div>
+          <div class="row"><span class="k">العنوان</span><span class="v">١٢ ش مصطفى النحاس، مدينة نصر</span></div>
         </div>
         <div class="card"><h3>المنتجات</h3>
           <div class="item"><span class="em">👟</span>كوتشي رياضي<span class="pr">1,250 EGP</span></div>
           <div class="item"><span class="em">⌚</span>ساعة سمارت<span class="pr">900 EGP</span></div>
           <div class="total"><span>الإجمالي</span><span class="ltr">2,150 EGP</span></div>
         </div>
-        <div class="card"><div class="row"><span>💳</span><span class="k">الدفع</span><span class="v ltr">VISA •••• 4821</span></div></div>
+        <div class="card"><div class="row"><span class="k">الدفع</span><span class="v ltr">VISA •••• 4821</span></div></div>
       </div>
       <div class="order" id="o2">
         <div class="ptitle"><h1>تفاصيل الأوردر</h1><span class="onum">#1043</span><span class="status wait">قيد التجهيز</span></div>
         <div class="card" id="cust2"><h3>بيانات العميل</h3>
-          <div class="row"><span>👤</span><span class="k">الاسم</span><span class="v">سارة علي</span></div>
-          <div class="row"><span>📱</span><span class="k">الموبايل</span><span class="v ltr">0122 000 7731</span></div>
-          <div class="row"><span>📍</span><span class="k">العنوان</span><span class="v">٧ ش التحرير، الدقي، الجيزة</span></div>
+          <div class="row"><span class="k">الاسم</span><span class="v">سارة علي</span></div>
+          <div class="row"><span class="k">الموبايل</span><span class="v ltr">0122 000 7731</span></div>
+          <div class="row"><span class="k">العنوان</span><span class="v">٧ ش التحرير، الدقي، الجيزة</span></div>
         </div>
         <div class="card"><h3>المنتجات</h3>
           <div class="item"><span class="em">👜</span>شنطة جلد<span class="pr">1,800 EGP</span></div>
           <div class="item"><span class="em">🕶️</span>نضارة شمس<span class="pr">650 EGP</span></div>
           <div class="total"><span>الإجمالي</span><span class="ltr">2,450 EGP</span></div>
         </div>
-        <div class="card"><div class="row"><span>💳</span><span class="k">الدفع</span><span class="v ltr">VISA •••• 7730</span></div></div>
+        <div class="card"><div class="row"><span class="k">الدفع</span><span class="v ltr">VISA •••• 7730</span></div></div>
       </div>
     </div>
   </div>
   <div id="spot"></div>
-  <svg class="L" style="pointer-events:none;overflow:visible"><path id="circ" fill="none" stroke="#FF4D6D" stroke-width="7" stroke-linecap="round" pathLength="1" stroke-dasharray="1" style="filter:drop-shadow(0 0 8px rgba(255,77,109,.8))"/></svg>
+  <svg class="L" style="pointer-events:none;overflow:visible"><path id="circ" fill="none" stroke="#F56A39" stroke-width="7" stroke-linecap="round" pathLength="1" stroke-dasharray="1" style="filter:drop-shadow(0 0 8px rgba(210,70,58,.8))"/></svg>
   <div id="ripple"></div>
   <svg id="cursor" viewBox="0 0 29 40"><path d="M1.5 1.5 L1.5 33 L9.5 25.5 L15 38 L21 35.3 L15.6 23 L26.5 23 Z" fill="#111" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/></svg>
 </div></div>
@@ -157,14 +165,14 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 #sign{position:absolute;left:50%;top:0;transform:translateX(-50%);padding:6px 26px;border-radius:14px;font:700 40px Plex;direction:rtl;white-space:nowrap;
   background:rgba(30,34,58,.85);border:2px solid rgba(255,255,255,.35);color:rgba(255,255,255,.55)}
 #stamp{position:absolute;left:50%;top:70px;margin-left:-150px;width:300px;text-align:center;padding:10px 0;border-radius:16px;font:800 46px Plex;direction:rtl;
-  color:#FF4D6D;border:4px solid #FF4D6D;background:rgba(40,8,20,.7);box-shadow:0 0 30px rgba(255,77,109,.6);transform-origin:50% 50%}
-.chipp{position:absolute;display:inline-flex;align-items:center;gap:10px;padding:10px 22px;border-radius:999px;font:700 30px Inter;white-space:nowrap;direction:ltr;transform-origin:50% 50%}
-.chipp.v{background:rgba(124,92,255,.25);border:2px solid #7C5CFF;box-shadow:0 0 22px rgba(124,92,255,.6)}
-.chipp.r{background:rgba(255,77,109,.2);border:2px solid #FF4D6D;box-shadow:0 0 22px rgba(255,77,109,.6);font-family:Plex;direction:rtl}
+  color:#D2463A;border:4px solid #D2463A;background:rgba(40,8,20,.7);box-shadow:0 0 30px rgba(210,70,58,.6);transform-origin:50% 50%}
+.chipp{position:absolute;display:inline-flex;align-items:center;gap:10px;padding:10px 22px;border-radius:999px;font:700 30px Sora;white-space:nowrap;direction:ltr;transform-origin:50% 50%}
+.chipp.v{background:rgba(0,204,242,.25);border:2px solid #00CCF2;box-shadow:0 0 22px rgba(0,204,242,.6)}
+.chipp.r{background:rgba(210,70,58,.2);border:2px solid #D2463A;box-shadow:0 0 22px rgba(210,70,58,.6);font-family:Plex;direction:rtl}
 #gspot{position:absolute;border-radius:36px;box-shadow:0 0 0 3000px rgba(6,8,20,.6)}
-#idor{display:inline-flex;padding:18px 64px;border-radius:999px;font:800 190px Inter;letter-spacing:8px;direction:ltr;
-  background:rgba(40,10,24,.6);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:3px solid #FF4D6D;
-  box-shadow:0 0 50px rgba(255,77,109,.7),inset 0 0 24px rgba(255,77,109,.3);text-shadow:0 0 30px rgba(255,77,109,.9);transform-origin:50% 50%}
+#idor{display:inline-flex;padding:18px 64px;border-radius:999px;font:700 190px Sora;letter-spacing:8px;direction:ltr;
+  background:rgba(42,16,24,.62);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:3px solid #D2463A;
+  box-shadow:0 0 50px rgba(210,70,58,.7),inset 0 0 24px rgba(210,70,58,.3);text-shadow:0 0 30px rgba(210,70,58,.9);transform-origin:50% 50%}
 #idor span{display:inline-block}
 #warn{display:inline-flex;align-items:center;gap:12px;padding:12px 30px;border-radius:999px;font:700 38px Plex;direction:rtl;
   background:rgba(20,20,34,.6);backdrop-filter:blur(18px);border:2px solid rgba(255,255,255,.4);transform-origin:50% 50%}
@@ -173,29 +181,31 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 <div id="diag" class="L" style="pointer-events:none">
   <svg class="L" style="overflow:visible">
     <defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="rgba(255,255,255,.75)"/></marker>
-      <marker id="ahr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#FF4D6D"/></marker></defs>
+      <marker id="ahr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#D2463A"/></marker></defs>
     <path id="a1" d="M540 650 L540 728" stroke="rgba(255,255,255,.75)" stroke-width="5" fill="none" stroke-linecap="round" pathLength="1" stroke-dasharray="1" marker-end="url(#ah)"/>
     <path id="a2" d="M540 852 L540 900" stroke="rgba(255,255,255,.75)" stroke-width="5" fill="none" stroke-linecap="round" pathLength="1" stroke-dasharray="1" marker-end="url(#ah)"/>
     <path id="a3" d="M540 1100 L540 1148" stroke="rgba(255,255,255,.75)" stroke-width="5" fill="none" stroke-linecap="round" pathLength="1" stroke-dasharray="1" marker-end="url(#ah)"/>
-    <path id="back" d="M735 1210 C900 1210 905 1150 905 1000 L905 600 C905 480 860 440 735 440" stroke="#FF4D6D" stroke-width="5" fill="none" stroke-dasharray="1" pathLength="1" stroke-linecap="round" marker-end="url(#ahr)" style="filter:drop-shadow(0 0 8px rgba(255,77,109,.7))"/>
+    <path id="back" d="M735 1210 C900 1210 905 1150 905 1000 L905 600 C905 480 860 440 735 440" stroke="#D2463A" stroke-width="5" fill="none" stroke-dasharray="1" pathLength="1" stroke-linecap="round" marker-end="url(#ahr)" style="filter:drop-shadow(0 0 8px rgba(210,70,58,.7))"/>
   </svg>
-  <div class="lbl" id="lb0" style="left:0;top:0">📱 شاشة العميل</div>
-  <div class="node" id="nSite" style="left:360px;top:738px;width:360px;height:108px"><span class="ic">🖥️</span>الموقع</div>
+  <div class="lbl" id="lb0" style="left:0;top:0;display:flex;align-items:center;gap:8px"><span style="width:34px;height:34px;display:inline-flex;color:#3FD6F5"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg></span>شاشة العميل</div>
+  <div class="node" id="nSite" style="left:360px;top:738px;width:360px;height:108px"><span class="ar-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 21h8M12 16v5"/></svg></span>الموقع</div>
   <div id="gate">
     <div class="post" style="left:12px"></div><div class="post" style="right:12px"></div>
     <div class="door" id="doorL"></div><div class="door" id="doorR"></div>
     <div id="sign">هو إنت صاحبه؟</div>
     <div id="stamp">مفيش سؤال!</div>
   </div>
-  <div class="node" id="nDB" style="left:345px;top:1158px;width:390px;height:108px"><span class="ic">🗄️</span>الأوردرات</div>
+  <div class="node" id="nDB" style="left:345px;top:1158px;width:390px;height:108px"><span class="ar-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span>الأوردرات</div>
   <div class="chipp v" id="pkt" style="left:0;top:0">#1043</div>
-  <div class="chipp r" id="ret" style="left:0;top:0">🧾 أوردر سارة</div>
+  <div class="chipp r" id="ret" style="left:0;top:0">أوردر سارة</div>
   <div id="gspot"></div>
 </div>
 </div><!-- /stage -->
 
 <div class="abs" style="left:0;width:1080px;top:880px;height:260px;display:flex;justify-content:center;align-items:center"><div id="idor"><span>I</span><span>D</span><span>O</span><span>R</span></div></div>
-<div class="abs" style="left:0;width:1080px;top:1150px;height:80px;display:flex;justify-content:center;align-items:center"><div id="warn">⚠️ من أشهر ثغرات المواقع</div></div>
+<div class="abs" style="left:0;width:1080px;top:1150px;height:80px;display:flex;justify-content:center;align-items:center"><div id="warn"><span style="width:40px;height:40px;display:inline-flex;color:#F5B83D"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 21h20L12 3z"/><path d="M12 10v5M12 18h.01"/></svg></span>من أشهر ثغرات المواقع</div></div>
+<img id="brandLogo" src="brand/logo-on-dark.png" style="position:absolute;left:44px;top:118px;width:150px">
+<div id="series" style="position:absolute;right:44px;top:140px;display:flex;align-items:center;gap:8px;padding:8px 22px;border-radius:999px;border:2px solid #00CCF2;background:rgba(7,26,51,.55);font:700 30px Plex;direction:rtl"><span style="font:700 30px Sora;color:#00CCF2">{</span>سرقناه #1<span style="font:700 30px Sora;color:#00CCF2">}</span></div>
 <div id="caps"><div id="capbox"></div></div>
 <div id="pb" class="L" style="pointer-events:none">
   <div id="pbTrack"><div id="pbFill"></div>
@@ -228,7 +238,7 @@ const draw=(id,p)=>{const e=$(id);e.style.strokeDashoffset=1-p;e.style.opacity=p
 /* page starts where the previous beat ended: order #1043 open, Sara's data circled */
 let M;
 function setup(){
-  $('o1').style.display='none'; $('o2').style.display=''; $('num').textContent='1043'; $('num').style.color='#E0244A';
+  $('o1').style.display='none'; $('o2').style.display=''; $('num').textContent='1043'; $('num').style.color='#D2463A';
   $('caret').style.display='none'; $('loadbar').style.width='0';
   $('cam').style.transform='none';
   M={cust:rectOf($('cust2'))};
@@ -266,9 +276,9 @@ function camState(t){
 function renderFrame(i){
   const t=i/FPS;
   const bl=(id,c,x,y,o)=>{const e=$(id);e.style.background=`radial-gradient(circle,${c} 0%,transparent 70%)`;e.style.transform=`translate(${x}px,${y}px)`;e.style.opacity=o;};
-  bl('b1','#7C5CFF',-300+Math.sin(t*.4)*80,-100+Math.cos(t*.3)*80,.45);
-  bl('b2','#FF4D6D',400+Math.cos(t*.3)*80,700+Math.sin(t*.35)*90,.45);
-  bl('b3','#3AA0FF',-200+Math.sin(t*.25)*90,1200,.35);
+  bl('b1','#00CCF2',-300+Math.sin(t*.4)*80,-100+Math.cos(t*.3)*80,.45);
+  bl('b2','#D2463A',400+Math.cos(t*.3)*80,700+Math.sin(t*.35)*90,.45);
+  bl('b3','#1D6FB0',-200+Math.sin(t*.25)*90,1200,.35);
 
   // main camera pull-back + motion blur
   const c=camState(t), pc=camState(Math.max(0,t-1/FPS));
@@ -282,7 +292,7 @@ function renderFrame(i){
   // spotlight fades as we pull back; circle stays
   $('spot').style.opacity=1-P(t,T.pull,.5); $('spot').style.display=t<T.pull+.5?'':'none';
   const flash=t>=T.ret+T.retD&&t<T.ret+T.retD+.6?1-P(t,T.ret+T.retD,.6):0;
-  if(flash>0) $('browser').style.boxShadow+=`,0 0 ${200*flash}px ${60*flash}px rgba(255,77,109,${.8*flash})`;
+  if(flash>0) $('browser').style.boxShadow+=`,0 0 ${200*flash}px ${60*flash}px rgba(210,70,58,${.8*flash})`;
 
   // diagram
   A('lb0',life(t,T.site-.1,99,'expo'),{x:540-150,y:178});
@@ -295,8 +305,8 @@ function renderFrame(i){
   $('doorR').style.transform=`perspective(500px) rotateY(${(-62-sw).toFixed(1)}deg)`;
   const ask=t>=T.ask, ap=bounce(P(t,T.ask+.15,.6));
   $('sign').style.color=ask?'#fff':'rgba(255,255,255,.55)';
-  $('sign').style.borderColor=ask?'#FF4D6D':'rgba(255,255,255,.35)';
-  $('sign').style.boxShadow=ask?`0 0 ${20+14*Math.sin(t*6)}px rgba(255,77,109,.7)`:'';
+  $('sign').style.borderColor=ask?'#D2463A':'rgba(255,255,255,.35)';
+  $('sign').style.boxShadow=ask?`0 0 ${20+14*Math.sin(t*6)}px rgba(210,70,58,.7)`:'';
   $('sign').style.transform=`translateX(-50%) scale(${ask?lerp(1,1.12,ap):1})`;
   A('stamp',life(t,T.stamp,99,'bounce'),{r:-8,s:t<T.stamp+.12?1.6-0.6*P(t,T.stamp,.12):1});
 
@@ -327,7 +337,7 @@ function renderFrame(i){
     const n=g.words.length, span=(g.t1-g.t0-.4)/n;
     [...box.children].forEach((el,j)=>{const wt=g.t0+j*span, on=t>=wt, x=P(t,wt,.35), kind=g.words[j][1];
       el.style.opacity=on?1:.28; el.style.transform=`scale(${on?lerp(1.18,1,expoOut(x)):1})`;
-      el.style.color=!on?'#fff':kind==='r'?'#FF6B85':kind==='v'?'#B9A8FF':'#fff'; el.style.fontFamily=g.words[j][0]==='IDOR'?'Inter':'';});
+      el.style.color=!on?'#fff':kind==='r'?'#FF8577':kind==='v'?'#3FD6F5':'#fff'; el.style.fontFamily=g.words[j][0]==='IDOR'?'Sora':'';});
     A('caps',{s:1,o:1},{s:lerp(.9,1,expoOut(P(t,g.t0,.25)))});
   } else A('caps',null);
   $('pbFill').style.width=((t+OFFSET)/FULL*100)+'%';

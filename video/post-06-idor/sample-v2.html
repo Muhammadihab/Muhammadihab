@@ -8,20 +8,26 @@
 @font-face{font-family:Inter;src:url(fonts/inter-latin-600-normal.woff2);font-weight:600}
 @font-face{font-family:Inter;src:url(fonts/inter-latin-800-normal.woff2);font-weight:800}
 @font-face{font-family:Mono;src:url(fonts/jetbrains-mono-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-700-normal.woff2);font-weight:700}
 @font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2);font-weight:400}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-700-normal.woff2);font-weight:700}
 @font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2);font-weight:600}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-700-normal.woff2);font-weight:700}
 @font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
-:root{--danger:#FF4D6D;--secure:#2EE59D;--accent:#7C5CFF;--sel:#3D7BFF}
+:root{--danger:#D2463A;--secure:#4ED69A;--accent:#00CCF2;--orange:#F56A39;--sel:#3D7BFF}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:1080px;height:1920px;overflow:hidden;background:#0B0F1F}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#071A33}
 body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-font-smoothing:antialiased}
 .L{position:absolute;left:0;top:0;width:1080px;height:1920px}
 .abs{position:absolute}
 
 /* backdrop */
-#bg{background:linear-gradient(165deg,#0B0F1F 0%,#141A3C 55%,#1A1340 100%);overflow:hidden}
+#bg{background:linear-gradient(165deg,#071A33 0%,#0A2444 55%,#0B335F 100%);overflow:hidden}
 .blob{position:absolute;width:1000px;height:1000px;border-radius:50%;filter:blur(100px)}
-#grid{background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse at 50% 45%,#000 30%,transparent 80%)}
+#grid{background-image:linear-gradient(rgba(0,204,242,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,204,242,.08) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse at 50% 45%,#000 30%,transparent 80%)}
 
 /* camera */
 #cam{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0}
@@ -38,12 +44,12 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 #num{position:relative;padding:0 2px;border-radius:5px;color:#1C2033}
 #num.sel{background:var(--sel);color:#fff}
 #caret{display:inline-block;width:2.5px;height:34px;background:#1C2033;margin-left:2px;vertical-align:middle}
-#loadbar{position:absolute;left:0;top:144px;height:5px;background:linear-gradient(90deg,#3D7BFF,#7C5CFF);box-shadow:0 0 10px #3D7BFF}
+#loadbar{position:absolute;left:0;top:144px;height:5px;background:linear-gradient(90deg,#3D7BFF,#00CCF2);box-shadow:0 0 10px #3D7BFF}
 
 .site{position:absolute;left:0;right:0;top:146px;bottom:0;direction:rtl;color:#1C2033;padding:0 36px}
 .shead{height:96px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E1E4EE}
 .logo{font:700 40px Plex;display:flex;align-items:center;gap:10px}
-.logo i{font-style:normal;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#FF8A3D,#FF4D6D);display:flex;align-items:center;justify-content:center;font-size:30px}
+.logo i{font-style:normal;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#2B3A55,#4A5F7D);color:#fff;font:700 30px Plex;display:flex;align-items:center;justify-content:center;font-size:30px}
 .nav{display:flex;gap:22px;font-size:34px;direction:ltr}
 .ptitle{display:flex;align-items:center;gap:16px;margin-top:30px}
 .ptitle h1{font:700 44px Plex}
@@ -64,7 +70,7 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 
 /* overlays (screen space) */
 .notif{position:absolute;left:70px;width:940px;border-radius:34px;padding:26px 32px;direction:rtl;
-  background:rgba(30,34,58,.62);backdrop-filter:blur(30px) saturate(160%);-webkit-backdrop-filter:blur(30px) saturate(160%);
+  background:rgba(11,51,95,.6);backdrop-filter:blur(30px) saturate(160%);-webkit-backdrop-filter:blur(30px) saturate(160%);
   border:1.5px solid rgba(255,255,255,.25);box-shadow:0 30px 80px rgba(0,0,0,.5),inset 1.5px 1.5px 0 rgba(255,255,255,.25);transform-origin:50% 0}
 .nh{display:flex;align-items:center;gap:14px;font:600 26px Plex;color:rgba(255,255,255,.65)}
 .nh i{width:46px;height:46px;border-radius:12px;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:26px;font-style:normal}
@@ -73,25 +79,27 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 .nmsg{font:600 44px Plex;margin-top:6px;line-height:1.35}
 
 #caps{position:absolute;left:60px;right:60px;top:1330px;height:170px;display:flex;align-items:center;justify-content:center}
-#capbox{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px;direction:rtl;padding:18px 34px;border-radius:28px;max-width:960px;
-  background:rgba(10,12,28,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12)}
+#capbox{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 24px;direction:rtl;padding:18px 34px;border-radius:28px;max-width:960px;
+  background:rgba(7,26,51,.62);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12)}
 .w{font:700 62px Plex;line-height:1.35;display:inline-block;transform-origin:50% 70%;text-shadow:0 4px 18px rgba(0,0,0,.5)}
 
-.key{position:absolute;display:flex;align-items:center;gap:14px;padding:16px 30px;border-radius:20px;font:600 40px Inter;direction:ltr;
+.key{position:absolute;display:flex;align-items:center;gap:14px;padding:16px 30px;border-radius:20px;font:600 40px Sora;direction:ltr;
   background:rgba(255,255,255,.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1.5px solid rgba(255,255,255,.3);box-shadow:0 14px 34px rgba(0,0,0,.4);transform-origin:50% 50%}
 .key b{display:inline-flex;align-items:center;justify-content:center;min-width:54px;height:54px;padding:0 12px;border-radius:12px;background:rgba(255,255,255,.9);color:#1C2033;font:700 30px Inter;box-shadow:0 4px 0 rgba(0,0,0,.35)}
 .badge{display:inline-flex;align-items:center;gap:12px;white-space:nowrap;padding:16px 36px;border-radius:999px;direction:rtl;
-  background:rgba(40,10,24,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:2.5px solid var(--danger);
-  box-shadow:0 0 34px rgba(255,77,109,.6),inset 0 0 18px rgba(255,77,109,.25);font:700 50px Plex;transform-origin:50% 50%}
+  background:rgba(42,16,24,.62);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:2.5px solid var(--danger);
+  box-shadow:0 0 34px rgba(210,70,58,.6),inset 0 0 18px rgba(210,70,58,.25);font:700 50px Plex;transform-origin:50% 50%}
 
-#spot{position:absolute;border-radius:30px;box-shadow:0 0 0 4000px rgba(6,8,20,.68),0 0 0 4px rgba(255,77,109,.9),0 0 40px rgba(255,77,109,.6)}
+#spot{position:absolute;border-radius:30px;box-shadow:0 0 0 4000px rgba(6,8,20,.68),0 0 0 4px rgba(210,70,58,.9),0 0 40px rgba(210,70,58,.6)}
 #cursor{position:absolute;left:0;top:0;width:40px;height:55px;transform-origin:0 0;filter:drop-shadow(0 6px 8px rgba(0,0,0,.45))}
-#ripple{position:absolute;border-radius:50%;border:3px solid rgba(61,123,255,.95);background:rgba(61,123,255,.18)}
+#ripple{position:absolute;border-radius:50%;border:3px solid rgba(0,204,242,.95);background:rgba(0,204,242,.18)}
 
 #pbTrack{position:absolute;left:64px;top:1556px;width:952px;height:8px;border-radius:4px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18)}
-#pbFill{position:absolute;left:0;top:0;height:100%;border-radius:4px;background:linear-gradient(90deg,#FF4D6D,#7C5CFF 55%,#2EE59D);background-size:952px 100%;box-shadow:0 0 14px rgba(124,92,255,.8)}
+#pbFill{position:absolute;left:0;top:0;height:100%;border-radius:4px;background:linear-gradient(90deg,#D2463A,#00CCF2 55%,#4ED69A);background-size:952px 100%;box-shadow:0 0 14px rgba(0,204,242,.8)}
 .cp{position:absolute;top:-7px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#1a1f3d;border:2px solid rgba(255,255,255,.5)}
 .cpl{position:absolute;top:24px;width:200px;margin-left:-100px;text-align:center;font:600 22px Plex;color:rgba(255,255,255,.55)}
+.ico{width:100%;height:100%;display:block}
+.ar-ico{display:inline-flex;width:58px;height:58px;color:#3FD6F5}
 </style>
 </head>
 <body>
@@ -101,59 +109,61 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 
 <div id="cam">
   <div id="browser">
-    <div class="chrome"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i><div class="tabt">🛍️ mystore · Order</div></div>
-    <div class="urlrow"><div class="url" id="url">🔒&nbsp;<span class="host">mystore.com</span><span class="pth">/orders/</span><span id="num">1042</span><i id="caret"></i></div></div>
+    <div class="chrome"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i><div class="tabt">mystore · Order</div></div>
+    <div class="urlrow"><div class="url" id="url"><span style="color:#6B7290;width:28px;height:28px;display:inline-flex;margin-right:8px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span class="host">mystore.com</span><span class="pth">/orders/</span><span id="num">1042</span><i id="caret"></i></div></div>
     <div id="loadbar"></div>
     <div class="site">
-      <div class="shead"><div class="logo"><i>🛍️</i>متجرك</div><div class="nav">🛒 👤</div></div>
+      <div class="shead"><div class="logo"><i>م</i>متجرك</div><div class="nav" style="color:#4A5068"><span style="width:38px;height:38px;display:inline-flex"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.5 12h11L21 7H6"/></svg></span><span style="width:38px;height:38px;display:inline-flex"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span></div></div>
       <div class="order" id="o1">
         <div class="ptitle"><h1>تفاصيل الأوردر</h1><span class="onum">#1042</span><span class="status ok">تم الشحن ✓</span></div>
         <div class="card" id="cust1"><h3>بيانات العميل</h3>
-          <div class="row"><span>👤</span><span class="k">الاسم</span><span class="v">أحمد محمود</span></div>
-          <div class="row"><span>📱</span><span class="k">الموبايل</span><span class="v ltr">0100 000 4567</span></div>
-          <div class="row"><span>📍</span><span class="k">العنوان</span><span class="v">١٢ ش مصطفى النحاس، مدينة نصر</span></div>
+          <div class="row"><span class="k">الاسم</span><span class="v">أحمد محمود</span></div>
+          <div class="row"><span class="k">الموبايل</span><span class="v ltr">0100 000 4567</span></div>
+          <div class="row"><span class="k">العنوان</span><span class="v">١٢ ش مصطفى النحاس، مدينة نصر</span></div>
         </div>
         <div class="card"><h3>المنتجات</h3>
           <div class="item"><span class="em">👟</span>كوتشي رياضي<span class="pr">1,250 EGP</span></div>
           <div class="item"><span class="em">⌚</span>ساعة سمارت<span class="pr">900 EGP</span></div>
           <div class="total"><span>الإجمالي</span><span class="ltr">2,150 EGP</span></div>
         </div>
-        <div class="card"><div class="row"><span>💳</span><span class="k">الدفع</span><span class="v ltr">VISA •••• 4821</span></div></div>
+        <div class="card"><div class="row"><span class="k">الدفع</span><span class="v ltr">VISA •••• 4821</span></div></div>
       </div>
       <div class="order" id="o2">
         <div class="ptitle"><h1>تفاصيل الأوردر</h1><span class="onum">#1043</span><span class="status wait">قيد التجهيز</span></div>
         <div class="card" id="cust2"><h3>بيانات العميل</h3>
-          <div class="row"><span>👤</span><span class="k">الاسم</span><span class="v">سارة علي</span></div>
-          <div class="row"><span>📱</span><span class="k">الموبايل</span><span class="v ltr">0122 000 7731</span></div>
-          <div class="row"><span>📍</span><span class="k">العنوان</span><span class="v">٧ ش التحرير، الدقي، الجيزة</span></div>
+          <div class="row"><span class="k">الاسم</span><span class="v">سارة علي</span></div>
+          <div class="row"><span class="k">الموبايل</span><span class="v ltr">0122 000 7731</span></div>
+          <div class="row"><span class="k">العنوان</span><span class="v">٧ ش التحرير، الدقي، الجيزة</span></div>
         </div>
         <div class="card"><h3>المنتجات</h3>
           <div class="item"><span class="em">👜</span>شنطة جلد<span class="pr">1,800 EGP</span></div>
           <div class="item"><span class="em">🕶️</span>نضارة شمس<span class="pr">650 EGP</span></div>
           <div class="total"><span>الإجمالي</span><span class="ltr">2,450 EGP</span></div>
         </div>
-        <div class="card"><div class="row"><span>💳</span><span class="k">الدفع</span><span class="v ltr">VISA •••• 7730</span></div></div>
+        <div class="card"><div class="row"><span class="k">الدفع</span><span class="v ltr">VISA •••• 7730</span></div></div>
       </div>
     </div>
   </div>
   <div id="spot"></div>
-  <svg class="L" style="pointer-events:none;overflow:visible"><path id="circ" fill="none" stroke="#FF4D6D" stroke-width="7" stroke-linecap="round" pathLength="1" stroke-dasharray="1" style="filter:drop-shadow(0 0 8px rgba(255,77,109,.8))"/></svg>
+  <svg class="L" style="pointer-events:none;overflow:visible"><path id="circ" fill="none" stroke="#F56A39" stroke-width="7" stroke-linecap="round" pathLength="1" stroke-dasharray="1" style="filter:drop-shadow(0 0 8px rgba(245,106,57,.8))"/></svg>
   <div id="ripple"></div>
   <svg id="cursor" viewBox="0 0 29 40"><path d="M1.5 1.5 L1.5 33 L9.5 25.5 L15 38 L21 35.3 L15.6 23 L26.5 23 Z" fill="#111" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/></svg>
 </div>
 
 <!-- screen-space overlays -->
 <div class="notif" id="n1" style="top:560px">
-  <div class="nh"><i>💬</i><span>واتساب</span><span>دلوقتي</span></div>
+  <div class="nh"><i style="color:#fff;padding:9px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.4-4.2A8 8 0 1 1 8.6 19L4 20z"/></svg></i><span>واتساب</span><span>دلوقتي</span></div>
   <div class="nfrom">عميل</div>
   <div class="nmsg">أنا ظاهرلي أوردر عميل تاني!</div>
 </div>
 <div class="notif" id="n2" style="top:880px;left:110px;width:860px">
-  <div class="nh"><i>💬</i><span>واتساب</span><span>دلوقتي</span></div>
+  <div class="nh"><i style="color:#fff;padding:9px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.4-4.2A8 8 0 1 1 8.6 19L4 20z"/></svg></i><span>واتساب</span><span>دلوقتي</span></div>
   <div class="nmsg" style="font-size:40px">طب فين الأوردر بتاعي؟! 😡</div>
 </div>
 <div class="key" id="kEnter" style="left:0;top:1215px"><b>⏎</b> Enter</div>
-<div class="abs" id="badgeWrap" style="left:0;width:1080px;top:290px;display:flex;justify-content:center"><div class="badge" id="badge">😱 بيانات عميل تاني!</div></div>
+<div class="abs" id="badgeWrap" style="left:0;width:1080px;top:290px;display:flex;justify-content:center"><div class="badge" id="badge"><span style="width:44px;height:44px;display:inline-flex"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 21h20L12 3z"/><path d="M12 10v5M12 18h.01"/></svg></span>بيانات عميل تاني!</div></div>
+<img id="brandLogo" src="brand/logo-on-dark.png" style="position:absolute;left:44px;top:118px;width:150px">
+<div id="series" style="position:absolute;right:44px;top:140px;display:flex;align-items:center;gap:8px;padding:8px 22px;border-radius:999px;border:2px solid #00CCF2;background:rgba(7,26,51,.55);font:700 30px Plex;direction:rtl"><span style="font:700 30px Sora;color:#00CCF2">{</span>سرقناه #1<span style="font:700 30px Sora;color:#00CCF2">}</span></div>
 <div id="caps"><div id="capbox"></div></div>
 <div id="pb" class="L" style="pointer-events:none">
   <div id="pbTrack"><div id="pbFill"></div>
@@ -192,10 +202,10 @@ function measure(){ $('cam').style.transform='none'; $('o2').style.display='';
 /* ---------- timeline ---------- */
 const T={notif:.15, notif2:1.25, notifOut:2.45, curIn:2.9, zoomIn:3.15, dbl:[3.95,4.08], type:[4.45,4.57,4.69,4.81], enter:5.3, load:5.35, loaded:5.95, spot:6.9, circ:7.25, badge:7.65};
 const CAPS=[
-  {t0:.2,t1:2.5,  words:[['الرسالة دي',''],['ممكن',''],['توصلك',''],['بكرة الصبح','v']]},
-  {t0:2.85,t1:4.35,words:[['عميل',''],['فتح',''],['لينك الأوردر','v'],['بتاعه…','']]},
-  {t0:4.4,t1:5.9, words:[['غيّر',''],['رقم واحد','v'],['بس…','']]},
-  {t0:6.0,t1:9.8, words:[['وظهرله',''],['أوردر',''],['عميل تاني','r']]},
+  {t0:.2,t1:2.5,  words:[['لو',''],['جالك',''],['رسالة',''],['زي دي…','v']]},
+  {t0:2.85,t1:4.35,words:[['بص على',''],['اللينك…',''],['ده',''],['رقم الأوردر','v']]},
+  {t0:4.4,t1:5.9, words:[['هنغيّره…',''],['٤٢',''],['نخليها',''],['٤٣','v']]},
+  {t0:6.0,t1:9.8, words:[['والموقع',''],['فتحلنا',''],['أوردر',''],['واحدة تانية','r']]},
 ];
 const SFX=[];const sfx=(t,n,g=1)=>SFX.push([+t.toFixed(3),n,g]);
 sfx(T.notif,'notif');sfx(T.notif+.2,'vibrate');sfx(T.notif2,'notif',.7);sfx(T.notifOut,'whoosh');sfx(T.zoomIn,'swish',.5);
@@ -233,9 +243,9 @@ function renderFrame(i){
   const t=i/FPS, f=i;
   // background drift
   const bl=(id,c,x,y,o)=>{const e=$(id);e.style.background=`radial-gradient(circle,${c} 0%,transparent 70%)`;e.style.transform=`translate(${x}px,${y}px)`;e.style.opacity=o;};
-  bl('b1','#7C5CFF',-300+Math.sin(t*.4)*80,-100+Math.cos(t*.3)*80,.45);
-  bl('b2','#FF4D6D',400+Math.cos(t*.3)*80,700+Math.sin(t*.35)*90,lerp(.25,.5,P(t,6,2)));
-  bl('b3','#3AA0FF',-200+Math.sin(t*.25)*90,1200,.35);
+  bl('b1','#00CCF2',-300+Math.sin(t*.4)*80,-100+Math.cos(t*.3)*80,.45);
+  bl('b2','#D2463A',400+Math.cos(t*.3)*80,700+Math.sin(t*.35)*90,lerp(.25,.5,P(t,6,2)));
+  bl('b3','#1D6FB0',-200+Math.sin(t*.25)*90,1200,.35);
 
   // page state
   const loading=t>=T.load&&t<T.loaded, after=t>=T.loaded;
@@ -247,7 +257,7 @@ function renderFrame(i){
   const typed=['1042','1','10','104','1043']; let k=0; T.type.forEach((tt,j)=>{if(t>=tt)k=j+1;});
   $('num').textContent=typed[k];
   $('num').classList.toggle('sel',t>=T.dbl[1]&&t<T.type[0]);
-  $('num').style.color=t>=T.type[3]?'#E0244A':'';
+  $('num').style.color=t>=T.type[3]?'#D2463A':'';
   $('caret').style.opacity=(t>=T.type[0]&&t<T.enter&&Math.floor(t*3)%2===0)||(t>=T.type[0]-.01&&t<T.type[3]+.1)?1:0;
 
   // camera
@@ -289,7 +299,7 @@ function renderFrame(i){
     const n=g.words.length, span=(g.t1-g.t0-.5)/n;
     [...box.children].forEach((el,j)=>{const wt=g.t0+j*span, on=t>=wt, x=P(t,wt,.35), kind=g.words[j][1];
       el.style.opacity=on?1:.28; el.style.transform=`scale(${on?lerp(1.18,1,expoOut(x)):1}) translateY(${on?(1-expoOut(x))*-6:0}px)`;
-      el.style.color=!on?'#fff':kind==='r'?'#FF6B85':kind==='v'?'#B9A8FF':'#fff';});
+      el.style.color=!on?'#fff':kind==='r'?'#FF8577':kind==='v'?'#3FD6F5':'#fff';});
     A('caps',{s:1,o:1},{s:lerp(.9,1,expoOut(P(t,g.t0,.25)))});
   } else A('caps',null);
 
