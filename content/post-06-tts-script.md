@@ -3,14 +3,7 @@
 ## 1) Style instructions (حطها في خانة الـ style / prompt)
 
 ```
-Read this in Egyptian Arabic (Cairo dialect). Male voice, late 20s.
-Tone: a friendly developer who knows security, explaining something to a friend who owns a business.
-Confident and warm, a little serious, never salesy or dramatic.
-Pace: conversational and slightly quick, with short natural pauses at "…" and at line breaks.
-Questions like "طب ده حصل إزاي؟" and "طب إيه الحل؟" should sound genuinely curious, with rising intonation, then answer them straight away.
-Light emphasis on: رقم الأوردر، واحدة تانية خالص، عملاءك كلهم، كل مرة.
-The last line "لوجيكا. متأمّن من جوّا." is calmer and slower, like a signature.
-Pronounce "آي دور" like "eye-door".
+Egyptian Arabic (Cairo). A friend telling a short true story on Instagram Reels: fast, punchy reel pace, short tight pauses, never dragging. Curious rising tone on the questions, then quick confident answers. Builds a little tension in the middle. On the last two lines, switch to a warm, polished ad tone: smiling and confident, and slower on "لوجيكا. متأمّن من جوّا."
 ```
 
 ## 2) Script (انسخه زي ما هو)
@@ -45,7 +38,7 @@ Pronounce "آي دور" like "eye-door".
 افتح أي أوردر ليك، وغيّر الرقم اللي في اللينك.
 لو فتحلك أوردر حد تاني… يبقى عندك نفس المشكلة.
 
-ولو عايزنا نجرّبه بنفسنا… ابعتلنا على واتساب.
+وساعتها… كلّمنا على واتساب، ونقفلهالك قبل ما حد غيرك ياخد باله.
 
 لوجيكا. متأمّن من جوّا.
 ```
@@ -57,6 +50,9 @@ Pronounce "آي دور" like "eye-door".
 | بينطق الكلام فصحى | زوّد في الـ style: `Strictly Egyptian colloquial, not Modern Standard Arabic` |
 | «لوجيكا» طالعة غريبة | «لُوجيكا» بالضمة |
 | سريع أوي أو بطيء أوي | غيّر `slightly quick` لـ `natural pace` أو `energetic` |
+
+## لو بيبدّل الجمل
+ولّد السكريبت على جزئين بنفس الـ style: من الأول لحد «يوصل لبيانات عملاءك كلهم.»، ومن «طب إيه الحل؟» لحد الآخر.
 
 ## بديل أقصر للـ CTA
 ```
