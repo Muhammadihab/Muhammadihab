@@ -15,5 +15,6 @@ best=max(range(0,2000,10),key=lambda d: float(np.dot(hp[seg],y[d+seg.start:d+seg
 best=max(range(max(0,best-10),best+10),key=lambda d: float(np.dot(hp[seg],y[d+seg.start:d+seg.stop])))
 y=y[best:]; n=min(len(y),len(hp)); y=y[:n]; hp=hp[:n]
 print('rnnoise delay samples',best)
-mix=0.88*y+0.12*hp
+mix=float(sys.argv[4]) if len(sys.argv)>4 else 0.0
+mix=(1-mix)*y+mix*hp
 wr(sys.argv[2],mix,sr); wr(sys.argv[3],y,sr)

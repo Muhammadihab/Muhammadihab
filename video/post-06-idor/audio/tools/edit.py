@@ -26,6 +26,8 @@ fi,fo=int(.008*sr),int(.03*sr)
 hop=int(.05*sr); win=int(.6*sr)
 e=[np.sqrt(np.mean(x[i:i+win]**2)) for i in range(0,len(x)-win,hop)]; i0=int(np.argmin(e))*hop; tone=x[i0:i0+win].copy()
 def roomtone(n):
+    return np.zeros(n,np.float32)
+def _unused(n):
     r=np.resize(tone,n); f=min(int(.02*sr),n//2)
     if f>0: r[:f]*=np.linspace(0,1,f); r[-f:]*=np.linspace(1,0,f)
     return r
