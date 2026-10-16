@@ -209,7 +209,7 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
     <div class="door" id="doorL"></div><div class="door" id="doorR"></div>
     <div id="sign">هو إنت صاحبه؟</div>
     <div id="stamp">مفيش سؤال!</div>
-    <div id="guard"><svg viewBox="0 0 24 24" width="100%" height="100%" fill="rgba(78,214,154,.18)" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.5 20 5.5v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10v-6z"/><path d="M8.3 12.2l2.6 2.6 4.9-5.2" fill="none" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+    <div id="gscan"></div><div id="guard"><svg viewBox="0 0 24 24" width="100%" height="100%" fill="rgba(78,214,154,.18)" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2.5 20 5.5v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10v-6z"/><path d="M8.3 12.2l2.6 2.6 4.9-5.2" fill="none" stroke-width="2.2" stroke-linecap="round"/></svg></div>
   </div>
   <div class="node" id="nDB" style="left:345px;top:1158px;width:390px;height:108px"><span class="ar-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span>الأوردرات</div>
   <div class="chipp v" id="pkt" style="left:0;top:0">#1043</div>
@@ -221,6 +221,8 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 <style>
 .glass2{background:rgba(255,255,255,.09);backdrop-filter:blur(28px) saturate(150%);-webkit-backdrop-filter:blur(28px) saturate(150%);
   border:1.5px solid rgba(255,255,255,.26);border-radius:40px;box-shadow:0 30px 80px rgba(0,0,0,.45),inset 1.5px 1.5px 0 rgba(255,255,255,.25)}
+.sseg{position:relative;height:6px;border-radius:3px;background:rgba(255,255,255,.22);overflow:hidden}
+.sseg i{position:absolute;right:0;top:0;bottom:0;border-radius:3px}
 #series{position:absolute;right:44px;top:138px;padding:10px 34px;border-radius:999px;border:2.5px solid #00CCF2;background:rgba(7,26,51,.35);
   font:700 36px Plex;color:#3FD6F5;direction:rtl;box-shadow:0 0 18px rgba(0,204,242,.25)}
 #demoTag{display:inline-flex;align-items:center;gap:10px;padding:10px 26px;border-radius:999px;border:2px solid rgba(0,204,242,.8);
@@ -235,6 +237,7 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 #counter{display:inline-flex;align-items:center;gap:16px;padding:14px 34px;border-radius:999px;font:700 36px Plex;direction:rtl;
   background:rgba(42,16,24,.7);border:2.5px solid #D2463A;box-shadow:0 0 30px rgba(210,70,58,.6);transform-origin:50% 50%}
 #cnt{font:700 46px Sora;color:#FF8577;direction:ltr}
+#gscan{position:absolute;left:30px;right:30px;height:5px;border-radius:3px;background:linear-gradient(90deg,transparent,#4ED69A,transparent);box-shadow:0 0 18px #4ED69A}
 #guard{position:absolute;left:50%;top:64px;margin-left:-55px;width:110px;height:120px;color:#4ED69A;filter:drop-shadow(0 0 16px rgba(78,214,154,.8));transform-origin:50% 50%}
 .lockpage{position:absolute;left:36px;right:36px;top:96px;display:flex;flex-direction:column;align-items:center;text-align:center;direction:rtl;padding-top:110px}
 .lockpage .lk{width:230px;height:230px;border-radius:50%;background:#FDECEA;display:flex;align-items:center;justify-content:center;color:#D2463A}
@@ -324,7 +327,9 @@ body{font-family:Plex,Inter,'Noto Color Emoji',sans-serif;color:#fff;-webkit-fon
 <img id="brandLogo" src="brand/logo-on-dark.png" style="position:absolute;left:36px;top:96px;width:230px">
 <div id="series">سرقناه</div>
 <div id="caps"><div id="capbox"></div></div>
-<div id="pb" class="L" style="pointer-events:none">
+<div id="sbar" style="position:absolute;left:24px;right:24px;top:16px;height:6px;display:flex;flex-direction:row-reverse;gap:10px;pointer-events:none">
+  <div class="sseg"><i></i></div><div class="sseg"><i></i></div><div class="sseg"><i></i></div></div>
+<div id="pb" class="L" style="pointer-events:none;display:none">
   <div id="pbTrack"><div id="pbFill"></div>
     <i class="cp" id="cp1"></i><div class="cpl" id="cl1">المشكلة</div>
     <i class="cp" id="cp2"></i><div class="cpl" id="cl2">الخطر</div>
@@ -410,7 +415,7 @@ const win=(t,a,b,f=.3)=>clamp(Math.min((t-a)/f,(b-t)/f));   // 0..1 window with 
 let M;
 function setup(){
   $('cam').style.transform='none'; $('tilt').style.transform='none'; $('o1').style.display=''; $('o2').style.display='';
-  M={host:rectOf(document.querySelector('.url .host')),num:rectOf($('num')),cust:rectOf($('cust2')),rows:[...$('cust2').querySelectorAll('.row')].map(rectOf)};
+  M={items:[...$('o1').querySelectorAll('.item'),$('o1').querySelector('.total')].map(rectOf),host:rectOf(document.querySelector('.url .host')),num:rectOf($('num')),cust:rectOf($('cust2')),rows:[...$('cust2').querySelectorAll('.row')].map(rectOf)};
   const c=M.cust,cx=c.cx,cy=c.cy+22,rx=c.w/2+6,ry=c.h/2-8;let d='';
   for(let i=0;i<=64;i++){const a=-Math.PI*.62+i/64*Math.PI*2.12,w=1+.025*Math.sin(i*1.7);d+=(i?' L':'M')+(cx+Math.cos(a)*rx*w).toFixed(1)+' '+(cy+Math.sin(a)*ry*(w+.01*i/64)).toFixed(1);}
   $('circ').setAttribute('d',d);
@@ -439,7 +444,7 @@ const toS=c=>({z:c.z,sx:(ANCHOR.x-c.x)*c.z+VIEW.x,sy:(ANCHOR.y-c.y)*c.z+VIEW.y})
 const fromS=s=>({z:s.z,x:ANCHOR.x-(s.sx-VIEW.x)/s.z,y:ANCHOR.y-(s.sy-VIEW.y)/s.z});
 const urlShot=t=>({z:2.1+.04*Math.sin(t*.8),x:(M.host.x+M.num.x+M.num.w)/2+20,y:M.num.cy+120});
 const SHOTS=[
- {t:0,d:0,f:t=>({z:1+.008*t,x:540,y:875})},
+ {t:0,d:0,f:t=>({z:1+.08*inOut(P(t,4.3,4.9)),x:540,y:875-25*inOut(P(t,4.3,4.9))})},
  {t:T.zoomUrl,d:.8,f:urlShot},
  {t:T.enter+.05,d:.5,f:t=>({z:1.3,x:540,y:M.cust.cy})},
  {t:T.page2,d:.9,f:t=>({z:1.55+.05*P(t,17,3),x:660,y:M.cust.cy+40})},
@@ -455,7 +460,7 @@ function camAt(t){let i=SHOTS.length-1;while(i>0&&t<SHOTS[i].t)i--;let cur=toS(S
 
 /* cursor (world space, inside the browser demo) */
 function cursorPos(t){const n=M.num,r=M.rows;
-  return path(t,[[8.9,820,1640],[10.0,n.x+n.w*.7,n.cy+22],[15.4,n.x+n.w*.7,n.cy+22],[16.6,r[0].x+r[0].w*.5,r[0].cy+8],[T.rows[0],r[0].x+r[0].w*.45,r[0].cy+8],[T.rows[1],r[1].x+r[1].w*.5,r[1].cy+8],[T.rows[2],r[2].x+r[2].w*.45,r[2].cy+8],[20.6,r[2].x+r[2].w*.4,r[2].cy+10]]);}
+  const it=M.items;return path(t,[[4.5,1010,1650],[5.5,it[0].x+it[0].w*.35,it[0].cy+10],[6.3,it[1].x+it[1].w*.4,it[1].cy+10],[7.1,it[2].x+it[2].w*.45,it[2].cy+10],[8.4,n.x+n.w*.2,n.cy+150],[10.0,n.x+n.w*.7,n.cy+22],[15.4,n.x+n.w*.7,n.cy+22],[16.6,r[0].x+r[0].w*.5,r[0].cy+8],[T.rows[0],r[0].x+r[0].w*.45,r[0].cy+8],[T.rows[1],r[1].x+r[1].w*.5,r[1].cy+8],[T.rows[2],r[2].x+r[2].w*.45,r[2].cy+8],[20.6,r[2].x+r[2].w*.4,r[2].cy+10]]);}
 
 /* SFX cue list */
 const SFX=[];const sfx=(t,n,g=1)=>SFX.push([+t.toFixed(3),n,g]);
@@ -503,6 +508,11 @@ function renderFrame(i){
   else {$('num').style.transform='';$('num').style.filter='';$('o2').style.transform='';}
   if(t>=T.loaded&&t<T.loaded+.9){const pool='ابتثجحخدذرزسشصضطظعغفقكلمنهوي0123456789';const vs=$('cust2').querySelectorAll('.v');
     vs.forEach((e,k)=>{const src=ROWTXT[k];const p=P(t,T.loaded+.1*k,.7);let o='';for(let j=0;j<src.length;j++){o+=(src[j]===' '||p>j/src.length)?src[j]:pool[Math.floor(rnd(i*31+j*7+k)*pool.length)];}e.textContent=o;});}
+  // hover glow on the products while the cursor browses, and a red hint on the order number at "غلطة"
+  [...$('o1').querySelectorAll('.item'),$('o1').querySelector('.total')].forEach((e,k)=>{const h=[5.3,6.1,6.9][k];const on=t>=h&&t<h+.85;
+    e.style.background=on?`rgba(0,204,242,${(.14*Math.sin(P(t,h,.85)*Math.PI)).toFixed(3)})`:'';e.style.borderRadius='16px';});
+  const hint=t>=7.2&&t<8.1?Math.sin(P(t,7.2,.9)*Math.PI):0;
+  if(t<T.type[3]){$('num').style.color=hint>0?'#D2463A':'';$('num').style.textShadow=hint>0?`0 0 ${(18*hint).toFixed(1)}px rgba(210,70,58,.9)`:'';}
   A('numRing',t>=T.ring&&t<T.dbl[0]?{s:1,o:win(t,T.ring,T.dbl[0],.25)}:null,{s:1+.04*Math.sin((t-T.ring)*8)});
 
   /* ---------- camera ---------- */
@@ -522,7 +532,7 @@ function renderFrame(i){
 
   /* ---------- cursor, spotlight, circle (world) ---------- */
   const cu=cursorPos(t),cur=$('cursor'),rp=$('ripple');
-  if(t>=8.9&&t<T.pull+.4){cur.style.display='';const press=T.dbl.some(d=>t>=d&&t<d+.1);cur.style.transform=`translate(${cu.x}px,${cu.y}px) scale(${press?.85:1})`;
+  if(t>=4.5&&t<T.pull+.4){cur.style.display='';const press=T.dbl.some(d=>t>=d&&t<d+.1);cur.style.transform=`translate(${cu.x}px,${cu.y}px) scale(${press?.85:1})`;
     let rip=null;T.dbl.forEach(d=>{if(t>=d&&t<d+.4)rip=(t-d)/.4;});
     if(rip!==null){const R=16+46*expoOut(rip);rp.style.display='';Object.assign(rp.style,{left:(cu.x-R/2)+'px',top:(cu.y-R/2)+'px',width:R+'px',height:R+'px',opacity:1-rip});}else rp.style.display='none';}
   else{cur.style.display='none';rp.style.display='none';}
@@ -550,7 +560,8 @@ function renderFrame(i){
     sg.style.boxShadow=t>=T.guard?'0 0 22px rgba(78,214,154,.7)':ask?`0 0 ${20+14*Math.sin(t*6)}px rgba(210,70,58,.7)`:'';
     sg.style.transform=`translateX(-50%) scale(${ask?lerp(1,1.12,ap):t>=T.guard?lerp(1,1.08,bounce(P(t,T.guard,.6))):1})`;
     A('stamp',t<T.fix?life(t,T.stamp,T.fix,'bounce',.2):null,{r:-8,s:t<T.stamp+.12?1.6-.6*P(t,T.stamp,.12):1});
-    A('guard',life(t,T.guard,99,'bounce'),{y:Math.sin(t*3)*3});
+    A('guard',life(t,T.guard,99,'bounce'),{y:Math.sin(t*3)*3,s:t>=36.9?1+.07*Math.max(0,Math.sin((t-36.9)*7)):1});
+    const gsc=$('gscan');if(t>=36.95&&t<38.85){const p=((t-36.95)/0.95)%1;Object.assign(gsc.style,{display:'',top:(62+118*(p<.5?p*2:2-p*2))+'px',opacity:.9});}else gsc.style.display='none';
     // packets
     const pk=$('pkt'),rt=$('ret');let pp=null;
     if(t>=T.pkt&&t<T.pkt+1.0){pp={y:lerp(650,1150,inOut(P(t,T.pkt,1.0))),txt:'#1043',cls:'chipp v'};}
@@ -569,7 +580,7 @@ function renderFrame(i){
   const shake=t>T.n1+.2&&t<T.n1+.6?Math.sin((t-T.n1)*90)*2.2:0;
   A('n1',life(t,T.n1,T.hookOut+.35,'bounce',.35),{y:-260*(1-expoOut(P(t,T.n1,.5)))-200*expoIn(P(t,T.hookOut,.35)),r:shake});
   A('n2',life(t,T.n2,T.hookOut+.35,'bounce',.35),{y:-200*expoIn(P(t,T.hookOut+.05,.3))});
-  A('demoTag',life(t,T.demo,T.zoomUrl,'bounce'));
+  A('demoTag',life(t,T.demo,7.0,'bounce'));
   const ke=$('kEnter');if(A(ke,life(t,T.enter-.02,T.enter+.8,'bounce',.25)))ke.style.left=(540-ke.offsetWidth/2)+'px';
   A('badge',life(t,T.badge,T.pull,'bounce'),{s:t>T.badge+.6?1+.03*Math.sin((t-T.badge)*7):1});
   A('idor',life(t,T.idor,T.race,'bounce'),{s:t>T.idor+.8?1+.015*Math.sin((t-T.idor)*6):1});
@@ -630,6 +641,8 @@ function renderFrame(i){
   T.rows.forEach((rt,k)=>A('rg'+k,t>=rt&&t<T.pull+.3?{s:bounce(P(t,rt,.5)),o:1-P(t,T.pull,.3)}:null));
 
   /* ---------- progress bar ---------- */
+  [...$('sbar').children].forEach((seg,k)=>{const [a0,b0,,,col]=SEC[k];if(!seg._w){seg.style.flex=String(b0-a0);seg._w=1;}
+    const f=seg.firstChild;f.style.width=(clamp((t-a0)/(b0-a0))*100)+'%';f.style.background=col;f.style.boxShadow=t>=a0&&t<b0?`0 0 10px ${col}`:'';});
   const pr=clamp(t/PBEND);
   $('pbFill').style.width=(pr*100)+'%';
   SEC.forEach(([a0,b0,cpid,clid,col])=>{const done=t>=b0, cur=t>=a0&&t<b0; const e=$(cpid), l=$(clid);
@@ -663,7 +676,7 @@ window.TIMELINE={FPS,DUR,SFX};
 window.renderFrame=renderFrame;
 document.fonts.ready.then(()=>{setup();window.__ready=true;renderFrame(0);});
 const q=new URLSearchParams(location.search);
-if(q.get('t'))document.fonts.ready.then(()=>{renderFrame(Math.round(+q.get('t')*FPS));if(q.get('cover')){$('cover').style.display='';$('caps').style.display='none';$('badge').style.display='none';$('pb').style.display='none';}window.__shot=true;});
+if(q.get('t'))document.fonts.ready.then(()=>{renderFrame(Math.round(+q.get('t')*FPS));if(q.get('cover')){$('cover').style.display='';$('caps').style.display='none';$('badge').style.display='none';$('pb').style.display='none';$('sbar').style.display='none';}window.__shot=true;});
 </script>
 </body>
 </html>
