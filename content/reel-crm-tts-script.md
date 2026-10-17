@@ -5,7 +5,7 @@
 ## 1) Style instructions (حطها في خانة الـ style / prompt)
 
 ```
-Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A young woman with a playful, witty, warm voice. She is a WhatsApp message telling her own story, like a funny confession to a friend. Lively Instagram reel pace with short pauses. Starts cheeky and chatty, slowly turns sad and a bit dramatic as she sinks, then bright and excited when she is rescued, confident and a little teasing at the challenge, and warm at the end.
+Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A young woman with a playful, witty, warm voice. She is a WhatsApp message telling her own story, like a funny confession to a friend. Lively Instagram reel pace with short pauses. Starts cheeky and chatty, slowly turns sad and a bit dramatic as she sinks, then bright and excited when she is rescued, confident and proud about security, and warm at the end.
 ```
 
 ## 2) Script بالـ expressions (انسخه زي ما هو)
@@ -27,7 +27,7 @@ Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A youn
 [serious, confident] ولو البيّاع ساب الشغل… وحاول ياخد العملاء معاه؟
 [firm] السيستم يمنعه… وانت تقفل حسابه بضغطة.
 
-[teasing, playful] ولو مش مصدّق… حاول تسرقه بنفسك.
+[firm, proud] ومحدش يقدر يسرقهم منك.
 [warm, confident] عاوز سيستم زي ده لشغلك؟ كلّمنا على واتساب.
 [warm, proud] كل «بكام؟»… عميل. متسيبهوش يغرق. لوجيكا.
 ```

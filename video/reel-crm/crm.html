@@ -123,7 +123,7 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
 #cap .w.k{color:var(--cyan2)}.light #cap .w.k{color:var(--deep)}
 #cap .w.k:before{content:'{';font-family:Sora;color:var(--cyan);margin-left:6px}
 #cap .w.k:after{content:'}';font-family:Sora;color:var(--cyan);margin-right:6px}
-#day{position:absolute;left:0;right:0;top:400px;text-align:center;font:700 64px Plex;color:rgba(190,245,255,.9);z-index:70;display:none;direction:rtl;text-shadow:0 0 30px rgba(0,0,0,.6)}
+#day{position:absolute;left:0;right:0;top:300px;text-align:center;font:700 64px Plex;color:rgba(190,245,255,.9);z-index:70;display:none;direction:rtl;text-shadow:0 0 30px rgba(0,0,0,.6)}
 #demo{position:absolute;left:40px;top:262px;padding:8px 20px;border-radius:999px;font:600 24px Plex;direction:rtl;z-index:82;display:none;background:rgba(10,36,68,.08);color:#5A6F8C}
 #freeze{position:absolute;inset:0;z-index:58;pointer-events:none;display:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 2px,transparent 2px 5px)}
 #freeze b{position:absolute;right:50px;top:420px;font:700 30px Sora;color:#fff;background:rgba(0,0,0,.45);padding:8px 18px;border-radius:8px;direction:ltr}
@@ -219,8 +219,8 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
   <div class="a" id="endA">كل «بكام؟»… عميل.</div>
   <div class="b" id="endB"><span class="br">{</span><span class="k">متسيبهوش</span><span class="br">}</span> يغرق<span class="dot">.</span></div>
   <div class="cta" id="cta"><span class="shine" id="shine"></span><svg viewBox="0 0 24 24" width="66" height="66" style="position:relative"><path d="M4 20l1.2-4.3A8 8 0 1 1 8.4 19z" fill="#fff"/><path d="M9.2 8.4c0 3.2 2.9 6.2 6.2 6.2l.9-1.5-1.9-1-1 .8c-1-.4-2.1-1.5-2.5-2.5l.8-1-1-1.9z" fill="#F56A39"/></svg>ابعتلنا على واتساب</div>
-  <div class="url" id="endUrl">+20 122 641 2843</div><div class="wa" id="endWa">وجرّب الديمو وحاول تسرقه: <b>zaboon.logika.dev</b></div>
-  <div id="endLogo"></div><div class="tagl" id="endTag" style="top:1330px">متأمّن من جوّا 🔒</div><div class="fake" id="endFake" style="top:1395px">الديمو بداتا وهمية · كل الأسماء والأرقام مش حقيقية</div></div>
+  <div class="url" id="endUrl">+20 122 641 2843</div><div class="wa" id="endWa">بنرد في نفس اليوم</div>
+  <div id="endLogo"></div><div class="tagl" id="endTag" style="top:1330px">متأمّن من جوّا 🔒</div><div class="fake" id="endFake" style="top:1395px">الأسماء والأرقام في الفيديو وهمية</div></div>
 <div id="vig"></div><div id="grain"></div><div id="fade"></div><div id="flash"></div>
 
 <script>
@@ -236,7 +236,7 @@ const CAPS=[
   [b(24),b(25.5),'بس مع سيستم عملاء…','سيستم'],[b(25.5),b(27),'الحكاية بتفرق'],
   [b(27),b(29),'كل رسالة بتبقى كارت'],[b(29),b(32),'بيمشي معاك خطوة بخطوة'],[b(32),b(35),'والسيستم بيفكّرك قبل ما يبرد','بيفكّرك'],
   [b(35),b(37.5),'ولو البيّاع ساب الشغل…'],[b(37.5),b(40),'السيستم يمنعه… وانت تقفل حسابه','يمنعه…'],
-  [b(40),b(43),'ولو مش مصدّق… حاول تسرقه بنفسك','تسرقه'],[b(44),b(47),'عاوز سيستم زي ده لشغلك؟','زي'],
+  [b(40),b(43),'ومحدش يقدر يسرقهم منك','يسرقهم'],[b(44),b(47),'عاوز سيستم زي ده لشغلك؟','زي'],
 ];
 const TKO=[[b(19.5),b(21),'٤٨,٥٠٠','red','جنيه راحوا لغيرك'],[b(43),b(44),'٥ من ٥','cyan','محاولة سرقة اتمنعت']];
 /* ============================================================================================ */
@@ -279,7 +279,7 @@ const SFX=[];const sfx=(t,n,g=1,pan)=>SFX.push(pan===undefined?[+t.toFixed(3),n,
 [T.list,T.sink,T.comp,T.split,T.zab,T.pipe,T.fol,T.sec,T.steal,T.cta,T.end].forEach((c,k)=>sfx(c-.12,k%2?'airLR':'whoosh_in',.45));
 sfx(0,'scratch',.9);sfx(.12,'impact',.45);sfx(.2,'npop',.55);sfx(1.55,'blink',.5);sfx(2.4,'npop',.3);
 CH.forEach((c,i)=>{sfx(T.list+.3+i*.26,'npop',.45,(rnd(i)-.5)*.8);if(i%3===1)sfx(T.list+.3+i*.26,'vib',.25);});
-for(let i=0;i<6;i++)sfx(T.list+1.2+i*.08,'keytap',.25);sfx(T.sink-.55,'swish',.5);
+for(let i=0;i<6;i++)sfx(T.list+1.2+i*.08,'keytap',.25);sfx(T.sink-.6,'npop',.6);sfx(T.sink-.55,'whoosh_in',.55);
 sfx(T.sink-.3,'splash',.9);sfx(T.sink,'impact',.4);
 FALL.forEach((f,i)=>sfx(T.sink+.4+i*.42,'blub',.5,(rnd(i+3)-.5)*.8));for(let i=0;i<16;i++)sfx(T.sink+.2+i*.29,'blub',.22,(rnd(i*5)-.5));
 [0,1,2].forEach(j=>{sfx(T.sink+j*1.6,'thud',.35);sfx(T.sink+j*1.6+.05,'roll',.5);});
@@ -324,7 +324,7 @@ function tap(t,t0,x,y){const p=P(t,t0,t0+.4);if(p<=0||p>=1)return;const r=$('tap
 /* ---------- per frame ---------- */
 function renderFrame(i){
   const t=i/FPS;tnow=t;$('megaT').textContent='';$('cam').style.filter='';
-  ['water','bright','navy','wal','comp','brw','land','split','end','freeze','day','demo','cursor','tapr','stampX'].forEach(id=>$(id).style.display='none');
+  $('water').style.opacity=1;$('wal').style.opacity=1;['water','bright','navy','wal','comp','brw','land','split','end','freeze','day','demo','cursor','tapr','stampX'].forEach(id=>$(id).style.display='none');
   fallEls.forEach(e=>e.style.display='none');$('flash').style.opacity=0;$('bright').style.clipPath='';$('water').style.clipPath='';$('fade').style.opacity=0;
   hero(0,0,1,0,0);phone(0,0,1,0,0);$('cap').style.display='flex';$('capBg').style.display='block';document.body.className='';
   let shake=0;
@@ -341,19 +341,22 @@ function renderFrame(i){
       e.style.top=(pos*150-(1-x)*150)+'px';e.style.opacity=Math.min(1,x*3);});
     const myTop=n*150;me.style.top=myTop+'px';me.style.display='flex';
     const gl=t>T.list+2.6?P(t,T.list+2.6,T.sink):0;me.style.boxShadow=gl?`inset 0 0 0 ${4}px rgba(63,214,245,${gl})`:'';
-    if(t>T.sink-.6){const k=P(t,T.sink-.6,T.sink);$('wal').style.transform=`translateY(${-k*200}px) scale(${1+k*.1})`;$('wal').style.filter=`blur(${k*10}px)`;
-      hero(540,300+300+myTop+75-k*200,L(.5,1.2,eo(k)),0,eo(k));face('normal',0,[0,6]);$('flash').style.opacity=k*.2;}
-    else $('wal').style.transform='';
+    if(t>T.sink-.6){const k=eio(P(t,T.sink-.6,T.sink)),rowY=300+myTop+75;
+      $('water').style.display='block';$('water').style.opacity=k;$('water').style.filter='brightness(1)';
+      $('wal').style.transform=`translateY(${k*420}px) scale(${1-k*.08})`;$('wal').style.filter=`blur(${k*12}px)`;$('wal').style.opacity=1-k*.7;
+      me.style.opacity=k>.08?0:1;const sp=eo(P(t,T.sink-.6,T.sink));
+      hero(L(560,540,sp),L(rowY,720,sp),L(.42,1.25,sp)*(1+Math.sin(sp*Math.PI)*.08),L(0,-6,k),Math.min(1,P(t,T.sink-.6,T.sink-.5)*3));face('normal',0,[0,4]);}
+    else{$('wal').style.transform='';$('wal').style.opacity=1;me.style.opacity=1;}
   } else if(t<T.comp){ // ===== UNDERWATER: she sinks, the group buries her
     $('water').style.display='block';const x=P(t,T.sink,T.comp);
     $('water').style.filter=`brightness(${L(1,.45,x)})`;
     RAYS.forEach((r,k)=>{r.style.transform=`rotate(${-14+k*4+Math.sin(t*.8+k)*3}deg)`;r.style.opacity=L(.9,.15,x)*(.6+.4*Math.sin(t*1.3+k*2));});
     BUB.forEach((bb,k)=>{const y=1920-((t*bb.v*400+bb.ph*2200)%2200);bb.d.style.left=(bb.x+Math.sin(t*2+k)*20)+'px';bb.d.style.top=y+'px';});
-    const sy=L(640,1060,eio(x)),sway=Math.sin(t*1.6)*30;hero(540+sway,sy,1.25,Math.sin(t*1.3)*8);
+    const sy=L(720,1060,eio(x)),sway=Math.sin(t*1.6)*30;hero(540+sway,sy,1.25,Math.sin(t*1.3)*8);
     face(x<.3?'normal':x<.6?'worried':'sad',(t%3.1>3.0)?1:0,[0,x<.3?-6:10]);$('tear').setAttribute('opacity',x>.7?P(t,T.sink+(T.comp-T.sink)*.7,T.comp)*.9:0);
     $('tear').setAttribute('transform',`translate(0 ${((t*60)%40)})`);
     fallEls.forEach((f,k)=>{const t0=T.sink+.4+k*.42,y=P(t,t0,t0+1.4);if(y<=0)return;f.style.display='block';
-      const lx=200+((k*263)%620);f.style.left=(lx-120)+'px';f.style.top=(L(-150,sy-260-((k%3)*90),eo(Math.min(1,y)))+(y>=1?Math.sin(t*1.5+k)*8:0))+'px';
+      const lx=200+((k*263)%620);f.style.left=(lx-120)+'px';f.style.top=(L(-150,sy-230-((k%3)*55),eo(Math.min(1,y)))+(y>=1?Math.sin(t*1.5+k)*8:0))+'px';
       f.style.transform=`rotate(${(rnd(k)-.5)*30}deg)`;f.style.opacity=L(1,.8,x);});
     $('day').style.display='block';const d=x<.33?'يوم ١':x<.66?'يوم ٢':'يوم ٣';$('day').textContent=d;
     const flip=Math.min(...[.33,.66].map(m=>Math.abs(x-m)));$('day').style.transform=`scaleY(${flip<.02?L(.2,1,flip/.02):1})`;
@@ -438,7 +441,7 @@ function renderFrame(i){
     $('cap').style.display='none';$('capBg').style.display='none';shake=Math.max(shake,(1-P(t,tk[0],tk[0]+.2))*14);}
   else TK.style.display='none';
   // ---- mega type behind the action
-  const mg=t>=T.sink&&t<T.comp?['١','٢','٣'][Math.min(2,Math.floor(P(t,T.sink,T.comp)*3))]:t>=T.comp&&t<T.split?'؟':t>=T.zab&&t<T.sec?'✓':t>=T.sec&&t<T.steal?'اتمنع':t>=T.steal&&t<T.cta?'٥/٥':'';
+  const mg=t>=T.comp&&t<T.split?'؟':t>=T.zab&&t<T.sec?'✓':t>=T.sec&&t<T.steal?'اتمنع':t>=T.steal&&t<T.cta?'٥/٥':'';
   $('megaT').textContent=mg;$('megaT').style.webkitTextStrokeColor=document.body.className==='light'?'rgba(0,150,191,.22)':'rgba(63,214,245,.3)';
   $('megaT').style.fontSize=mg.length>2?'380px':'760px';$('megaT').style.transform=`translateY(${Math.sin(t*.8)*20}px) scale(${1+.03*Math.sin(t*1.7)})`;
   BOK.forEach((k,j)=>{k.d.style.left=(k.x-k.s/2+Math.sin(t*.5+j)*30)+'px';k.d.style.top=(((k.y-t*k.v)%2100+2100)%2100-100)+'px';});
