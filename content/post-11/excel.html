@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<title>بوست ١١ · شغلك كبر على الإكسيل؟</title>
+<style>
+@font-face{font-family:Plex;src:url(../post-09/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2);font-weight:400}
+@font-face{font-family:Plex;src:url(../post-09/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2);font-weight:600}
+@font-face{font-family:Plex;src:url(../post-09/fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
+@font-face{font-family:Sora;src:url(../post-09/fonts/sora-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:Ruqaa;src:url(../post-09/fonts/aref-ruqaa-arabic-700-normal.woff2);font-weight:700}
+:root{--cyan:#00CCF2;--cyan2:#3FD6F5;--orange:#F56A39;--text:#F4F7FB;--muted:#AFC1D8;--ink:#071A33;
+  --xl:#217346;--xl2:#185C37;--grid:#E1E1E1;--hdr:#F3F2F1;--cell:#201F1E;--bad:#FDE7E9;--badT:#A4262C;--ok:#DFF6DD}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden;background:var(--ink)}
+body{position:relative;font-family:Plex,sans-serif;color:var(--text)}
+.abs{position:absolute}.full{position:absolute;inset:0}
+#bg{background:
+  linear-gradient(rgba(0,204,242,.05) 1px,transparent 1px) 0 0/60px 60px,
+  linear-gradient(90deg,rgba(0,204,242,.05) 1px,transparent 1px) 0 0/60px 60px,
+  radial-gradient(ellipse 60% 55% at 50% 42%,#0F3561 0%,#0B2A4F 45%,#071A33 100%)}
+#halo{background:radial-gradient(ellipse 40% 34% at 50% 42%,rgba(0,204,242,.14),transparent 72%)}
+#grain{filter:url(#noise);opacity:.06;mix-blend-mode:overlay}
+
+/* ---------- windows ---------- */
+.win{position:absolute;border-radius:16px;overflow:hidden;background:#fff;color:var(--cell);direction:rtl;
+  box-shadow:0 0 0 1px rgba(255,255,255,.12),0 0 60px rgba(0,204,242,.18),0 40px 80px rgba(0,0,0,.55)}
+.tb{height:54px;background:var(--xl);display:flex;align-items:center;justify-content:center;position:relative;color:#fff;font:600 21px Plex}
+.tb .fn{direction:ltr;font:700 19px Sora;letter-spacing:.2px}
+.tb .ctl{position:absolute;left:18px;top:0;height:54px;display:flex;gap:22px;align-items:center;opacity:.9;direction:ltr}
+.tb .ctl i{display:block;width:16px;height:16px;border:2px solid #fff;border-radius:2px}
+.tb .ctl i:first-child{height:0;border-width:2px 0 0;margin-top:8px}
+.tb .lg{position:absolute;right:16px;top:12px;width:30px;height:30px;border-radius:6px;background:#fff;color:var(--xl);font:700 20px Sora;display:flex;align-items:center;justify-content:center}
+.tabs{height:42px;background:var(--xl);display:flex;gap:28px;align-items:center;padding:0 22px;font:400 18px Plex;color:rgba(255,255,255,.85)}
+.tabs .on{color:#fff;font-weight:600;border-bottom:3px solid #fff;padding-bottom:4px}
+.fx{height:50px;display:flex;align-items:center;border-bottom:1px solid #D2D0CE;background:#fff;font:400 21px Plex}
+.fx .nb{width:96px;height:100%;display:flex;align-items:center;justify-content:center;border-left:1px solid #D2D0CE;font:700 18px Sora;direction:ltr}
+.fx .f{padding:0 14px;color:#605E5C;font:700 18px Sora;font-style:italic}
+.fx .v{direction:ltr;font:700 19px Sora;color:var(--cell);padding:0 6px}
+.fx .v.ar{direction:rtl;font:400 21px Plex}
+table.g{border-collapse:collapse;width:100%;table-layout:fixed}
+table.g td,table.g th{border:1px solid var(--grid);height:62px;padding:0 12px;font:400 24px Plex;white-space:nowrap;overflow:hidden;text-overflow:clip;text-align:right}
+table.g th{background:var(--hdr);font:600 17px Sora;color:#605E5C;text-align:center;height:34px}
+table.g td.rn{background:var(--hdr);font:600 16px Sora;color:#605E5C;text-align:center;width:52px;padding:0}
+table.g td.h{font-weight:700;background:#F8F8F8}
+table.g td.bad{background:var(--bad);color:var(--badT);font-weight:600}
+table.g td.ok{background:var(--ok);color:#0E700E;font-weight:600}
+table.g td.err{color:var(--badT);font:700 21px Sora;direction:ltr;text-align:right}
+table.g td.sel{outline:3px solid var(--xl);outline-offset:-2px;position:relative}
+table.g td.num{font:600 22px Sora;direction:ltr;text-align:right}
+.sheets{height:44px;background:var(--hdr);border-top:1px solid #D2D0CE;display:flex;align-items:flex-end;gap:2px;padding:0 60px 0 0;font:400 18px Plex;color:#605E5C}
+.sheets span{padding:8px 18px;white-space:nowrap}
+.sheets span.on{background:#fff;color:var(--xl);font-weight:700;border-bottom:3px solid var(--xl)}
+.cmt{position:absolute;background:#FFF9C4;border:1px solid #D9C76A;border-radius:8px;padding:12px 16px;font:400 21px Plex;color:#3B3A39;box-shadow:0 10px 24px rgba(0,0,0,.25);direction:rtl;white-space:nowrap}
+.cmt b{display:block;font:700 17px Plex;color:#605E5C;margin-bottom:2px}
+.cmt:before{content:'';position:absolute;right:-9px;top:14px;border:8px solid transparent;border-left-color:#D9C76A}
+
+/* explorer */
+.ex .tb{background:#F3F3F3;color:#201F1E;justify-content:flex-start;padding-right:62px}
+.ex .tb .lg{background:#FFC83D;color:#fff}
+.ex .tb .ctl i{border-color:#201F1E}
+.ex .path{height:50px;display:flex;align-items:center;gap:10px;padding:0 20px;background:#fff;border-bottom:1px solid #E5E5E5;font:400 19px Plex;color:#605E5C}
+.ex .hdr,.ex .it{display:grid;grid-template-columns:1fr 170px 140px;align-items:center;padding:0 22px}
+.ex .hdr{height:44px;font:600 17px Plex;color:#605E5C;border-bottom:1px solid #EEE}
+.ex .it{height:70px;font:400 22px Plex;color:#201F1E;border-bottom:1px solid #F3F3F3}
+.ex .it .n{display:flex;align-items:center;gap:14px;direction:ltr;justify-content:flex-end;font:400 21px Plex}
+.ex .it .d{font:400 19px Plex;color:#605E5C}
+.ex .it.sel{background:#CCE8FF}
+.xi{width:36px;height:42px;flex:none;border-radius:4px;background:var(--xl);color:#fff;font:700 18px Sora;display:flex;align-items:center;justify-content:center;position:relative}
+.xi:after{content:'';position:absolute;right:0;top:0;border:7px solid #fff;border-bottom-color:#9BC7AE;border-left-color:#9BC7AE}
+
+/* office dialog */
+.dlg{position:absolute;width:640px;background:#fff;border-radius:12px;color:#201F1E;direction:rtl;padding:30px 34px 26px;
+  box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 1px rgba(0,0,0,.08)}
+.dlg h3{font:700 30px Plex;margin-bottom:12px;display:flex;align-items:center;gap:14px}
+.dlg h3 i{width:44px;height:44px;border-radius:50%;background:#FFF4CE;color:#8A6100;display:flex;align-items:center;justify-content:center;font:700 26px Sora;font-style:normal}
+.dlg p{font:400 24px Plex;line-height:1.6;color:#323130}
+.dlg p b{font-weight:700}
+.dlg .fnm{direction:ltr;display:inline-block;font:700 20px Sora}
+.dlg .bt{display:flex;gap:12px;justify-content:flex-start;margin-top:24px}
+.dlg .bt span{padding:12px 26px;border-radius:6px;border:1px solid #8A8886;font:600 21px Plex}
+.dlg .bt span.p{background:var(--xl);border-color:var(--xl);color:#fff}
+
+.note{position:absolute;font:700 40px Ruqaa;color:var(--orange);line-height:1.3;direction:rtl;text-shadow:0 0 18px rgba(245,106,57,.35);white-space:nowrap}
+.arw path{fill:none;stroke:var(--orange);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(245,106,57,.5))}
+.sticky{position:absolute;background:linear-gradient(160deg,#FFE88A,#F7D658);box-shadow:0 18px 30px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;direction:rtl}
+.sticky div{font:700 36px Ruqaa;line-height:1.35;color:#1E3F94;text-align:center}
+
+/* whatsapp photo bubble (slide 5) */
+.wab{position:absolute;background:#005C4B;border-radius:18px;padding:8px;box-shadow:0 30px 60px rgba(0,0,0,.5);direction:rtl}
+.wab .ph{width:330px;height:360px;border-radius:12px;background:#EFE6D2;position:relative;overflow:hidden;transform-origin:center}
+.wab .ph .ln{position:absolute;left:24px;right:24px;height:1px;background:rgba(60,90,160,.35)}
+.wab .ph .hw{position:absolute;right:28px;font:700 27px Ruqaa;color:#22325E;white-space:nowrap}
+.wab .meta{display:flex;justify-content:space-between;padding:8px 8px 2px;font:400 17px Plex;color:rgba(233,237,239,.75)}
+.wab .who{font:600 18px Plex;color:#53BDEB;padding:2px 8px 6px}
+
+/* score card (slide 7) */
+.score .row{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:0;border-bottom:1px solid var(--grid)}
+.score .row .k{height:110px;display:flex;align-items:center;justify-content:center;background:var(--hdr);font:700 30px Plex;border-left:1px solid var(--grid)}
+.score .row .v{padding:0 26px;font:600 27px Plex;display:flex;align-items:center;gap:16px;height:110px}
+.score .row .v i{width:18px;height:60px;border-radius:4px;flex:none}
+
+/* ---------- band ---------- */
+#band{left:0;right:0;top:972px;bottom:0;background:linear-gradient(180deg,#061428,#050F1F 80%)}
+#bandLine{left:0;right:0;top:972px;height:2px;background:linear-gradient(90deg,transparent,rgba(0,204,242,.85) 30%,rgba(0,204,242,.85) 70%,transparent);box-shadow:0 0 18px rgba(0,204,242,.6)}
+#copy{left:64px;right:64px;top:990px;direction:rtl;text-align:right}
+#kick{font:600 28px Plex;color:var(--cyan2);margin-bottom:2px}
+#l1{font:600 44px Plex;color:#D6E2F0;line-height:1.3}
+#l2{font:700 88px Plex;line-height:1.16;letter-spacing:-.5px;white-space:nowrap}
+#l2 .br{font:700 82px Sora;color:var(--cyan);text-shadow:0 0 22px rgba(0,204,242,.5)}
+#l2 .k{color:var(--cyan2)}
+#l2 .dot{color:var(--orange)}
+#sub{font:400 27px Plex;color:var(--muted);margin-top:4px}
+#cta{display:inline-flex;align-items:center;gap:14px;margin-top:14px;padding:0 32px 0 28px;height:76px;border-radius:999px;background:var(--orange);font:700 30px Plex;color:#fff;box-shadow:0 12px 40px rgba(245,106,57,.45)}
+#cta svg{width:36px;height:36px}
+#cta .num{font:700 21px Sora;direction:ltr;padding-right:14px;border-right:2px solid rgba(255,255,255,.4)}
+#foot{left:64px;right:64px;bottom:26px;display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid rgba(191,208,230,.14);direction:rtl}
+#foot .wa{font:400 22px Plex;color:var(--muted)}
+#foot .wa b{color:var(--cyan2);font-weight:700}
+#foot .r{font:700 19px Sora;color:rgba(191,208,230,.6);letter-spacing:.5px}
+#foot .swipe{font:600 22px Plex;color:#fff;display:flex;align-items:center;gap:10px}
+#foot .swipe span{width:26px;height:26px;color:var(--orange)}
+#px{left:66px;top:1000px;width:90px;height:40px}
+#px i{position:absolute;background:var(--orange);border-radius:2px}
+#logo{left:40px;top:34px;width:178px}
+#tag{right:52px;top:50px;padding:10px 30px;border:2.5px solid var(--cyan);border-radius:999px;font:600 30px Plex;color:var(--cyan2);direction:rtl;background:rgba(7,26,51,.6)}
+#count{left:50%;top:62px;transform:translateX(-50%);display:flex;gap:8px}
+#count i{width:28px;height:6px;border-radius:3px;background:rgba(191,208,230,.22)}
+#count i.on{background:var(--cyan);box-shadow:0 0 10px rgba(0,204,242,.8)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter></svg>
+<div id="bg" class="full"></div><div id="halo" class="full"></div>
+<div id="art" class="full"></div>
+<svg class="full arw" width="1080" height="1350" id="arw"></svg>
+<div id="band" class="abs"></div><div id="bandLine" class="abs"></div>
+<div id="px" class="abs"></div>
+<div id="copy" class="abs"><div id="kick"></div><div id="l1"></div><div id="l2"></div><div id="sub"></div></div>
+<div id="foot" class="abs"></div>
+<img id="logo" class="abs" src="../post-09/brand/logo-on-dark.png">
+<div id="tag" class="abs">لصاحب الشغل</div>
+<div id="count" class="abs"></div>
+<div id="grain" class="full"></div>
+
+<script>
+const LEFT='<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>';
+const WA='<svg viewBox="0 0 24 24"><path d="M4 20l1.2-4.3A8 8 0 1 1 8.4 19z" fill="#fff"/><path d="M9.2 8.4c0 3.2 2.9 6.2 6.2 6.2l.9-1.5-1.9-1-1 .8c-1-.4-2.1-1.5-2.5-2.5l.8-1-1-1.9z" fill="#F56A39"/></svg>';
+const art=document.getElementById('art'),arw=document.getElementById('arw');
+const put=h=>art.insertAdjacentHTML('beforeend',h);
+const br=w=>`<span class="br">{</span><span class="k">${w}</span><span class="br">}</span>`;
+
+// an Excel window: file name, formula bar, grid rows ([cell, cls]), sheet tabs
+function xl({x,y,w,file,nb='C7',fx='',fxAr=false,cols,widths,rows,sheets,rot=0,dim=false}){
+  const th=`<tr><th style="width:52px"></th>${cols.map((c,i)=>`<th style="width:${widths[i]}px">${c}</th>`).join('')}</tr>`;
+  const tr=rows.map((r,i)=>`<tr><td class="rn">${i+1}</td>${r.map(c=>Array.isArray(c)?`<td class="${c[1]}">${c[0]}</td>`:`<td>${c}</td>`).join('')}</tr>`).join('');
+  return `<div class="win" style="left:${x}px;top:${y}px;width:${w}px;transform:rotate(${rot}deg);${dim?'filter:blur(2px) brightness(.55)':''}">
+    <div class="tb"><span class="lg">X</span><span class="fn">${file}</span><span class="ctl"><i></i><i></i><i style="border:none;position:relative;font:700 20px Sora;width:auto;height:auto;margin:0">✕</i></span></div>
+    <div class="tabs"><span>ملف</span><span class="on">الصفحة الرئيسية</span><span>إدراج</span><span>صيغ</span><span>بيانات</span></div>
+    <div class="fx"><span class="nb">${nb}</span><span class="f">fx</span><span class="v${fxAr?' ar':''}">${fx}</span></div>
+    <table class="g">${th}${tr}</table>
+    ${sheets?`<div class="sheets">${sheets.map((s,i)=>`<span class="${i===0?'on':''}">${s}</span>`).join('')}</div>`:''}
+  </div>`;
+}
+const C=['A','B','C','D','E'];
+
+const SLIDES=[
+ { // cover
+  kick:'لصاحب الشغل اللي شغال على الإكسيل',l1:'الإكسيل مش وحش…',l2:`بس شغلك ${br('كبر')} عليه؟`,
+  sub:'٥ علامات تعرف بيها. اسحب، وعدّ كام واحدة عندك.',foot:'swipe',
+  draw(){
+    put(xl({x:90,y:176,w:900,rot:-1.5,file:'حسابات_الشغل_final_2_جديد.xlsx',nb:'D4',fx:'=SUM(#REF!)',cols:C,widths:[230,150,150,170,148],
+      rows:[[['العميل','h'],['المبلغ','h'],['دفع؟','h'],['الفني','h'],['ملاحظات','h']],
+            ['عم مصطفى',['4,500','num'],['لسه','bad'],'أحمد','اتصل تاني'],
+            ['مدام هبة',['2,200','num'],['دفع','ok'],'كريم','؟؟'],
+            ['الحاج سيد',['7,800','num'],['لسه','bad'],['#REF!','err sel'],''],
+            ['شركة النصر',['12,000','num'],['نص','bad'],'أحمد','مين عدّل ده'],
+            ['محمود',['950','num'],['دفع','ok'],'—','']],
+      sheets:['يناير','يناير (2)','نسخة أحمد','متعدلش!!']}));
+    put(`<div class="cmt" style="left:96px;top:520px;transform:rotate(-1.5deg)"><b>محمد (صاحب الشغل):</b>مين مسح عمود الفنيين؟؟</div>`);
+  }},
+ { // 1 versions
+  kick:'علامة ١ من ٥',l1:'عندك ٦ نسخ من نفس الشيت…',l2:`و${br('كلهم')} آخر نسخة<span class="dot">.</span>`,
+  sub:'ومحدش عارف أنهي فيهم الصح.',foot:'swipe',
+  draw(){
+    const F=[['حسابات.xlsx','١ مارس'],['حسابات_final.xlsx','٥ مارس'],['حسابات_final_2.xlsx','٩ مارس'],['حسابات_final_2_جديد.xlsx','١٢ مارس'],['حسابات_نسخة_أحمد.xlsx','١٢ مارس'],['حسابات_متعدلش_ده.xlsx','١٤ مارس',1]];
+    put(`<div class="win ex" style="left:110px;top:186px;width:860px;transform:rotate(1.2deg)">
+      <div class="tb"><span class="lg">▤</span>المستندات › الشغل</div>
+      <div class="path">‹ ›&nbsp;&nbsp; هذا الكمبيوتر › المستندات › الشغل</div>
+      <div class="hdr"><span>الاسم</span><span>تاريخ التعديل</span><span>النوع</span></div>
+      ${F.map(([n,d,s])=>`<div class="it${s?' sel':''}"><span class="n">${n}<span class="xi">X</span></span><span class="d">${d}</span><span class="d">Excel</span></div>`).join('')}
+    </div>`);
+    put(`<div class="note" style="left:60px;top:792px;transform:rotate(-4deg)">ده ولا اللي قبله؟!</div>`);
+    arw.innerHTML='<path d="M330 812 C380 800 420 760 452 724"/><path d="M432 732 L452 724 L452 746"/>';
+  }},
+ { // 2 locked
+  kick:'علامة ٢ من ٥',l1:'عاوز تعدّل؟ استنى…',l2:`${br('أحمد')} فاتح الشيت<span class="dot">.</span>`,
+  sub:'شيت واحد، وكذا حد محتاجه في نفس الوقت.',foot:'swipe',
+  draw(){
+    put(xl({x:90,y:176,w:900,dim:true,file:'حسابات_final_2.xlsx',nb:'B3',fx:'',cols:C,widths:[230,150,150,170,148],
+      rows:[[['العميل','h'],['المبلغ','h'],['دفع؟','h'],['الفني','h'],['ملاحظات','h']],['عم مصطفى','4,500','لسه','أحمد',''],['مدام هبة','2,200','دفع','كريم',''],['الحاج سيد','7,800','لسه','',''],['شركة النصر','12,000','نص','أحمد',''],['محمود','950','دفع','','']]}));
+    put(`<div class="dlg" style="left:220px;top:330px">
+      <h3><i>!</i>الملف مقفول للتعديل</h3>
+      <p><span class="fnm">حسابات_final_2.xlsx</span><br>مفتوح دلوقتي عند <b>«أحمد المحاسب»</b>.<br>تقدر تفتحه للقراءة بس، أو تستنى لما يقفله.</p>
+      <div class="bt"><span class="p">للقراءة فقط</span><span>بلّغني لما يقفل</span><span>إلغاء</span></div></div>`);
+    put(`<div class="note" style="left:640px;top:760px;transform:rotate(3deg)">بقالي ساعة مستني!</div>`);
+  }},
+ { // 3 #REF
+  kick:'علامة ٣ من ٥',l1:'حد مسح معادلة…',l2:`ومحدش ${br('عارف')} مين<span class="dot">.</span>`,
+  sub:'الإكسيل مبيسجّلش مين عدّل إيه، ولا إمتى.',foot:'swipe',
+  draw(){
+    put(xl({x:90,y:186,w:900,rot:-1,file:'الخزنة_مارس.xlsx',nb:'C8',fx:'=SUM(C2:#REF!)',cols:C,widths:[250,170,170,150,108],
+      rows:[[['البيان','h'],['وارد','h'],['منصرف','h'],['مين','h'],['','h']],
+            ['أوردر شركة النصر',['12,000','num'],'','المحاسب',''],
+            ['قطع غيار','',['3,400','num'],'المخزن',''],
+            ['مرتبات','',['18,000','num'],'',''],
+            ['أوردر الحاج سيد',['7,800','num'],'','',''],
+            [['الإجمالي','h'],['#REF!','err sel'],['#REF!','err'],'','']]}));
+    put(`<div class="cmt" style="left:80px;top:640px;transform:rotate(-1deg)"><b>محمد:</b>مين مسح العمود ده؟؟</div>`);
+    put(`<div class="cmt" style="left:150px;top:742px;transform:rotate(1deg)"><b>أحمد:</b>مش أنا 🙄</div>`);
+    put(`<div class="cmt" style="left:300px;top:836px;transform:rotate(-1deg)"><b>كريم:</b>ولا أنا</div>`);
+  }},
+ { // 4 double entry
+  kick:'علامة ٤ من ٥',l1:'الفني بيبعت صورة الورقة…',l2:`و${br('انت')} تنقلها في الشيت<span class="dot">.</span>`,
+  sub:'نفس الشغل بيتكتب مرتين… ومرة منهم غلط.',foot:'swipe',
+  draw(){
+    put(`<div class="wab" style="left:600px;top:170px;transform:rotate(4deg)"><div class="who">أحمد الفني</div><div class="ph">
+      ${[60,112,164,216,268,320].map(t=>`<div class="ln" style="top:${t}px"></div>`).join('')}
+      <div class="hw" style="top:20px">زيارة الحاج سيد ✓</div>
+      <div class="hw" style="top:72px">غيّرت الكمبروسر</div>
+      <div class="hw" style="top:124px">خد ٧٨٠٠ … ولا ٧٣٠٠؟</div>
+      <div class="hw" style="top:176px">الوقت: ٣ ونص</div>
+      <div class="hw" style="top:228px;opacity:.75">العميل عاوز ….</div>
+    </div><div class="meta"><span>٩:١٤ م ✓✓</span><span>صورة</span></div></div>`);
+    put(xl({x:70,y:430,w:640,rot:-2,file:'الزيارات.xlsx',nb:'C4',fx:'7300',cols:['A','B','C'],widths:[230,180,178],
+      rows:[[['العميل','h'],['القطعة','h'],['المبلغ','h']],['مدام هبة','فلتر',['950','num']],['شركة النصر','موتور',['2,200','num']],['الحاج سيد','كمبروسر',['7,300','num sel']]]}));
+    put(`<div class="note" style="left:90px;top:885px;transform:rotate(-3deg)">٧٨٠٠ ولا ٧٣٠٠؟</div>`);
+    arw.innerHTML='<path d="M640 470 C600 520 560 560 520 600"/><path d="M528 580 L520 600 L540 596"/>';
+  }},
+ { // 5 no reminders
+  kick:'علامة ٥ من ٥',l1:'الإكسيل عمره ما هيقولك…',l2:`«العميل ده ${br('محدش')} كلّمه»<span class="dot">.</span>`,
+  sub:'الشيت بيحفظ بس… مبيفكّرش ولا بيفكّرك.',foot:'swipe',
+  draw(){
+    put(xl({x:90,y:186,w:900,rot:1,file:'العملاء.xlsx',nb:'D2',fx:'لسه',fxAr:true,cols:C,widths:[220,180,170,170,108],
+      rows:[[['العميل','h'],['سأل عن','h'],['آخر كلام','h'],['متابعة؟','h'],['','h']],
+            ['رقم مش متسجّل','بكام؟','من ٣ أيام',['لسه','bad sel'],''],
+            ['أ. كريم','صيانة دورية','من أسبوع',['لسه','bad'],''],
+            ['مطعم الفيروز','عرض سعر','من أسبوعين',['لسه','bad'],''],
+            ['د. سامح','تركيب','من شهر',['لسه','bad'],''],
+            ['مصنع الأمل','عقد سنوي','من شهرين',['لسه','bad'],'']]}));
+    put(`<div class="sticky" style="left:700px;top:735px;width:250px;height:190px;transform:rotate(5deg)"><div>ولا خلية فيهم<br>هتصحّيك!</div></div>`);
+  }},
+ { // verdict + CTA
+  kick:'عدّيت كام؟',l1:'٣ أو أكتر؟ شغلك كبر.',l2:`ابعتلنا ${br('الشيت')}<span class="dot">.</span>`,
+  sub:'صوّر أسماء الأعمدة بس (من غير بيانات عملائك)، ونقولك يتحول لسيستم إزاي.',foot:'end',cta:true,
+  draw(){
+    put(`<div class="win score" style="left:120px;top:190px;width:840px">
+      <div class="tb"><span class="lg">X</span><span class="fn">النتيجة.xlsx</span><span class="ctl"><i></i><i></i></span></div>
+      <div class="row"><span class="k">٠–١</span><span class="v"><i style="background:#6BB700"></i>الإكسيل لسه كفاية. كمّل بيه، ومتصرفش فلوس.</span></div>
+      <div class="row"><span class="k">٢–٣</span><span class="v"><i style="background:#FFB900"></i>ابدأ فكّر في سيستم قبل ما الدنيا تكبر.</span></div>
+      <div class="row"><span class="k">٤–٥</span><span class="v"><i style="background:#D13438"></i>شغلك كبر، والإكسيل بقى بيعطّلك.</span></div>
+    </div>`);
+    put(`<div class="note" style="left:150px;top:640px;transform:rotate(-3deg)">وإحنا هنقولك بصراحة<br>لو لسه مش محتاج سيستم.</div>`);
+  }},
+];
+
+const n=Math.max(1,Math.min(SLIDES.length,parseInt(location.hash.slice(1))||1)),S=SLIDES[n-1];
+for(let i=1;i<=SLIDES.length;i++)document.getElementById('count').insertAdjacentHTML('beforeend',`<i class="${i<=n?'on':''}"></i>`);
+document.getElementById('kick').textContent=S.kick;
+document.getElementById('l1').textContent=S.l1;
+document.getElementById('l2').innerHTML=S.l2;
+document.getElementById('sub').textContent=S.sub;
+if(S.cta)document.getElementById('sub').insertAdjacentHTML('afterend',`<div id="cta">${WA}ابعتلنا على الواتساب<span class="num">+20 122 641 2843</span></div>`);
+if(S.cta)document.getElementById('foot').style.display='none';
+document.getElementById('foot').innerHTML=S.foot==='swipe'
+  ?`<span class="wa">${n===1?'عدّ معانا':'عندك دي؟'}</span><span class="swipe">اسحب <span>${LEFT}</span></span>`
+  :`<span class="wa">كلّمنا على <b>الواتساب</b></span><span class="r">logika-eg.pages.dev</span>`;
+S.draw();
+[[0,10,12],[18,0,9],[16,22,7],[34,12,6],[50,4,4]].forEach(([x,y,s])=>document.getElementById('px').insertAdjacentHTML('beforeend',`<i style="left:${x}px;top:${y}px;width:${s}px;height:${s}px;opacity:${(s/12).toFixed(2)}"></i>`));
+document.fonts.ready.then(()=>{
+  let L=1e9,T=1e9,R=-1e9,B=-1e9;
+  [...art.children].forEach(e=>{const r=e.getBoundingClientRect();L=Math.min(L,r.left);T=Math.min(T,r.top);R=Math.max(R,r.right);B=Math.max(B,r.bottom);});
+  const box={l:40,t:178,r:1040,b:950}, sc=Math.min(1.18,(box.r-box.l)/(R-L),(box.b-box.t)/(B-T));
+  const cx=(L+R)/2, cy=(T+B)/2, tx=(box.l+box.r)/2-cx, ty=(box.t+box.b)/2-cy;
+  [art,arw].forEach(e=>{e.style.transformOrigin=`${cx}px ${cy}px`;e.style.transform=`translate(${tx}px,${ty}px) scale(${sc})`;});
+  const h=document.getElementById('l2');let fs=88;while(h.scrollWidth>952&&fs>50){fs-=2;h.style.fontSize=fs+'px';}
+  window.__ready=true;});
+</script>
+</body>
+</html>
