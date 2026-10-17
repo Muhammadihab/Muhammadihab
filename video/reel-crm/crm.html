@@ -17,9 +17,10 @@ body{position:relative;font-family:Plex,sans-serif;color:#fff}
 svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
 /* ---------- world layers ---------- */
-#water{background:linear-gradient(180deg,#0F6273 0%,#0A3F52 35%,#06222F 70%,#020A10 100%)}
+#water{top:-260px;bottom:-260px;background:linear-gradient(180deg,#0F6273 0%,#0A3F52 35%,#06222F 70%,#020A10 100%)}
 #rays i{position:absolute;top:-200px;width:180px;height:1700px;background:linear-gradient(180deg,rgba(150,240,255,.28),transparent 80%);filter:blur(18px);transform-origin:50% 0}
 #bok i{position:absolute;border-radius:50%}
+.rip{position:absolute;display:none;border-radius:50%;border:4px solid rgba(190,245,255,.8);box-shadow:0 0 30px rgba(127,224,245,.5)}
 #bubbles i{position:absolute;border-radius:50%;border:2px solid rgba(190,245,255,.55);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.5),transparent 55%)}
 #bright{background:linear-gradient(rgba(10,36,68,.06) 1px,transparent 1px) 0 0/64px 64px,linear-gradient(90deg,rgba(10,36,68,.06) 1px,transparent 1px) 0 0/64px 64px,radial-gradient(ellipse 60% 45% at 50% 50%,#FFFFFF 0%,#E3F2FA 55%,#CFE6F3 100%)}
 #navy{background:linear-gradient(rgba(0,204,242,.055) 1px,transparent 1px) 0 0/64px 64px,linear-gradient(90deg,rgba(0,204,242,.055) 1px,transparent 1px) 0 0/64px 64px,radial-gradient(ellipse 60% 45% at 50% 50%,#11396A 0%,#0B2A4F 45%,#050E1D 100%)}
@@ -116,7 +117,7 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
 
 /* captions */
 #capBg{display:none!important}
-#cap{position:absolute;left:50px;right:170px;top:1250px;height:230px;display:flex;align-items:center;justify-content:center;direction:rtl;text-align:center;z-index:80}
+#cap{position:absolute;left:0;right:0;top:1250px;height:230px;display:flex;align-items:center;justify-content:center;direction:rtl;text-align:center;z-index:80}
 #cap .ln{font:700 66px Plex;line-height:1.3;color:#fff;white-space:nowrap;padding:16px 34px 22px;border-radius:30px;background:rgba(5,14,29,.78);box-shadow:0 20px 50px rgba(0,0,0,.35);backdrop-filter:blur(6px)}
 .light #cap .ln{color:var(--navy);background:rgba(255,255,255,.9);box-shadow:0 20px 50px rgba(10,36,68,.18)}
 #cap .w{display:inline-block;margin:0 10px;opacity:0}
@@ -131,7 +132,7 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
 /* takeover */
 #tko{position:absolute;inset:0;z-index:94;display:none;align-items:center;justify-content:center;overflow:hidden}
 #tkoT{font:700 600px Plex;line-height:1;white-space:nowrap;direction:rtl}
-#tko.red{background:#1E0508;color:#FF5A4E}#tko.cyan{background:#00CCF2;color:#0A2444}
+#tko.red{background:#1E0508;color:#FF5A4E}#tko.cyan{background:#00CCF2;color:#0A2444}#tko.wa{background:#0B141A;color:#fff}#tko.deep{background:#021219;color:#7FE0F5}#tko.green{background:#E7F8EE;color:#0E700E}
 #tko small{position:absolute;bottom:560px;left:0;right:0;text-align:center;font:700 64px Plex;direction:rtl}
 
 /* end */
@@ -163,12 +164,12 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute"><filter id="glitch" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence id="gT" type="turbulence" baseFrequency="0.00001 0.06" numOctaves="1" seed="1" result="t"/><feDisplacementMap id="gD" in="SourceGraphic" in2="t" scale="0" xChannelSelector="R" yChannelSelector="B"/></filter><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" seed="2"/><feColorMatrix type="saturate" values="0"/></filter></svg>
-<div id="cam" class="full" style="transform-origin:540px 960px"><div id="water" class="full"><div id="rays" class="full"></div><div id="bubbles" class="full"></div></div>
+<div id="cam" class="full" style="transform-origin:540px 960px"><div id="water" class="full"><div id="rays" class="full"></div><svg id="caus" class="full" width="1080" height="1920" style="mix-blend-mode:screen;opacity:.12;-webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.5) 35%,transparent 70%)"><filter id="cf"><feTurbulence id="cT" type="turbulence" baseFrequency=".012 .018" numOctaves="2" seed="4"/><feColorMatrix type="matrix" values="0 0 0 0 .6  0 0 0 0 .95  0 0 0 0 1  0 0 0 -16 3.2"/></filter><rect width="1080" height="1920" filter="url(#cf)"/></svg><div id="bubbles" class="full"></div></div>
 <div id="bright" class="full"><div id="bok" class="full"></div></div>
 <div id="mega" class="full" style="display:flex;align-items:center;justify-content:center;pointer-events:none"><span id="megaT" style="font:700 700px Plex;color:transparent;-webkit-text-stroke:4px rgba(63,214,245,.35);white-space:nowrap;direction:rtl"></span></div>
 <div id="navy" class="full"></div>
 <div id="wal" class="full"><div class="hd"><b>واتساب</b><small>المحادثات · أوضة للأثاث</small></div><div class="list" id="list"></div></div>
-<div id="falling" class="full"></div>
+<div id="falling" class="full"></div><i id="rip0" class="rip"></i><i id="rip1" class="rip"></i><i id="rip2" class="rip"></i>
 <div id="comp"><div class="s"><div class="t"><i>م</i>المنافس</div><div id="compMsgs"></div></div></div>
 <div id="phone"><div id="scr"><div id="isl"></div><div id="sb"><span>٤:٥٢</span><span style="font-family:Sora;direction:ltr">●●● ▮</span></div>
   <div class="app" id="today"><h5>صباح الخير يا كريم</h5><h3>النهارده</h3>
@@ -238,7 +239,7 @@ const CAPS=[
   [b(35),b(37.5),'ولو البيّاع ساب الشغل…'],[b(37.5),b(40),'السيستم يمنعه… وانت تقفل حسابه','يمنعه…'],
   [b(40),b(43),'ومحدش يقدر يسرقهم منك','يسرقهم'],[b(44),b(47),'عاوز سيستم زي ده لشغلك؟','زي'],
 ];
-const TKO=[[b(19.5),b(21),'٤٨,٥٠٠','red','جنيه راحوا لغيرك'],[b(43),b(44),'٥ من ٥','cyan','محاولة سرقة اتمنعت']];
+const TKO=[[b(2.5),b(3.5),'بكام؟','wa','رسالة واحدة… بس مهمة'],[b(13),b(14),'يوم ٣','deep','ومحدش رد'],[b(19.5),b(21),'٤٨,٥٠٠','red','جنيه راحوا لغيرك'],[b(34),b(35),'اتفقنا ✓','green','٤٨,٥٠٠ جنيه رجعوا ليك'],[b(43),b(44),'٥ من ٥','cyan','محاولة سرقة اتمنعت']];
 /* ============================================================================================ */
 const $=id=>document.getElementById(id);
 const cl=(x,a=0,c=1)=>Math.min(c,Math.max(a,x)),P=(t,a,c)=>cl((t-a)/(c-a)),L=(a,c,x)=>a+(c-a)*x;
@@ -284,7 +285,7 @@ sfx(T.sink-.3,'splash',.9);sfx(T.sink,'impact',.4);
 FALL.forEach((f,i)=>sfx(T.sink+.4+i*.42,'blub',.5,(rnd(i+3)-.5)*.8));for(let i=0;i<16;i++)sfx(T.sink+.2+i*.29,'blub',.22,(rnd(i*5)-.5));
 [0,1,2].forEach(j=>{sfx(T.sink+j*1.6,'thud',.35);sfx(T.sink+j*1.6+.05,'roll',.5);});
 sfx(T.comp-.1,'riser',.4);sfx(T.comp+.5,'npop',.5);sfx(T.comp+1.4,'npop',.55);sfx(T.comp+1.42,'impact',.6);sfx(T.comp+2.0,'npop',.55);[0,.6,1.2].forEach(o=>sfx(T.comp+2.4+o,'heart',.8));
-TKO.forEach(k=>{sfx(k[0],'impact',.8);sfx(k[0],'crash',.35);});
+TKO.forEach(k=>{sfx(k[0]-.85,'riser',.4);sfx(k[0],'impact',.8);sfx(k[0],'crash',.35);sfx(k[0]+.02,'npop',.35);});
 sfx(T.split,'scratch',.8);sfx(T.split+.5,'surface',.9);sfx(T.zab-.15,'crash',.55);
 sfx(T.zab+.1,'whoosh_in',.5);[0,1,2].forEach(j=>sfx(T.zab+.6+j*.16,'npop',.55,[-.3,0,.3][j]));
 [0,1,2].forEach(j=>{sfx(T.pipe+.35+j*.5,'swish',.55,(j-1)*.4);sfx(T.pipe+.6+j*.5,'softclick',.7);});sfx(T.pipe+1.6,'npop',.5);
@@ -294,7 +295,7 @@ ATT.forEach((a,i)=>{sfx(T.steal+.3+i*.42,'lock',.65,(i%2?.3:-.3));sfx(T.steal+.3
 for(let i=0;i<5;i++)sfx(T.cta+.05+i*.05,'keytap',.3);sfx(T.cta+.3,'npop',.6);sfx(T.cta+1.1,'npop',.6);
 sfx(T.end,'crash',.6);sfx(T.end+.1,'sting',.75);sfx(T.end+.4,'airLR',.4);sfx(T.end+1.4,'npop',.6);sfx(T.end+2.3,'blink',.4);
 const BED=[[T.sink,T.split,'water']];
-const BEAT={bpm:100,sections:[[0,T.list,'hook'],[T.list,T.sink,'groove'],[T.sink,T.comp,'muffled'],[T.comp,T.comp+2.4,'muffled'],[T.zab,T.sec,'groove'],[T.sec,T.cta,'tension'],[T.cta,T.end,'groove'],[T.end,T.DUR-.4,'end']]};
+const BEAT={bpm:100,sections:[[0,T.list,'hook'],[T.list,T.sink,'groove'],[T.sink,T.comp,'deep'],[T.comp,T.split,'deep'],[T.zab,T.sec,'groove'],[T.sec,T.cta,'tension'],[T.cta,T.end,'groove'],[T.end,T.DUR-.4,'end']]};
 
 /* ---------- hero bubble face ---------- */
 function face(mode,blink=0,look=[0,0]){
@@ -308,7 +309,7 @@ function hero(x,y,s,rot=0,op=1){const h=$('hero');h.style.display=op>0?'block':'
 
 /* ---------- helpers ---------- */
 function caption(t){CAPS.forEach(([a,c],i)=>{const ln=capLines[i];const vis=t>=a&&t<c;ln.style.display=vis?'block':'none';if(!vis)return;
-  if(!ln.dataset.fit){let fs=66;ln.style.fontSize=fs+'px';while(ln.offsetWidth>850&&fs>40){fs-=2;ln.style.fontSize=fs+'px';}ln.dataset.fit=1;}
+  if(!ln.dataset.fit){let fs=66;ln.style.fontSize=fs+'px';while(ln.offsetWidth>820&&fs>40){fs-=2;ln.style.fontSize=fs+'px';}ln.dataset.fit=1;}
   const ws=[...ln.children],per=Math.min(.22,(c-a)*.6/ws.length);
   ws.forEach((w,j)=>{const x=P(t,a+j*per,a+j*per+.22),sp=spring(x,11);w.style.opacity=Math.min(1,x*2.5);w.style.filter=`blur(${(1-x)*10}px)`;
     w.style.transform=`translateY(${(1-sp)*40}px) scale(${L(1.35,1,sp)}) rotate(${(1-x)*(j%2?4:-4)}deg)`;});
@@ -324,7 +325,7 @@ function tap(t,t0,x,y){const p=P(t,t0,t0+.4);if(p<=0||p>=1)return;const r=$('tap
 /* ---------- per frame ---------- */
 function renderFrame(i){
   const t=i/FPS;tnow=t;$('megaT').textContent='';$('cam').style.filter='';
-  $('water').style.opacity=1;$('wal').style.opacity=1;['water','bright','navy','wal','comp','brw','land','split','end','freeze','day','demo','cursor','tapr','stampX'].forEach(id=>$(id).style.display='none');
+  $('water').style.opacity=1;$('wal').style.opacity=1;['rip0','rip1','rip2','water','bright','navy','wal','comp','brw','land','split','end','freeze','day','demo','cursor','tapr','stampX'].forEach(id=>$(id).style.display='none');
   fallEls.forEach(e=>e.style.display='none');$('flash').style.opacity=0;$('bright').style.clipPath='';$('water').style.clipPath='';$('fade').style.opacity=0;
   hero(0,0,1,0,0);phone(0,0,1,0,0);$('cap').style.display='flex';$('capBg').style.display='block';document.body.className='';
   let shake=0;
@@ -348,13 +349,14 @@ function renderFrame(i){
       hero(L(560,540,sp),L(rowY,720,sp),L(.42,1.25,sp)*(1+Math.sin(sp*Math.PI)*.08),L(0,-6,k),Math.min(1,P(t,T.sink-.6,T.sink-.5)*3));face('normal',0,[0,4]);}
     else{$('wal').style.transform='';$('wal').style.opacity=1;me.style.opacity=1;}
   } else if(t<T.comp){ // ===== UNDERWATER: she sinks, the group buries her
-    $('water').style.display='block';const x=P(t,T.sink,T.comp);
+    $('water').style.display='block';const x=P(t,T.sink,T.comp);$('cT').setAttribute('seed',4+Math.floor(t*12)%40);$('cT').setAttribute('baseFrequency',`${(.012+.001*Math.sin(t)).toFixed(4)} ${(.018+.002*Math.cos(t*.7)).toFixed(4)}`);
     $('water').style.filter=`brightness(${L(1,.45,x)})`;
     RAYS.forEach((r,k)=>{r.style.transform=`rotate(${-14+k*4+Math.sin(t*.8+k)*3}deg)`;r.style.opacity=L(.9,.15,x)*(.6+.4*Math.sin(t*1.3+k*2));});
     BUB.forEach((bb,k)=>{const y=1920-((t*bb.v*400+bb.ph*2200)%2200);bb.d.style.left=(bb.x+Math.sin(t*2+k)*20)+'px';bb.d.style.top=y+'px';});
     const sy=L(720,1060,eio(x)),sway=Math.sin(t*1.6)*30;hero(540+sway,sy,1.25,Math.sin(t*1.3)*8);
     face(x<.3?'normal':x<.6?'worried':'sad',(t%3.1>3.0)?1:0,[0,x<.3?-6:10]);$('tear').setAttribute('opacity',x>.7?P(t,T.sink+(T.comp-T.sink)*.7,T.comp)*.9:0);
     $('tear').setAttribute('transform',`translate(0 ${((t*60)%40)})`);
+    let hits=0;fallEls.forEach((f,k)=>{const t0=T.sink+.4+k*.42,land=t0+1.4;if(t>land&&t<land+.45){const r=$('rip'+(k%3));const q=P(t,land,land+.45);r.style.display='block';const w=L(80,520,eo(q));Object.assign(r.style,{left:(540+sway-w/2)+'px',top:(sy-140-w*.18)+'px',width:w+'px',height:(w*.36)+'px',opacity:(1-q)*.8});hits++;}});
     fallEls.forEach((f,k)=>{const t0=T.sink+.4+k*.42,y=P(t,t0,t0+1.4);if(y<=0)return;f.style.display='block';
       const lx=200+((k*263)%620);f.style.left=(lx-120)+'px';f.style.top=(L(-150,sy-230-((k%3)*55),eo(Math.min(1,y)))+(y>=1?Math.sin(t*1.5+k)*8:0))+'px';
       f.style.transform=`rotate(${(rnd(k)-.5)*30}deg)`;f.style.opacity=L(1,.8,x);});
@@ -448,10 +450,11 @@ function renderFrame(i){
   // ---- camera: drift, beat punch-ins, whip at every cut, shocks
   const cuts=[T.list,T.sink,T.comp,T.split,T.zab,T.pipe,T.fol,T.sec,T.steal,T.cta,T.end];
   let whip=0,dir=1;cuts.forEach((c,k)=>{const d=t-c;if(Math.abs(d)<.13){whip=1-Math.abs(d)/.13;dir=(k%2?1:-1)*(d<0?1:-1);}});
-  const groove=(t>T.list&&t<T.sink)||(t>T.zab&&t<T.sec)||(t>T.cta&&t<T.DUR);const beatPh=(t%BT)/BT;const punch=groove?Math.exp(-beatPh*7)*.022:0;
+  const groove=t<T.end;const beatPh=(t%BT)/BT;const deep=t>T.sink&&t<T.split;const punch=groove?Math.exp(-beatPh*7)*(deep?.014:.024):0;
+  const sinkY=t>T.sink&&t<T.comp?-L(0,120,eio(P(t,T.sink,T.comp))):0;
   const dz=t<T.end?1:0;const cs=1.03+.012*Math.sin(t*.9)*dz+punch;
   const shock=(t>T.comp+1.4&&t<T.comp+1.75)||(t>T.sec+.9&&t<T.sec+1.15)||TKO.some(k=>t>=k[0]&&t<k[0]+.2);
-  $('cam').style.transform=`translate(${Math.sin(t*.6)*12*dz+whip*dir*170}px,${Math.cos(t*.5)*10*dz}px) scale(${cs}) rotate(${Math.sin(t*.7)*.5*dz}deg)`;
+  $('cam').style.transform=`translate(${Math.sin(t*.6)*12*dz+whip*dir*170}px,${Math.cos(t*.5)*10*dz+sinkY}px) scale(${cs}) rotate(${Math.sin(t*.7)*.5*dz}deg)`;
   let f='';if(shock){f+='url(#glitch) ';$('gD').setAttribute('scale',(40+rnd(i)*40).toFixed(0));$('gT').setAttribute('seed',i%97+1);f+='drop-shadow(10px 0 rgba(255,0,80,.55)) drop-shadow(-10px 0 rgba(0,220,255,.55)) ';shake=Math.max(shake,10);}
   if(whip>.05)f+=`blur(${(whip*16).toFixed(1)}px)`;$('cam').style.filter=f;
   caption(t);

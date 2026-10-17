@@ -350,6 +350,10 @@ def drum_track(beat, Ltot):
             elif style == 'muffled':
                 if p == 0: put(fft_band(K, 0, 260), t, 1.0)
                 if p == 8: put(fft_band(K, 0, 260), t, .6)
+            elif style == 'deep':
+                if p in (0, 7, 10): put(fft_band(K, 0, 240), t, 1.0)
+                if p in (4, 12): put(fft_band(C, 0, 900), t, .9)
+                if p % 2 == 0: put(fft_band(SH, 0, 1800), t, .5, -.2)
             elif style == 'groove':
                 if p in (0, 7, 10): put(K, t, .85)
                 if p in (4, 12): put(C, t, .55)
