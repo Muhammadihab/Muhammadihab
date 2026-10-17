@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<title>بوست ٩ · لوحة العملية</title>
+<style>
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2);font-weight:400}
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2);font-weight:600}
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:Marker;src:url(fonts/marhey-arabic-600-normal.woff2);font-weight:600}
+@font-face{font-family:Marker;src:url(fonts/marhey-arabic-700-normal.woff2);font-weight:700}
+@font-face{font-family:Ruqaa;src:url(fonts/aref-ruqaa-arabic-700-normal.woff2);font-weight:700}
+@font-face{font-family:Typewriter;src:url(fonts/special-elite-latin-400-normal.woff2)}
+:root{--navy:#0A2444;--navy2:#0B335F;--cyan:#00CCF2;--orange:#F56A39;--ink:#13294B}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden;background:#06152B}
+body{position:relative;font-family:Plex,'Noto Color Emoji',sans-serif;color:#fff}
+.abs{position:absolute}
+.full{position:absolute;inset:0}
+
+/* ---------- the wall ---------- */
+#blueprint{background:
+  linear-gradient(rgba(127,216,240,.13) 1.5px,transparent 1.5px) 0 0/150px 150px,
+  linear-gradient(90deg,rgba(127,216,240,.13) 1.5px,transparent 1.5px) 0 0/150px 150px,
+  linear-gradient(rgba(127,216,240,.055) 1px,transparent 1px) 0 0/30px 30px,
+  linear-gradient(90deg,rgba(127,216,240,.055) 1px,transparent 1px) 0 0/30px 30px,
+  radial-gradient(ellipse at 50% 60%,#0D2F57 0%,#0A2444 55%,#071A33 100%)}
+#topfade{background:linear-gradient(180deg,rgba(4,13,28,.92) 0%,rgba(4,13,28,.75) 17%,rgba(4,13,28,0) 30%)}
+#lamp{background:radial-gradient(ellipse 70% 60% at 8% 100%,rgba(255,172,96,.26),transparent 60%);mix-blend-mode:screen}
+#rim{background:radial-gradient(ellipse 40% 70% at 104% 55%,rgba(0,204,242,.22),transparent 60%);mix-blend-mode:screen}
+#vig{background:radial-gradient(ellipse 80% 75% at 50% 58%,transparent 55%,rgba(0,0,0,.62) 100%)}
+#grain{filter:url(#noise);opacity:.16;mix-blend-mode:overlay}
+
+/* ---------- paper ---------- */
+.paper{position:absolute;box-shadow:0 2px 2px rgba(0,0,0,.25),0 18px 28px rgba(0,0,0,.45),0 40px 60px rgba(0,0,0,.25);transform-origin:50% 0}
+.paper::after{content:"";position:absolute;inset:0;filter:url(#paperTex);opacity:.35;mix-blend-mode:multiply;pointer-events:none}
+.tape{position:absolute;height:34px;background:rgba(232,220,190,.78);box-shadow:0 2px 4px rgba(0,0,0,.18);
+  clip-path:polygon(2% 0,98% 6%,100% 30%,97% 55%,100% 100%,3% 94%,0 70%,2% 40%);z-index:3}
+.pin{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;z-index:4;
+  background:radial-gradient(circle at 35% 30%,#FFD2BE 0 12%,#F56A39 34%,#B8401C 100%);box-shadow:3px 6px 6px rgba(0,0,0,.55)}
+.card{direction:rtl;color:var(--ink);padding:26px 26px 22px}
+.card .n{font:700 64px Marker;line-height:.9;color:var(--navy)}
+.card .t{font:700 29px Marker;line-height:1.32;margin-top:8px;white-space:nowrap}
+.index{background:#F3ECDC;background-image:linear-gradient(rgba(70,120,190,.32) 1.5px,transparent 1.5px);background-size:100% 40px;background-position:0 56px}
+.index::before{content:"";position:absolute;top:0;bottom:0;right:44px;width:2px;background:rgba(210,70,70,.45)}
+.ruled{background:#F7F4EC;background-image:linear-gradient(rgba(70,120,190,.28) 1.5px,transparent 1.5px);background-size:100% 38px;background-position:0 30px}
+.kraft{background:#C79D66;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:6px 6px}
+.cream{background:#EFE6D2}
+
+/* ---------- polaroid ---------- */
+#polaroid{left:362px;top:520px;width:356px;height:430px;background:#F5F2EA;padding:18px 18px 0;transform:rotate(-2.5deg)}
+#photo{width:320px;height:340px;background:#0A1B33;overflow:hidden;position:relative;display:flex;justify-content:center;align-items:flex-end}
+#phone{width:216px;height:330px;border-radius:30px 30px 0 0;background:#0A2444;border:7px solid #1B2433;border-bottom:none;position:relative;overflow:hidden;direction:rtl;padding:18px 16px 0}
+#phone .sb{display:flex;justify-content:space-between;font:600 11px Sora;color:rgba(255,255,255,.6);direction:ltr}
+#phone .lk{width:62px;height:62px;border-radius:50%;margin:16px auto 8px;background:rgba(0,204,242,.14);border:2px solid #00CCF2;display:flex;align-items:center;justify-content:center;color:#3FD6F5}
+#phone h4{font:700 23px Plex;text-align:center}
+#phone .sub{font:400 11px Plex;text-align:center;color:rgba(255,255,255,.55);margin-top:2px}
+#phone .f{height:30px;border-radius:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);margin-top:10px;font:400 12px Plex;color:rgba(255,255,255,.5);display:flex;align-items:center;padding:0 10px}
+#phone .btn{height:32px;border-radius:9px;background:#00CCF2;color:#06223F;font:700 14px Plex;display:flex;align-items:center;justify-content:center;margin-top:12px}
+#phone .bad{margin-top:9px;font:600 11px Plex;color:#FF8577;text-align:center}
+#gloss{position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 38%,rgba(255,255,255,0) 70%,rgba(255,255,255,.08) 100%)}
+#caption{font:700 26px Marker;color:#24324D;text-align:center;direction:rtl;margin-top:16px}
+
+/* ---------- stamp ---------- */
+#stamp{left:292px;top:782px;width:496px;padding:14px 20px 12px;transform:rotate(-12deg);border:6px solid var(--orange);outline:3px solid var(--orange);outline-offset:6px;border-radius:12px;
+  color:var(--orange);text-align:center;direction:rtl;filter:url(#ink);z-index:6;background:rgba(245,106,57,.04)}
+#stamp b{display:block;font:700 76px Plex;line-height:1.05;letter-spacing:1px}
+#stamp span{display:block;font:700 34px Plex;margin-top:6px}
+
+/* ---------- report ---------- */
+#report{left:398px;top:996px;width:290px;height:214px;transform:rotate(1.6deg);padding:20px 22px;direction:rtl;color:#2A2A2A}
+#report .h{font:700 20px Plex;border-bottom:2px solid rgba(0,0,0,.6);padding-bottom:6px;margin-bottom:8px;display:flex;justify-content:space-between}
+#report .h em{font:400 17px Typewriter;font-style:normal;direction:ltr}
+#report .r{display:flex;justify-content:space-between;font:600 20px Plex;line-height:1.5}
+#report .r i{font:400 20px Typewriter;font-style:normal;direction:ltr}
+#report .z{position:relative}
+#report .z::after{content:"";position:absolute;left:-16px;top:-6px;width:44px;height:38px;border:3.5px solid #1D4ED8;border-radius:50%;transform:rotate(-10deg);opacity:.85}
+#zeroOld{position:absolute;left:12px;top:118px;width:76px;height:44px;border:3.5px solid #1D4ED8;border-radius:50%;transform:rotate(-8deg);opacity:.85}
+
+/* ---------- sticky ---------- */
+#sticky{left:52px;top:378px;width:228px;height:200px;background:linear-gradient(170deg,#AEEFFA 0%,#8FE3F3 100%);transform:rotate(-4deg);
+  display:flex;align-items:center;justify-content:center;text-align:center;direction:rtl;font:700 52px Ruqaa;color:var(--ink);line-height:1.25;
+  box-shadow:0 2px 2px rgba(0,0,0,.2),0 22px 26px rgba(0,0,0,.45);border-bottom-left-radius:28px 8px}
+
+/* ---------- header ---------- */
+#logo{left:40px;top:34px;width:178px}
+#tag{right:52px;top:46px;padding:10px 30px;border:2.5px solid var(--cyan);border-radius:999px;font:700 30px Plex;color:#3FD6F5;direction:rtl;background:rgba(6,21,43,.4)}
+#headline{right:52px;top:120px;text-align:right;direction:rtl;line-height:1.22;text-shadow:0 6px 28px rgba(0,0,0,.6)}
+#headline .l1{font:700 64px Plex;color:#E8EEF7}
+#headline .l2{font:700 84px Plex;color:#fff}
+#headline .br{font:700 84px Sora;color:var(--cyan);text-shadow:0 0 24px rgba(0,204,242,.55)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  <filter id="paperTex"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="4" seed="4"/><feColorMatrix type="matrix" values="0 0 0 0 .55  0 0 0 0 .5  0 0 0 0 .42  0 0 0 .55 0"/></filter>
+  <filter id="ink" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.5 1.55" result="holes"/>
+    <feComposite in="SourceGraphic" in2="holes" operator="in" result="inked"/>
+    <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="3" result="w"/>
+    <feDisplacementMap in="inked" in2="w" scale="3.5"/>
+  </filter>
+  <filter id="strShadow" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur in="SourceAlpha" stdDeviation="2.4"/><feOffset dx="5" dy="9"/><feComponentTransfer><feFuncA type="linear" slope=".55"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</svg>
+
+<!-- wall -->
+<div id="blueprint" class="full"></div>
+<svg class="full" width="1080" height="1350" style="opacity:.42" fill="none" stroke="#7FD8F0" stroke-width="1.6" stroke-linecap="round">
+  <!-- wireframe phones and annotations sketched on the blueprint -->
+  <g transform="translate(110 610) rotate(-6)"><rect width="150" height="290" rx="22"/><rect x="14" y="40" width="122" height="20" rx="5"/><rect x="14" y="74" width="122" height="70" rx="8"/><path d="M14 162h122M14 182h90M14 202h110"/><circle cx="75" cy="268" r="9"/></g>
+  <g transform="translate(830 590) rotate(5)"><rect width="150" height="290" rx="22"/><circle cx="75" cy="90" r="30"/><rect x="18" y="140" width="114" height="22" rx="6"/><rect x="18" y="172" width="114" height="22" rx="6"/><rect x="34" y="212" width="82" height="24" rx="12"/></g>
+  <g transform="translate(450 1215)"><rect width="190" height="120" rx="14"/><path d="M20 30h150M20 55h110M20 80h130"/></g>
+  <path d="M120 980 C240 1060 330 1040 400 990" stroke-dasharray="7 8"/><path d="M392 984l12 4-6 11"/>
+  <path d="M960 990 C860 1070 760 1050 690 1000" stroke-dasharray="7 8"/><path d="M698 994l-12 4 6 11"/>
+  <path d="M80 360h300M80 352v16M380 352v16" /><path d="M700 360h300M700 352v16M1000 352v16"/>
+  <circle cx="540" cy="1290" r="40"/><path d="M500 1290h80M540 1250v80"/>
+  <path d="M60 1180l60-60 40 40 70-80" /><path d="M1020 470l-40 40 30 30-50 50"/>
+</svg>
+<!-- coffee ring -->
+<svg class="abs" style="left:860px;top:1180px;opacity:.5" width="190" height="150"><ellipse cx="95" cy="75" rx="78" ry="60" fill="none" stroke="rgba(150,105,60,.55)" stroke-width="7" style="filter:blur(1.5px)"/><ellipse cx="95" cy="75" rx="70" ry="53" fill="none" stroke="rgba(150,105,60,.25)" stroke-width="3"/></svg>
+
+<!-- cards (outside the braces) -->
+<div class="paper card index" style="left:808px;top:388px;width:240px;height:210px;transform:rotate(3deg)"><div class="tape" style="left:70px;top:-16px;width:100px;transform:rotate(-4deg)"></div><div class="n">١</div><div class="t">نرسم خريطة<br>التطبيق</div></div>
+<div class="paper card kraft" style="left:836px;top:704px;width:222px;height:230px;transform:rotate(-2.5deg)"><div class="tape" style="left:60px;top:-16px;width:100px;transform:rotate(3deg)"></div><div class="n">٢</div><div class="t">نجرّب ندخل<br>من غير إذن</div></div>
+<div class="paper card ruled" style="left:796px;top:1004px;width:254px;height:250px;transform:rotate(2deg)"><div class="tape" style="left:76px;top:-16px;width:104px;transform:rotate(-2deg)"></div><div class="n">٣</div><div class="t">نحاول نشوف<br>بيانات<br>مش بتاعتنا</div></div>
+<div class="paper card cream" style="left:18px;top:1000px;width:282px;height:246px;transform:rotate(-3deg)"><div class="tape" style="left:80px;top:-16px;width:104px;transform:rotate(4deg)"></div><div class="n">٤</div><div class="t">ندوّر على<br>باسوردات منسية<br>في الكود</div></div>
+<div class="paper card index" style="left:22px;top:700px;width:232px;height:236px;transform:rotate(2.5deg)"><div class="tape" style="left:66px;top:-16px;width:100px;transform:rotate(-3deg)"></div><div class="n">٥</div><div class="t">نقفل كل ثغرة…<br>ونسرقه تاني</div></div>
+
+<!-- sticky -->
+<div id="sticky" class="abs">الحرامي؟<br>إحنا.</div>
+
+<!-- center polaroid -->
+<div id="polaroid" class="paper">
+  <div class="tape" style="left:118px;top:-18px;width:120px;transform:rotate(-3deg)"></div>
+  <div id="photo">
+    <div id="phone">
+      <div class="sb"><span>9:41</span><span>●●● 100%</span></div>
+      <div class="lk"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+      <h4>جرّب تسرقني</h4>
+      <div class="sub">تطبيق تجريبي من Logika</div>
+      <div class="f">البريد الإلكتروني</div>
+      <div class="f" style="letter-spacing:3px">••••••••</div>
+      <div class="btn">دخول</div>
+      <div class="bad">✗ محاولة مرفوضة</div>
+    </div>
+    <div id="gloss"></div>
+  </div>
+  
+</div>
+
+<!-- typed report -->
+<div id="report" class="paper cream">
+  <div class="tape" style="left:96px;top:-16px;width:96px;transform:rotate(2deg)"></div>
+  <div class="h">تقرير العملية <em>LOGIKA-09</em></div>
+  <div class="r">المحاولات <i>5</i></div>
+  <div class="r">الاختراقات <i class="z">0</i></div>
+  <div class="r">الحالة <span>مقفولة ✓</span></div>
+  
+</div>
+
+<!-- the orange string: one thread wound round the pins, drawing { } around the polaroid -->
+<svg class="full" width="1080" height="1350" style="z-index:5;pointer-events:none;filter:url(#strShadow)">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path id="str" d="M352 446 L300 474 L300 772 L248 812 L300 852 L300 1150 L352 1180  M728 446 L780 474 L780 772 L832 812 L780 852 L780 1150 L728 1180" stroke="#F56A39" stroke-width="7"/>
+    <path d="M352 446 L300 474 L300 772 L248 812 L300 852 L300 1150 L352 1180  M728 446 L780 474 L780 772 L832 812 L780 852 L780 1150 L728 1180" stroke="#FFB08F" stroke-width="2.4" stroke-dasharray="3 5" opacity=".75"/>
+  </g>
+</svg>
+<div style="z-index:6" class="full" id="pins"></div>
+
+<!-- light, grain, header -->
+<div id="lamp" class="full"></div>
+<div id="rim" class="full"></div>
+<div id="vig" class="full"></div>
+<div id="topfade" class="full"></div>
+<div id="grain" class="full"></div>
+
+<img id="logo" class="abs" src="brand/logo-on-dark.png">
+<div id="tag" class="abs">من سلسلة سرقناه</div>
+<div id="headline" class="abs">
+  <div class="l1">قبل ما نسلّمك تطبيقك…</div>
+  <div class="l2"><span class="br">{</span>بنسرقه<span class="br">}</span> إحنا الأول.</div>
+</div>
+
+<!-- stamp on top of the photo -->
+<div id="stamp" class="abs"><b>فشلت العملية</b><span>✓ التطبيق جاهز يتسلّم</span></div>
+
+<script>
+// pins at every turn of the string
+const P=[[352,446],[300,474],[300,772],[248,812],[300,852],[300,1150],[352,1180],[728,446],[780,474],[780,772],[832,812],[780,852],[780,1150],[728,1180]];
+const host=document.getElementById('pins');
+P.forEach(([x,y])=>{const d=document.createElement('div');d.className='pin';d.style.left=x+'px';d.style.top=y+'px';host.appendChild(d);});
+document.fonts.ready.then(()=>{window.__ready=true;});
+</script>
+</body>
+</html>
