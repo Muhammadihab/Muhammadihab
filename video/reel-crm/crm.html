@@ -185,7 +185,7 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
     <div style="display:flex;justify-content:space-between;font:700 30px Plex"><span id="stealN">اتمنع ٠ من ٥</span><span style="color:#AFC1D8;font-weight:400">كل محاولة بتتسجّل</span></div><div id="prog"><i id="progI"></i></div><div id="atts"></div></div>
   <div class="tabbar" id="tabs"><span>النهارده</span><span>العملاء</span><span>مسار البيع</span><span>المتابعات</span><span>جرّب تسرقني</span></div>
 </div></div>
-<div id="brw"><div class="bar"><i></i><i></i><i></i><span>zaboon.logika.dev/activity</span></div>
+<div id="brw"><div class="bar"><i></i><i></i><i></i><span>crm-demo.logika.dev/activity</span></div>
   <div class="in"><div style="font:400 26px Plex;color:#5A6F8C">كل حاجة بتحصل في السيستم بالدقيقة</div><div style="font:700 56px Plex">مين عمل إيه</div>
     <table id="act"></table>
     <div id="alertC"><b>سامح حاول يصدّر كل العملاء</b><p>النهارده ٤:١٠ م من موبايله. السيستم منع التصدير لأنه مش من صلاحياته.</p><span id="lockBtn">اقفل حسابه</span></div></div>
@@ -195,8 +195,8 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
     <span style="width:96px;height:96px;border-radius:50%;background:#0A2444;display:flex;align-items:center;justify-content:center;font:700 40px Sora;color:#3FD6F5">{ }</span>
     <div><div style="font:700 42px Sora;color:#0A2444;direction:ltr;text-align:right">Logika</div><div style="font:400 28px Plex;color:#5A6F8C">حساب تجاري · بيرد في نفس اليوم</div></div></div>
   <div style="flex:1;padding:40px 34px;display:flex;flex-direction:column;justify-content:flex-end" id="lgChat">
-    <div class="wamsg" id="lg1" style="background:#D9FDD3;margin-right:auto;font-size:38px;color:#111B21">عاوز سيستم عملاء زي ده لمحلي 👀<em>٥:١٠ م ✓✓</em></div>
-    <div class="wamsg" id="lg2" style="background:#fff;margin-left:auto;font-size:38px;color:#111B21">أكيد! احكيلنا بتبيع إيه، والعملاء بيجولك منين… ونقولك السيستم هيبقى شكله إيه 🙌<em>٥:١١ م</em></div></div>
+    <div class="wamsg" id="lg1" style="background:#D9FDD3;margin-right:auto;font-size:46px;color:#111B21">عاوز سيستم عملاء زي ده لمحلي 👀<em>٥:١٠ م ✓✓</em></div>
+    <div class="wamsg" id="lg2" style="background:#fff;margin-left:auto;font-size:46px;color:#111B21">أكيد! احكيلنا بتبيع إيه، والعملاء بيجولك منين… ونقولك السيستم هيبقى شكله إيه 🙌<em>٥:١١ م</em></div></div>
   <div style="padding:26px 30px;background:#fff;display:flex;gap:18px;align-items:center"><span style="flex:1;height:90px;border-radius:45px;background:#F0F2F5;font:400 32px Plex;color:#667781;display:flex;align-items:center;padding:0 36px">اكتب رسالة</span>
     <span id="landBtn" style="height:90px;padding:0 40px;border-radius:45px;background:var(--wa);color:#fff;font:700 32px Plex;display:flex;align-items:center">ابعت</span></div></div></div>
 <div id="hero"><svg class="b" viewBox="0 0 520 330"><path d="M60 20 h400 a40 40 0 0 1 40 40 v170 a40 40 0 0 1 -40 40 H120 l-70 40 18 -46 A40 40 0 0 1 20 230 V60 A40 40 0 0 1 60 20z" fill="#fff" stroke="rgba(0,0,0,.08)" stroke-width="3"/>
@@ -319,6 +319,9 @@ function showApp(id){['today','pipe','fol','steal'].forEach(a=>$(a).style.displa
 let tnow=0;
 function phone(x,y,s,ry=0,op=1,dark=false){const p=$('phone');p.style.display=op>0?'block':'none';p.className=dark?'dark':'';
   p.style.transform=`perspective(2400px) translate(${x}px,${y}px) scale(${s}) rotateY(${ry+Math.sin(tnow*.7)*6}deg) rotateX(${Math.sin(tnow*.9)*3}deg)`;p.style.opacity=op;}
+function loc(el){let x=0,y=0;while(el&&el.id!=='phone'){x+=el.offsetLeft;y+=el.offsetTop;el=el.offsetParent;}return [x+el.clientLeft,y];}
+function phoneOn(el,s,fy,ry=0,op=1,dark=false){$('phone').style.display='block';const [lx,ly]=loc(el),dy=ly+el.offsetHeight/2-720;phone(0,fy-1140-s*dy,s,ry,op,dark);}
+function onScreen(el){const r=el.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2];}
 function cursorAt(x,y,show=true){const c=$('cursor');c.style.display=show?'block':'none';c.style.left=x+'px';c.style.top=y+'px';}
 function tap(t,t0,x,y){const p=P(t,t0,t0+.4);if(p<=0||p>=1)return;const r=$('tapr');r.style.display='block';r.style.left=(x-55)+'px';r.style.top=(y-55)+'px';r.style.transform=`scale(${L(.3,1.6,eo(p))})`;r.style.opacity=1-p;}
 
@@ -367,10 +370,10 @@ function renderFrame(i){
     $('water').style.display='block';$('water').style.filter='brightness(.3)';$('cap').style.filter='';
     BUB.forEach((bb,k)=>{const y=1920-((t*bb.v*300+bb.ph*2200)%2200);bb.d.style.left=bb.x+'px';bb.d.style.top=y+'px';});
     RAYS.forEach(r=>r.style.opacity=.1);
-    const c=$('comp');c.style.display='block';const x=spring(P(t,T.comp,T.comp+.6),7);c.style.transform=`translateY(${(1-x)*500}px) scale(${L(.7,1,x)})`;c.style.opacity=Math.min(1,x*2);
+    const c=$('comp');c.style.display='block';const x=spring(P(t,T.comp,T.comp+.6),7);c.style.transform=`translateY(${-150+(1-x)*500}px) scale(${L(1.2,1.7,x)})`;c.style.opacity=Math.min(1,x*2);
     const ms=[['عندكم أوضة نوم كاملة؟','in',.5],['تمام، هاخدها 👍','in',1.4],['تحت أمرك يا فندم 🙏 العربية جاية بكرة','out',2.0]];
     $('compMsgs').innerHTML=ms.filter(m=>t>T.comp+m[2]).map(([m,k])=>`<div class="wamsg" style="background:${k==='in'?'#005C4B':'#202C33'};color:#E9EDEF;${k==='in'?'margin-right:auto':'margin-left:auto'}">${m}<em>٤:٠${k==='in'?'١':'٢'} م</em></div>`).join('');
-    hero(250,560,.8,-10);face(t>T.comp+1.4?'shock':'sad',0,[18,8]);$('tear').setAttribute('opacity',t>T.comp+2?.9:0);
+    hero(210,250,.55,-10);face(t>T.comp+1.4?'shock':'sad',0,[18,8]);$('tear').setAttribute('opacity',t>T.comp+2?.9:0);
   } else if(t<T.zab){ // ===== SPLIT: another universe
     const x=P(t,T.split,T.zab),open=eio(P(t,T.split+.9,T.zab));
     $('water').style.display='block';$('water').style.filter='brightness(.4)';$('bright').style.display='block';
@@ -381,22 +384,22 @@ function renderFrame(i){
     document.body.className=open>.5?'light':'';
     // right half: phone with zaboon arriving
     phone(L(270,0,open),0,L(.7,.92,open),L(-14,0,open),Math.min(1,P(t,T.split+.3,T.split+.6)));showApp('today');
-    ['nw0','nw1','nw2'].forEach(id=>$(id).style.display='none');
+    ['nw0','nw1','nw2'].forEach(id=>$(id).style.visibility='hidden');
   } else if(t<T.sec){ // ===== ZABOON: lead card → pipeline → follow-up → closed
     document.body.className='light';$('bright').style.display='block';$('bright').style.clipPath='';$('demo').style.display='block';
-    if(t<T.pipe){showApp('today');phone(0,-110,.86);
+    if(t<T.pipe){showApp('today');phoneOn($('newList'),1.3,820);
       const x=P(t,T.zab,T.zab+.6);hero(L(-150,540,eio(x)),L(1100,1000,x),L(.9,.5,x),L(20,0,x),1-P(t,T.zab+.55,T.zab+.68));face('happy');
-      ['nw0','nw1','nw2'].forEach((id,k)=>{const e=$(id);const q=P(t,T.zab+.7+k*.28,T.zab+.98+k*.28);e.style.display=q>0?'block':'none';e.style.transform=`scale(${L(.6,1,spring(q,10))})`;e.style.opacity=Math.min(1,q*3);
+      ['nw0','nw1','nw2'].forEach((id,k)=>{const e=$(id);const q=P(t,T.zab+.7+k*.28,T.zab+.98+k*.28);e.style.visibility=q>0?'visible':'hidden';e.style.transform=`scale(${L(.6,1,spring(q,10))})`;e.style.opacity=Math.min(1,q*3);
         e.style.borderColor=k===0?'var(--cyan)':'';e.style.borderWidth=k===0?'2.5px':'';});
       if(t>T.zab+.6&&t<T.zab+.8)$('flash').style.opacity=.3;
-    } else if(t<T.fol){showApp('pipe');phone(0,-110,.86);
+    } else if(t<T.fol){showApp('pipe');phoneOn($('kan'),1.32,1000);
       const steps=[T.pipe+.4,T.pipe+.95,T.pipe+1.5];let col=0,prog=0;steps.forEach((s,k)=>{if(t>=s){col=k+1;}});
       const s0=steps[col-1]||0,mv=col?eio(P(t,s0,s0+.3)):0;const from=Math.max(0,col-1),to=col;
       const colX=c=>1264-(c+1)*300-c*16+12;
       const hc=$('hcard');hc.style.left=L(colX(from),colX(to),mv)+'px';hc.style.top=(196-Math.sin(mv*Math.PI)*60)+'px';hc.style.transform=`rotate(${Math.sin(mv*Math.PI)*-6}deg) scale(${1+Math.sin(mv*Math.PI)*.08})`;
       $('kan').style.transform=`translateX(${L(0,650,eio(P(t,T.pipe+.3,T.fol-.15)))}px)`;
-    } else {showApp('fol');phone(0,-110,.86);
-      const sx=540+(-0)*1,bt=$('sendBtn');tap(t,T.fol+.6,700,1440);
+    } else {showApp('fol');const fk=eio(P(t,T.fol+.7,T.fol+1.3));phoneOn($('sendBtn'),1.3,L(760,560,fk));
+      const [bx,by]=onScreen($('sendBtn'));tap(t,T.fol+.6,bx,by);
       const th=$('waThread');th.innerHTML=(t>T.fol+.9?`<div class="wamsg" style="background:#D9FDD3;margin-right:auto">أهلًا يا أستاذة هدى 👋 الأوضة لسه موجودة<em>٥:٠٠ م ✓✓</em></div>`:'')+(t>T.fol+1.25?`<div class="wamsg" style="background:#fff;border:1.5px solid #DCE7F1;margin-left:auto">تمام، اتفقنا 👍 ابعتلي العنوان<em>٥:٠٣ م</em></div>`:'');
       if(t>T.fol+1.45){const q=spring(P(t,T.fol+1.45,T.fol+1.8),9);th.insertAdjacentHTML('beforeend',`<div style="display:inline-flex;gap:12px;align-items:center;padding:14px 26px;border-radius:999px;background:#E7F8EE;color:#0E700E;font:700 30px Plex;transform:scale(${L(.3,1,q)})">✓ اتفقنا · ٤٨,٥٠٠ ج</div>`);}
     }
@@ -408,7 +411,7 @@ function renderFrame(i){
       if(t>T.sec+.9){const s=$('stampX');s.style.display='block';s.style.left='40px';s.style.top='215px';const k=P(t,T.sec+.9,T.sec+1.05);s.style.transform=`rotate(-12deg) scale(${L(2.4,1,eo(k))})`;s.style.opacity=k;if(t<T.sec+1.1)shake=12;}
       const cx=L(860,640,eio(P(t,T.sec+1.2,T.sec+1.85))),cy=L(1350,1150,eio(P(t,T.sec+1.2,T.sec+1.85)));cursorAt(cx,cy,t>T.sec+1.2);tap(t,T.sec+1.9,cx+10,cy+10);
       if(t>T.sec+1.95){$('lockBtn').textContent='اتقفل ✓ · خرج من كل الأجهزة';$('lockBtn').style.background='#0E700E';}else{$('lockBtn').textContent='اقفل حسابه';$('lockBtn').style.background='';}
-    } else {phone(0,-110,.86,0,1,true);showApp('steal');document.body.className='light';
+    } else {showApp('steal');phoneOn($('atts'),1.28,820,0,1,true);document.body.className='light';
       let n=0;ATT.forEach((a,k)=>{const e=$('at'+k);const done=t>T.steal+.3+k*.42;if(done)n++;const q=P(t,T.steal+.3+k*.42,T.steal+.5+k*.42);
         e.querySelector('.st').textContent=done?'اتمنعت ✓':'جرّب';e.querySelector('.st').style.background=done?'#1F7A4D':'var(--orange)';
         e.querySelector('.ic').textContent=done?'✓':'!';e.querySelector('.ic').style.background=done?'rgba(78,214,154,.18)':'rgba(245,106,57,.15)';e.querySelector('.ic').style.color=done?'#4ED69A':'var(--orange)';
@@ -417,7 +420,7 @@ function renderFrame(i){
   } else if(t<T.end){ // ===== CTA: the button on the real landing page
     document.body.className='light';$('bright').style.display='block';$('demo').style.display='block';
     const B=$('land');B.style.display='block';
-    const x=spring(P(t,T.cta,T.cta+.45),8);B.style.transform=`scale(${L(.85,1,x)})`;B.style.opacity=Math.min(1,x*2);
+    const x=spring(P(t,T.cta,T.cta+.45),8);B.style.transform=`scale(${L(.85,1.06,x)})`;B.style.opacity=Math.min(1,x*2);
     const m1=spring(P(t,T.cta+.3,T.cta+.6),10),m2=spring(P(t,T.cta+1.1,T.cta+1.4),10);$('lg1').style.opacity=Math.min(1,m1*3);$('lg1').style.transform=`scale(${L(.6,1,m1)})`;$('lg1').style.transformOrigin='left bottom';
     $('lg2').style.opacity=Math.min(1,m2*3);$('lg2').style.transform=`scale(${L(.6,1,m2)})`;$('lg2').style.transformOrigin='right bottom';
     const lb=document.getElementById('landBtn');lb.style.transform=`scale(${t>T.cta+.15&&t<T.cta+.3?.92:1})`;tap(t,T.cta+.15,880,1150);

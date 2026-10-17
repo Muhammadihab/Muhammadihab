@@ -487,7 +487,8 @@ function renderFrame(i){
       $('shackle').setAttribute('d',t>T.sec+1.6?'M8 11V8a4 4 0 0 1 8 0v3':'M8 11V6a4 4 0 0 1 8 0');}
     const c=cam(t);ring(t,T.sec+1.6,540+c[1],1110+c[0]*(220-1110)+c[2],700,.6);ring(t,T.sec+1.45,540+c[1],1110+c[2],1250,.8);
     ['sc1','sc2','sc3'].forEach((id,j)=>{const q=P(t,T.sec+1.7+j*.3,T.sec+2.1+j*.3);if(q<=0)return;const e=$(id);e.style.display='flex';const k=spring(q,9);
-      e.style.transform=`scale(${L(.3,1,k)}) rotate(${[-3,3,-2][j]}deg)`;e.style.opacity=Math.min(1,q*3);});
+      e.style.left='540px';e.style.top=[630,805,980][j]+'px';e.style.minWidth='720px';e.style.justifyContent='center';e.style.textAlign='center';
+      e.style.transform=`translateX(-50%) translateY(${(1-k)*60}px) scale(${L(.6,1,k)})`;e.style.opacity=Math.min(1,q*3);});
     lk1.style.opacity=.5;lk1.style.left=L(-500,200,P(t,T.sec,T.end))+'px';lk1.style.top='700px';
   } else { // ===== END CARD
     $('end').style.display='block';$('cap').style.display='none';$('capBg').style.display='none';$('world').style.display='block';
