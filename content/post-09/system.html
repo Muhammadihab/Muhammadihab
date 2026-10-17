@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<title>بوست ٩ · انت السيستم</title>
+<style>
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2);font-weight:400}
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2);font-weight:600}
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:Ruqaa;src:url(fonts/aref-ruqaa-arabic-700-normal.woff2);font-weight:700}
+:root{--cyan:#00CCF2;--cyan2:#3FD6F5;--orange:#F56A39;--text:#F4F7FB;--muted:#AFC1D8;--ink:#071A33;--red:#FF453A;--gray:#8E8E93}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden;background:var(--ink)}
+body{position:relative;font-family:Plex,sans-serif;color:var(--text)}
+.abs{position:absolute}.full{position:absolute;inset:0}
+
+#bg{background:
+  linear-gradient(rgba(0,204,242,.05) 1px,transparent 1px) 0 0/60px 60px,
+  linear-gradient(90deg,rgba(0,204,242,.05) 1px,transparent 1px) 0 0/60px 60px,
+  radial-gradient(ellipse 60% 55% at 50% 50%,#0F3561 0%,#0B2A4F 45%,#071A33 100%)}
+#halo{background:radial-gradient(ellipse 30% 34% at 50% 52%,rgba(0,204,242,.20),transparent 72%)}
+#grain{filter:url(#noise);opacity:.06;mix-blend-mode:overlay}
+
+/* ---------- phone ---------- */
+#phone{left:270px;top:150px;width:540px;height:1060px;border-radius:84px;padding:16px;
+  background:linear-gradient(135deg,#4A5568 0%,#1A202C 18%,#2D3748 50%,#141A24 82%,#3B4658 100%);
+  box-shadow:0 0 0 2px rgba(255,255,255,.10) inset,0 0 70px rgba(0,204,242,.22),0 50px 100px rgba(0,0,0,.6)}
+#screen{position:relative;width:100%;height:100%;border-radius:70px;overflow:hidden;background:#000;direction:rtl}
+#island{position:absolute;left:50%;top:18px;width:142px;height:40px;margin-left:-71px;border-radius:22px;background:#000;box-shadow:0 0 0 1px #111}
+#status{position:absolute;top:22px;left:44px;right:52px;display:flex;justify-content:space-between;align-items:center;font:600 25px Plex;color:#fff}
+#batt{display:flex;align-items:center;gap:8px;direction:ltr}
+#batt .b{position:relative;width:46px;height:22px;border-radius:7px;border:2px solid rgba(255,255,255,.45);padding:2px}
+#batt .b i{display:block;width:12%;height:100%;border-radius:3px;background:var(--red)}
+#batt .b:after{content:'';position:absolute;right:-6px;top:6px;width:3px;height:7px;border-radius:0 2px 2px 0;background:rgba(255,255,255,.45)}
+#batt span{font:600 22px Plex;color:var(--red)}
+#seg{position:absolute;top:92px;left:50%;margin-left:-120px;width:240px;height:44px;border-radius:12px;background:#1C1C1E;display:flex;padding:3px}
+#seg span{flex:1;display:flex;align-items:center;justify-content:center;font:600 21px Plex;color:#fff;border-radius:9px}
+#seg span.on{background:#636366}
+#edit{position:absolute;top:96px;right:30px;font:400 25px Plex;color:#0A84FF}
+#title{position:absolute;top:150px;right:30px;font:700 52px Plex;color:#fff}
+#list{position:absolute;top:236px;left:0;right:0}
+.call{display:flex;align-items:center;height:96px;padding:0 30px 0 26px;position:relative}
+.call:after{content:'';position:absolute;left:0;right:30px;bottom:0;height:1px;background:#38383A}
+.call .who{flex:1;min-width:0}
+.call .n{font:600 30px Plex;color:#fff;white-space:nowrap}
+.call .n small{font:600 26px Plex;color:#fff;margin-right:6px}
+.call.miss .n,.call.miss .n small{color:var(--red)}
+.call .t{font:400 22px Plex;color:var(--gray);margin-top:2px}
+.call .tm{font:400 24px Plex;color:var(--gray);margin-left:16px}
+.call .i{width:32px;height:32px;border-radius:50%;border:2px solid #0A84FF;color:#0A84FF;display:flex;align-items:center;justify-content:center;font:700 19px Sora;flex:none}
+
+/* ---------- handwritten notes ---------- */
+.note{position:absolute;font:700 40px Ruqaa;color:var(--orange);line-height:1.25;direction:rtl;text-shadow:0 0 18px rgba(245,106,57,.35);white-space:nowrap}
+#arrows path{fill:none;stroke:var(--orange);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(245,106,57,.5))}
+
+/* ---------- band ---------- */
+#band{left:0;right:0;top:930px;bottom:0;background:linear-gradient(180deg,#061428,#050F1F 80%)}
+#sink{left:0;right:0;top:850px;height:80px;background:linear-gradient(180deg,rgba(6,20,40,0),rgba(6,20,40,.55))}
+#bandLine{left:0;right:0;top:930px;height:2px;background:linear-gradient(90deg,transparent,rgba(0,204,242,.85) 30%,rgba(0,204,242,.85) 70%,transparent);box-shadow:0 0 18px rgba(0,204,242,.6)}
+#copy{left:64px;right:64px;top:966px;direction:rtl;text-align:right}
+#l1{font:600 50px Plex;color:#D6E2F0;line-height:1.3}
+#l2{font:700 98px Plex;line-height:1.18;letter-spacing:-.5px;white-space:nowrap}
+#l2 .br{font:700 92px Sora;color:var(--cyan);text-shadow:0 0 22px rgba(0,204,242,.5)}
+#l2 .k{color:var(--cyan2)}
+#l2 .dot{color:var(--orange)}
+#sub{font:400 30px Plex;color:var(--muted);margin-top:10px}
+#foot{left:64px;right:64px;bottom:34px;display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid rgba(191,208,230,.14);direction:rtl}
+#foot .wa{font:400 24px Plex;color:var(--muted)}
+#foot .wa b{color:var(--cyan2);font-weight:700}
+#foot .site{font:700 20px Sora;color:rgba(191,208,230,.6);letter-spacing:.5px}
+#logo{left:40px;top:34px;width:178px}
+#tag{right:52px;top:50px;padding:10px 30px;border:2.5px solid var(--cyan);border-radius:999px;font:600 30px Plex;color:var(--cyan2);direction:rtl}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter></svg>
+<div id="bg" class="full"></div>
+<div id="halo" class="full"></div>
+
+<div id="phone" class="abs"><div id="screen">
+  <div id="island"></div>
+  <div id="status"><span>١١:٤٨</span><span id="batt"><span>٩٪</span><span class="b"><i></i></span></span></div>
+  <div id="edit">تعديل</div>
+  <div id="seg"><span class="on">الكل</span><span>الفائتة</span></div>
+  <div id="title">الأخيرة</div>
+  <div id="list"></div>
+</div></div>
+
+<div id="sink" class="abs"></div>
+<svg id="arrows" class="full" width="1080" height="1350"></svg>
+<div id="notes"></div>
+
+<div id="band" class="abs"></div><div id="bandLine" class="abs"></div>
+<div id="copy" class="abs">
+  <div id="l1">انت مش صاحب الشركة…</div>
+  <div id="l2"><span class="br">{</span><span class="k">انت</span><span class="br">}</span> السيستم بتاعها<span class="dot">.</span></div>
+  <div id="sub">كل سؤال في الشغل بيعدّي عليك. إحنا بنعمل نظام يجاوب بدالك.</div>
+</div>
+<div id="foot" class="abs"><span class="wa">كلّمنا على <b>الواتساب</b></span><span class="site">logika-eg.pages.dev</span></div>
+<img id="logo" class="abs" src="brand/logo-on-dark.png">
+<div id="tag" class="abs">لصاحب الشغل</div>
+<div id="grain" class="full"></div>
+
+<script>
+const CALLS=[
+ ['أحمد الفني','١٢','١١:٤١ م'],
+ ['المخزن','٨','١١:٢٠ م'],
+ ['عم مصطفى · عميل','٥','١٠:٥٨ م',1],
+ ['المحاسب','٦','١٠:١٢ م'],
+ ['كريم المندوب','٧','٩:٤٧ م'],
+ ['أحمد الفني','٩','٨:٣٠ م'],
+ ['الحاج سيد · مورّد','٣','٧:٥٥ م',1],
+ ['مدام هبة · عميلة','٤','٦:٢٠ م'],
+];
+document.getElementById('list').innerHTML=CALLS.map(([n,c,t,m])=>
+ `<div class="call${m?' miss':''}"><div class="who"><div class="n">${n}<small>(${c})</small></div><div class="t">موبايل</div></div><span class="tm">${t}</span><span class="i">i</span></div>`).join('');
+
+// handwritten questions, each pointing at a call
+const rowY=i=>150+16+236+i*96+48;           // centre of row i in page coords
+const N=[ // text, side, x, y, row
+ ['الفني وصل؟','l',52,rowY(0)-70,0],
+ ['القطعة دي\nعندنا؟','r',835,rowY(1)-30,1],
+ ['العميل دفع؟','l',36,rowY(3)-40,3],
+ ['الأوردر خرج؟','r',836,rowY(4)+50,4],
+];
+const notes=document.getElementById('notes'),ar=document.getElementById('arrows');
+let paths='';
+N.forEach(([txt,side,x,y,row])=>{
+  const d=document.createElement('div');d.className='note';d.style.left=x+'px';d.style.top=y+'px';
+  d.innerHTML=txt.replace('\n','<br>');notes.appendChild(d);
+});
+document.fonts.ready.then(()=>{
+  [...notes.children].forEach((d,k)=>{const [,side,,,row]=N[k];const r=d.getBoundingClientRect();
+    const ty=rowY(row);
+    if(side==='l'){const sx=r.left+r.width*.55, sy=r.bottom+6, ex=300, ey=ty;
+      paths+=`<path d="M${sx} ${sy} C${sx+10} ${ey+4}, ${ex-60} ${ey+18}, ${ex} ${ey}"/><path d="M${ex-16} ${ey-12} L${ex} ${ey} L${ex-18} ${ey+10}"/>`;}
+    else{const sx=r.left+r.width*.4, sy=row===4?r.top-6:r.bottom+6, ex=780, ey=ty;
+      paths+=`<path d="M${sx} ${sy} C${sx-8} ${ey+(row===4?-4:4)}, ${ex+60} ${ey+(row===4?-18:18)}, ${ex} ${ey}"/><path d="M${ex+16} ${ey-12} L${ex} ${ey} L${ex+18} ${ey+10}"/>`;}
+  });
+  ar.innerHTML=paths; window.__ready=true;});
+</script>
+</body>
+</html>
