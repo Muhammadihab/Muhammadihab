@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<title>بوست ٩ · اللي جوه أقواسنا</title>
+<style>
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2);font-weight:400}
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2);font-weight:600}
+@font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
+@font-face{font-family:Sora;src:url(fonts/sora-latin-700-normal.woff2);font-weight:700}
+:root{--navy:#0A2444;--deep:#071A33;--cyan:#00CCF2;--cyan2:#3FD6F5;--orange:#F56A39;--text:#F4F7FB;--muted:#9FB3CC;--leak:#FF8577}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden;background:var(--navy)}
+body{position:relative;font-family:Plex,sans-serif;color:var(--text)}
+.abs{position:absolute}.full{position:absolute;inset:0}
+#bg{background:
+  linear-gradient(rgba(0,204,242,.05) 1px,transparent 1px) 0 0/54px 54px,
+  linear-gradient(90deg,rgba(0,204,242,.05) 1px,transparent 1px) 0 0/54px 54px,
+  radial-gradient(ellipse 55% 45% at 50% 44%,#0E3563 0%,#0A2444 60%,#08203D 100%)}
+
+/* scattered, unprotected data outside the braces: icon + label + broken bar, no real values */
+.frag{position:absolute;display:flex;align-items:center;gap:12px;direction:rtl;color:var(--leak);font:600 26px Plex;opacity:.55}
+.frag i{width:34px;height:34px;display:inline-flex}
+.frag u{display:inline-block;height:12px;border-radius:6px;background:repeating-linear-gradient(90deg,var(--leak) 0 14px,transparent 14px 22px);text-decoration:none}
+
+/* the braces = the brand asset */
+.brace{position:absolute;top:286px;font:700 580px/1 Sora;color:var(--cyan);text-shadow:0 0 70px rgba(0,204,242,.35)}
+#bL{left:150px}#bR{right:150px}
+
+/* protected data inside */
+#safe{left:318px;right:318px;top:406px;direction:rtl}
+#lock{width:96px;height:96px;margin:0 auto 34px;border-radius:50%;border:2.5px solid var(--cyan);display:flex;align-items:center;justify-content:center;color:var(--cyan2);background:rgba(0,204,242,.08);box-shadow:0 0 40px rgba(0,204,242,.25)}
+.row{display:flex;align-items:center;gap:18px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.row:last-child{border-bottom:none}
+.row i{width:40px;height:40px;color:var(--cyan2);display:inline-flex;flex:none}
+.row b{font:600 30px Plex;width:130px;flex:none}
+.row s{flex:1;height:16px;border-radius:8px;text-decoration:none;background:repeating-linear-gradient(90deg,rgba(0,204,242,.85) 0 16px,transparent 16px 26px);opacity:.9}
+
+/* bottom band, same system as the other posts */
+#band{left:0;right:0;top:1030px;bottom:0;background:linear-gradient(180deg,rgba(6,20,40,.92),#061428 70%)}
+#bandLine{left:0;right:0;top:1030px;height:2px;background:linear-gradient(90deg,transparent,rgba(0,204,242,.8) 30%,rgba(0,204,242,.8) 70%,transparent)}
+#headline{right:60px;left:60px;top:1066px;direction:rtl;text-align:right}
+#headline .l1{font:700 64px Plex;color:#DCE6F2;line-height:1.25}
+#headline .l2{font:700 96px Plex;line-height:1.15}
+#headline .dot{color:var(--orange)}
+#sub{right:60px;top:1282px;font:400 30px Plex;color:var(--muted);direction:rtl}
+#logo{left:40px;top:34px;width:178px}
+#tag{right:52px;top:50px;padding:10px 34px;border:2.5px solid var(--cyan);border-radius:999px;font:700 32px Plex;color:var(--cyan2);direction:rtl}
+#grain{filter:url(#noise);opacity:.08;mix-blend-mode:overlay}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter></svg>
+<div id="bg" class="full"></div>
+
+<div id="frags"></div>
+
+<div id="bL" class="brace">{</div>
+<div id="bR" class="brace">}</div>
+
+<div id="safe" class="abs">
+  <div id="lock"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+  <div class="row"><i data-ic="user"></i><b>الاسم</b><s></s></div>
+  <div class="row"><i data-ic="phone"></i><b>الموبايل</b><s></s></div>
+  <div class="row"><i data-ic="pin"></i><b>العنوان</b><s></s></div>
+  <div class="row"><i data-ic="card"></i><b>الدفع</b><s></s></div>
+</div>
+
+<div id="band" class="abs"></div><div id="bandLine" class="abs"></div>
+<div id="headline" class="abs"><div class="l1">اللي جوه أقواسنا…</div><div class="l2">محدش يوصله<span class="dot">.</span></div></div>
+<div id="sub" class="abs">تطبيقات وأنظمة متأمّنة من أول يوم.</div>
+<img id="logo" class="abs" src="brand/logo-on-dark.png">
+<div id="tag" class="abs">من جوّا</div>
+<div id="grain" class="full"></div>
+
+<script>
+const IC={
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+ phone:'<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/>',
+ pin:'<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+ card:'<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/>'};
+const svg=k=>`<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${IC[k]}</svg>`;
+document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=svg(e.dataset.ic));
+// unprotected copies drifting outside the braces: same four data types, broken and scattered
+const F=[['user','الاسم',110,60,330,-12,.5],['phone','الموبايل',120,70,520,8,.4],['pin','العنوان',130,58,715,-6,.46],
+         ['card','الدفع',100,760,330,11,.46],['user','الاسم',110,772,520,-9,.4],['phone','الموبايل',120,744,715,6,.5],
+         ['pin','العنوان',120,300,250,5,.34],['card','الدفع',110,560,250,-6,.34]];
+const host=document.getElementById('frags');
+F.forEach(([k,l,w,x,y,r,o])=>{const d=document.createElement('div');d.className='frag';d.style.left=x+'px';d.style.top=y+'px';d.style.transform=`rotate(${r}deg)`;d.style.opacity=o;
+  d.innerHTML=`<i>${svg(k)}</i>${l}<u style="width:${w}px"></u>`;host.appendChild(d);});
+document.fonts.ready.then(()=>{window.__ready=true;});
+</script>
+</body>
+</html>
