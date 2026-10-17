@@ -15,11 +15,9 @@ html,body{width:1080px;height:1350px;overflow:hidden;background:var(--ink)}
 body{position:relative;font-family:Plex,sans-serif;color:var(--text)}
 .abs{position:absolute}.full{position:absolute;inset:0}
 
-#bg{background:
-  linear-gradient(rgba(0,204,242,.05) 1px,transparent 1px) 0 0/60px 60px,
-  linear-gradient(90deg,rgba(0,204,242,.05) 1px,transparent 1px) 0 0/60px 60px,
-  radial-gradient(ellipse 60% 55% at 50% 42%,#123B69 0%,#0B2A4F 45%,#071A33 100%)}
-#spot{background:radial-gradient(ellipse 36% 40% at 50% 40%,rgba(255,240,220,.10),transparent 70%)}
+#bg{background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='100'><g fill='none' stroke='%23041022' stroke-opacity='.6' stroke-width='2.5'><path d='M0 1.5H120M0 51.5H120M1.5 0V50M61.5 50V100'/></g></svg>") 0 0/120px 100px,radial-gradient(ellipse 70% 60% at 50% 32%,#103866 0%,#0A2546 50%,#061428 100%)}
+#bricks{filter:url(#wallNoise);opacity:.35;mix-blend-mode:overlay}
+#spot{background:radial-gradient(ellipse 42% 34% at 50% 18%,rgba(255,236,205,.20),transparent 70%),radial-gradient(ellipse 80% 70% at 50% 45%,transparent 50%,rgba(2,8,18,.6) 100%)}
 #grain{filter:url(#noise);opacity:.07;mix-blend-mode:overlay}
 
 /* ---------- paper ---------- */
@@ -34,20 +32,22 @@ body{position:relative;font-family:Plex,sans-serif;color:var(--text)}
 
 #poster{left:236px;top:122px;width:656px;height:830px;transform:rotate(-2.2deg)}
 #poster .in{position:absolute;inset:26px 40px 0}
-#poster h1{font:700 142px Plex;line-height:.95;text-align:center;letter-spacing:2px;text-shadow:0 0 1px rgba(0,0,0,.6)}
+#poster h1{font:700 130px Plex;line-height:.95;text-align:center;letter-spacing:2px;text-shadow:0 0 1px rgba(0,0,0,.6)}
 #poster h2{font:700 42px Plex;text-align:center;margin-top:4px}
 #poster h2 span{display:inline-block;padding:0 18px;border-top:3px solid var(--toner);border-bottom:3px solid var(--toner)}
-#photo{position:relative;margin:18px auto 0;width:420px;height:206px;border:3px solid var(--toner);
+#photo{position:relative;margin:14px auto 0;width:420px;height:196px;border:3px solid var(--toner);
   background:radial-gradient(circle,rgba(22,24,28,.22) 1.4px,transparent 1.8px) 0 0/7px 7px,#DCD7CB;overflow:hidden}
 #photo .av{position:absolute;right:34px;top:28px;width:150px;height:150px;border-radius:50%;background:#9EA3A8;overflow:hidden}
 #photo .av:before{content:'';position:absolute;left:50%;top:26px;width:60px;height:60px;margin-left:-30px;border-radius:50%;background:#E4E6E8}
 #photo .av:after{content:'';position:absolute;left:50%;top:96px;width:120px;height:90px;margin-left:-60px;border-radius:60px 60px 0 0;background:#E4E6E8}
 #photo .bub{position:absolute;left:40px;top:56px;padding:12px 26px 14px;border-radius:22px 22px 22px 6px;background:#fff;border:2.5px solid var(--toner);font:700 46px Plex;box-shadow:3px 3px 0 rgba(22,24,28,.35)}
 #photo .bub small{display:block;font:400 17px Plex;color:#555;text-align:left;margin-top:-4px}
-#facts{margin-top:16px;font:400 26px Plex;line-height:1.56}
+#facts{margin-top:12px;font:400 25px Plex;line-height:1.5}
 #facts div{display:flex;gap:10px;border-bottom:1.5px dashed rgba(22,24,28,.28)}
 #facts b{font-weight:700;white-space:nowrap}
 #facts span{white-space:nowrap}
+#facts .rw{border-bottom:none;font-weight:700}
+#facts .rw span{background:linear-gradient(transparent 58%,rgba(255,214,90,.75) 58%,rgba(255,214,90,.75) 92%,transparent 92%)}
 
 /* tear-off strips */
 #strips{position:absolute;left:0;right:0;bottom:0;height:150px;display:flex;border-top:2.5px dashed rgba(22,24,28,.5)}
@@ -74,6 +74,10 @@ body{position:relative;font-family:Plex,sans-serif;color:var(--text)}
 #scrapL h1{font:700 80px Plex;text-align:center;margin-top:30px}
 #scrapL p{font:700 28px Plex;text-align:center}
 
+#sticky{position:absolute;left:150px;top:196px;width:210px;height:196px;transform:rotate(-7deg);background:linear-gradient(160deg,#FFE88A,#F7D658);
+  box-shadow:0 18px 30px rgba(0,0,0,.45),0 3px 6px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;direction:rtl;z-index:7}
+#sticky:before{content:'';position:absolute;left:0;right:0;top:0;height:34px;background:rgba(0,0,0,.05)}
+#sticky div{font:700 37px Ruqaa;line-height:1.35;color:#1E3F94;text-align:center;transform:rotate(-3deg)}
 /* ---------- band ---------- */
 #band{left:0;right:0;top:972px;bottom:0;background:linear-gradient(180deg,#061428,#050F1F 80%)}
 #bandLine{left:0;right:0;top:972px;height:2px;background:linear-gradient(90deg,transparent,rgba(0,204,242,.85) 30%,rgba(0,204,242,.85) 70%,transparent);box-shadow:0 0 18px rgba(0,204,242,.6)}
@@ -96,12 +100,13 @@ body{position:relative;font-family:Plex,sans-serif;color:var(--text)}
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute">
+  <filter id="wallNoise"><feTurbulence type="fractalNoise" baseFrequency=".035 .09" numOctaves="4" seed="11"/><feColorMatrix type="saturate" values="0"/></filter>
   <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter>
   <filter id="paperNoise"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="4" seed="3"/><feColorMatrix type="matrix" values="0 0 0 0 .55  0 0 0 0 .5  0 0 0 0 .42  0 0 0 -1.1 1.05"/></filter>
-  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.3 1.35" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -.9 1.3" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>
 </svg>
 <div id="bg" class="full"></div>
-<div id="spot" class="full"></div>
+<div id="bricks" class="full"></div><div id="spot" class="full"></div>
 
 <!-- other "missing" posters on the same wall -->
 <div id="scrapR" class="paper"><div class="tex"></div><h1>مفقود</h1><p>كمبروسر من المخزن</p></div>
@@ -119,11 +124,13 @@ body{position:relative;font-family:Plex,sans-serif;color:var(--text)}
       <div><b>آخر ظهور:</b><span>جروب الشغل · الخميس العصر</span></div>
       <div><b>آخر كلمة قالها:</b><span>«بكام؟»</span></div>
       <div><b>من غير رد:</b><span>٣ أيام</span></div>
+      <div class="rw"><b>المكافأة:</b><span>أوردر كان بتاعك.</span></div>
     </div>
   </div>
-  <div id="stamp">اتلقى<small>عند المنافس</small></div>
+  <div id="stamp">راح<small>عند المنافس</small></div>
   <div id="strips"></div>
 </div>
+<div id="sticky"><div>وفيه ١٢ زيه<br>في الجروب!</div></div>
 <div class="tape" style="left:222px;top:112px;transform:rotate(-38deg)"></div>
 <div class="tape" style="left:736px;top:98px;transform:rotate(30deg)"></div>
 
