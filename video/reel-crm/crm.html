@@ -228,18 +228,18 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
 const FPS=30, BT=.6; // 100 BPM, same grid as the ERP reel
 /* ================= TIMELINE (beats → seconds; retimed to the voiceover later) ================= */
 const b=n=>+(n*BT).toFixed(3);
-const T={list:b(4),sink:b(9),comp:b(17),split:b(24),zab:b(27),pipe:b(29),fol:b(32),sec:b(35),steal:b(40),cta:b(44),end:b(47),DUR:b(55)};
+const T={list:b(5),sink:b(11),comp:b(19),split:b(27),zab:b(30),pipe:b(33),fol:b(36),sec:b(41),steal:b(46),cta:b(52),end:b(55),DUR:b(63)};
 const CAPS=[
-  [.3,b(4)-.05,'أيوه… أنا رسالة «بكام؟»','«بكام؟»'],
-  [b(4),b(6.5),'اتبعتت للمحل الساعة ٣…'],[b(6.5),b(9),'ووصلت. صحّين كمان ✓✓'],
-  [b(9),b(11.5),'أول ساعة قلت… مشغولين'],[b(11.5),b(14),'بعدها يوم… يومين…'],[b(14),b(17),'وأنا بغرق تحت الرسايل','بغرق'],
-  [b(17),b(19.5),'لحد ما العميل… كلّم حد تاني'],[b(21),b(24),'كان بتاعك.','بتاعك.'],
-  [b(24),b(25.5),'بس مع سيستم عملاء…','سيستم'],[b(25.5),b(27),'الحكاية بتفرق'],
-  [b(27),b(29),'كل رسالة بتبقى كارت'],[b(29),b(32),'بيمشي معاك خطوة بخطوة'],[b(32),b(35),'والسيستم بيفكّرك قبل ما يبرد','بيفكّرك'],
-  [b(35),b(37.5),'ولو البيّاع ساب الشغل…'],[b(37.5),b(40),'السيستم يمنعه… وانت تقفل حسابه','يمنعه…'],
-  [b(40),b(43),'ومحدش يقدر يسرقهم منك','يسرقهم'],[b(44),b(47),'عاوز سيستم زي ده لشغلك؟','زي'],
+  [.3,b(3),'أيوه… أنا رسالة «بكام؟»','«بكام؟»'],
+  [b(5),b(8),'اتبعتت للمحل الساعة ٣…'],[b(8),b(11),'ووصلت. صحّين كمان ✓✓'],
+  [b(11),b(13),'أول ساعة قلت… مشغولين'],[b(13),b(15),'بعدها يوم… يومين…'],[b(15),b(17),'وأنا بغرق تحت الرسايل','بغرق'],
+  [b(19),b(23),'لحد ما العميل… كلّم حد تاني'],[b(25),b(27),'كان بتاعك.','بتاعك.'],
+  [b(27),b(28.5),'بس مع سيستم عملاء…','سيستم'],[b(28.5),b(30),'الحكاية بتفرق'],
+  [b(30),b(33),'كل رسالة بتبقى كارت'],[b(33),b(36),'بيمشي معاك خطوة بخطوة'],[b(36),b(39),'والسيستم بيفكّرك قبل ما يبرد','بيفكّرك'],
+  [b(41),b(43.5),'ولو البيّاع ساب الشغل…'],[b(43.5),b(46),'السيستم يمنعه… وانت تقفل حسابه','يمنعه…'],
+  [b(46),b(50),'ومحدش يقدر يسرقهم منك','يسرقهم'],[b(52),b(55),'عاوز سيستم زي ده لشغلك؟','زي'],
 ];
-const TKO=[[b(2.5),b(3.5),'بكام؟','wa','رسالة واحدة… بس مهمة'],[b(13),b(14),'يوم ٣','deep','ومحدش رد'],[b(19.5),b(21),'٤٨,٥٠٠','red','جنيه راحوا لغيرك'],[b(34),b(35),'اتفقنا ✓','green','٤٨,٥٠٠ جنيه رجعوا ليك'],[b(43),b(44),'٥ من ٥','cyan','محاولة سرقة اتمنعت']];
+const TKO=[[b(3),b(5),'بكام؟','wa','رسالة واحدة… بس مهمة'],[b(17),b(19),'يوم ٣','deep','ومحدش رد'],[b(23),b(25),'٤٨,٥٠٠','red','جنيه راحوا لغيرك'],[b(39),b(41),'اتفقنا ✓','green','٤٨,٥٠٠ جنيه رجعوا ليك'],[b(50),b(52),'٥ من ٥','cyan','محاولة سرقة اتمنعت']];
 /* ============================================================================================ */
 const $=id=>document.getElementById(id);
 const cl=(x,a=0,c=1)=>Math.min(c,Math.max(a,x)),P=(t,a,c)=>cl((t-a)/(c-a)),L=(a,c,x)=>a+(c-a)*x;
@@ -287,8 +287,8 @@ FALL.forEach((f,i)=>sfx(T.sink+.4+i*.42,'blub',.5,(rnd(i+3)-.5)*.8));for(let i=0
 sfx(T.comp-.1,'riser',.4);sfx(T.comp+.5,'npop',.5);sfx(T.comp+1.4,'npop',.55);sfx(T.comp+1.42,'impact',.6);sfx(T.comp+2.0,'npop',.55);[0,.6,1.2].forEach(o=>sfx(T.comp+2.4+o,'heart',.8));
 TKO.forEach(k=>{sfx(k[0]-.85,'riser',.4);sfx(k[0],'impact',.8);sfx(k[0],'crash',.35);sfx(k[0]+.02,'npop',.35);});
 sfx(T.split,'scratch',.8);sfx(T.split+.5,'surface',.9);sfx(T.zab-.15,'crash',.55);
-sfx(T.zab+.1,'whoosh_in',.5);[0,1,2].forEach(j=>sfx(T.zab+.6+j*.16,'npop',.55,[-.3,0,.3][j]));
-[0,1,2].forEach(j=>{sfx(T.pipe+.35+j*.5,'swish',.55,(j-1)*.4);sfx(T.pipe+.6+j*.5,'softclick',.7);});sfx(T.pipe+1.6,'npop',.5);
+sfx(T.zab+.1,'whoosh_in',.5);[0,1,2].forEach(j=>sfx(T.zab+.7+j*.28,'npop',.55,[-.3,0,.3][j]));
+[0,1,2].forEach(j=>{sfx(T.pipe+.4+j*.55,'swish',.55,(j-1)*.4);sfx(T.pipe+.65+j*.55,'softclick',.7);});sfx(T.pipe+1.6,'npop',.5);
 sfx(T.fol+.05,'npop',.65);sfx(T.fol+.6,'tap',.9);for(let i=0;i<4;i++)sfx(T.fol+.62+i*.05,'keytap',.25);sfx(T.fol+.9,'npop',.55);sfx(T.fol+1.25,'npop',.55);sfx(T.fol+1.45,'success',.6);
 sfx(T.sec+.35,'alert',.75);sfx(T.sec+.9,'stamp',1);sfx(T.sec+.92,'impact',.4);sfx(T.sec+1.9,'click',.9);sfx(T.sec+2.0,'lock',.9);sfx(T.sec+2.0,'energy',.5);
 ATT.forEach((a,i)=>{sfx(T.steal+.3+i*.42,'lock',.65,(i%2?.3:-.3));sfx(T.steal+.32+i*.42,'npop',.3);});sfx(T.steal+2.1,'success',.6);
@@ -386,11 +386,11 @@ function renderFrame(i){
     document.body.className='light';$('bright').style.display='block';$('bright').style.clipPath='';$('demo').style.display='block';
     if(t<T.pipe){showApp('today');phone(0,-110,.86);
       const x=P(t,T.zab,T.zab+.6);hero(L(-150,540,eio(x)),L(1100,1000,x),L(.9,.5,x),L(20,0,x),1-P(t,T.zab+.55,T.zab+.68));face('happy');
-      ['nw0','nw1','nw2'].forEach((id,k)=>{const e=$(id);const q=P(t,T.zab+.6+k*.16,T.zab+.85+k*.16);e.style.display=q>0?'block':'none';e.style.transform=`scale(${L(.6,1,spring(q,10))})`;e.style.opacity=Math.min(1,q*3);
+      ['nw0','nw1','nw2'].forEach((id,k)=>{const e=$(id);const q=P(t,T.zab+.7+k*.28,T.zab+.98+k*.28);e.style.display=q>0?'block':'none';e.style.transform=`scale(${L(.6,1,spring(q,10))})`;e.style.opacity=Math.min(1,q*3);
         e.style.borderColor=k===0?'var(--cyan)':'';e.style.borderWidth=k===0?'2.5px':'';});
       if(t>T.zab+.6&&t<T.zab+.8)$('flash').style.opacity=.3;
     } else if(t<T.fol){showApp('pipe');phone(0,-110,.86);
-      const steps=[T.pipe+.35,T.pipe+.85,T.pipe+1.35];let col=0,prog=0;steps.forEach((s,k)=>{if(t>=s){col=k+1;}});
+      const steps=[T.pipe+.4,T.pipe+.95,T.pipe+1.5];let col=0,prog=0;steps.forEach((s,k)=>{if(t>=s){col=k+1;}});
       const s0=steps[col-1]||0,mv=col?eio(P(t,s0,s0+.3)):0;const from=Math.max(0,col-1),to=col;
       const colX=c=>1264-(c+1)*300-c*16+12;
       const hc=$('hcard');hc.style.left=L(colX(from),colX(to),mv)+'px';hc.style.top=(196-Math.sin(mv*Math.PI)*60)+'px';hc.style.transform=`rotate(${Math.sin(mv*Math.PI)*-6}deg) scale(${1+Math.sin(mv*Math.PI)*.08})`;
