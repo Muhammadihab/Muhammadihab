@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<title>بوست ١٠ · مفقود</title>
+<style>
+@font-face{font-family:Plex;src:url(../post-09/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2);font-weight:400}
+@font-face{font-family:Plex;src:url(../post-09/fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2);font-weight:600}
+@font-face{font-family:Plex;src:url(../post-09/fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
+@font-face{font-family:Sora;src:url(../post-09/fonts/sora-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:Ruqaa;src:url(../post-09/fonts/aref-ruqaa-arabic-700-normal.woff2);font-weight:700}
+:root{--cyan:#00CCF2;--cyan2:#3FD6F5;--orange:#F56A39;--text:#F4F7FB;--muted:#AFC1D8;--ink:#071A33;--paper:#F2EEE4;--toner:#16181C}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden;background:var(--ink)}
+body{position:relative;font-family:Plex,sans-serif;color:var(--text)}
+.abs{position:absolute}.full{position:absolute;inset:0}
+
+#bg{background:
+  linear-gradient(rgba(0,204,242,.05) 1px,transparent 1px) 0 0/60px 60px,
+  linear-gradient(90deg,rgba(0,204,242,.05) 1px,transparent 1px) 0 0/60px 60px,
+  radial-gradient(ellipse 60% 55% at 50% 42%,#123B69 0%,#0B2A4F 45%,#071A33 100%)}
+#spot{background:radial-gradient(ellipse 36% 40% at 50% 40%,rgba(255,240,220,.10),transparent 70%)}
+#grain{filter:url(#noise);opacity:.07;mix-blend-mode:overlay}
+
+/* ---------- paper ---------- */
+.paper{position:absolute;background:var(--paper);color:var(--toner);direction:rtl;overflow:hidden;
+  box-shadow:0 2px 0 rgba(0,0,0,.05),0 30px 60px rgba(0,0,0,.55),0 8px 18px rgba(0,0,0,.35)}
+.paper:before{content:'';position:absolute;inset:0;background:
+  linear-gradient(165deg,rgba(255,255,255,.35),transparent 30%,rgba(0,0,0,.06) 70%,rgba(0,0,0,.12)),
+  radial-gradient(ellipse at 80% 10%,rgba(120,100,60,.08),transparent 40%);pointer-events:none;z-index:3}
+.paper .tex{position:absolute;inset:0;filter:url(#paperNoise);opacity:.55;mix-blend-mode:multiply;pointer-events:none;z-index:4}
+.tape{position:absolute;width:150px;height:46px;background:rgba(236,226,200,.62);box-shadow:0 1px 3px rgba(0,0,0,.2);z-index:6;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6px,#000 calc(100% - 6px),transparent 100%)}
+
+#poster{left:236px;top:122px;width:656px;height:830px;transform:rotate(-2.2deg)}
+#poster .in{position:absolute;inset:26px 40px 0}
+#poster h1{font:700 142px Plex;line-height:.95;text-align:center;letter-spacing:2px;text-shadow:0 0 1px rgba(0,0,0,.6)}
+#poster h2{font:700 42px Plex;text-align:center;margin-top:4px}
+#poster h2 span{display:inline-block;padding:0 18px;border-top:3px solid var(--toner);border-bottom:3px solid var(--toner)}
+#photo{position:relative;margin:18px auto 0;width:420px;height:206px;border:3px solid var(--toner);
+  background:radial-gradient(circle,rgba(22,24,28,.22) 1.4px,transparent 1.8px) 0 0/7px 7px,#DCD7CB;overflow:hidden}
+#photo .av{position:absolute;right:34px;top:28px;width:150px;height:150px;border-radius:50%;background:#9EA3A8;overflow:hidden}
+#photo .av:before{content:'';position:absolute;left:50%;top:26px;width:60px;height:60px;margin-left:-30px;border-radius:50%;background:#E4E6E8}
+#photo .av:after{content:'';position:absolute;left:50%;top:96px;width:120px;height:90px;margin-left:-60px;border-radius:60px 60px 0 0;background:#E4E6E8}
+#photo .bub{position:absolute;left:40px;top:56px;padding:12px 26px 14px;border-radius:22px 22px 22px 6px;background:#fff;border:2.5px solid var(--toner);font:700 46px Plex;box-shadow:3px 3px 0 rgba(22,24,28,.35)}
+#photo .bub small{display:block;font:400 17px Plex;color:#555;text-align:left;margin-top:-4px}
+#facts{margin-top:16px;font:400 26px Plex;line-height:1.56}
+#facts div{display:flex;gap:10px;border-bottom:1.5px dashed rgba(22,24,28,.28)}
+#facts b{font-weight:700;white-space:nowrap}
+#facts span{white-space:nowrap}
+
+/* tear-off strips */
+#strips{position:absolute;left:0;right:0;bottom:0;height:150px;display:flex;border-top:2.5px dashed rgba(22,24,28,.5)}
+.strip{flex:1;position:relative;border-left:2px dashed rgba(22,24,28,.4);display:flex;align-items:center;justify-content:center;background:var(--paper)}
+.strip:last-child{border-left:none}
+.strip div{writing-mode:vertical-rl;transform:rotate(180deg);font:600 17px Plex;line-height:1.25;text-align:center;white-space:nowrap}
+.strip div b{font:700 15px Sora;letter-spacing:.3px;direction:ltr;unicode-bidi:isolate}
+.strip.gone{background:transparent;border-left-color:transparent}
+.strip.gone div{display:none}
+.strip.bent{transform:rotate(7deg) translateY(6px);transform-origin:top right;box-shadow:-6px 8px 10px rgba(0,0,0,.18);z-index:2}
+
+/* stamp + marker */
+#stamp{position:absolute;left:30px;top:478px;transform:rotate(-11deg);padding:10px 30px 14px;border:6px solid var(--orange);border-radius:16px;color:var(--orange);
+  font:700 58px Plex;text-align:center;line-height:1.05;mix-blend-mode:multiply;filter:url(#rough);z-index:5;background:rgba(245,106,57,.05)}
+#stamp small{display:block;font:700 30px Plex}
+#circle{position:absolute;left:20px;top:42px;width:190px;height:120px;z-index:5}
+#circle path{fill:none;stroke:#1d1f24;stroke-width:4.5;stroke-linecap:round;opacity:.8}
+
+/* poster scraps behind */
+#scrapR{right:-170px;top:260px;width:330px;height:470px;transform:rotate(7deg);filter:blur(1.2px) brightness(.6)}
+#scrapR h1{font:700 92px Plex;text-align:center;margin-top:24px}
+#scrapR p{font:700 30px Plex;text-align:center}
+#scrapL{left:-150px;top:640px;width:300px;height:300px;transform:rotate(-9deg);filter:blur(1.4px) brightness(.5)}
+#scrapL h1{font:700 80px Plex;text-align:center;margin-top:30px}
+#scrapL p{font:700 28px Plex;text-align:center}
+
+/* ---------- band ---------- */
+#band{left:0;right:0;top:972px;bottom:0;background:linear-gradient(180deg,#061428,#050F1F 80%)}
+#bandLine{left:0;right:0;top:972px;height:2px;background:linear-gradient(90deg,transparent,rgba(0,204,242,.85) 30%,rgba(0,204,242,.85) 70%,transparent);box-shadow:0 0 18px rgba(0,204,242,.6)}
+#copy{left:64px;right:64px;top:996px;direction:rtl;text-align:right}
+#l1{font:600 46px Plex;color:#D6E2F0;line-height:1.3}
+#l2{font:700 96px Plex;line-height:1.16;letter-spacing:-.5px;white-space:nowrap}
+#l2 .br{font:700 90px Sora;color:var(--cyan);text-shadow:0 0 22px rgba(0,204,242,.5)}
+#l2 .k{color:var(--cyan2)}
+#l2 .dot{color:var(--orange)}
+#sub{font:400 28px Plex;color:var(--muted);margin-top:6px}
+#foot{left:64px;right:64px;bottom:28px;display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid rgba(191,208,230,.14);direction:rtl}
+#foot .wa{font:400 23px Plex;color:var(--muted)}
+#foot .wa b{color:var(--cyan2);font-weight:700}
+#foot .r{font:700 20px Sora;color:rgba(191,208,230,.6);letter-spacing:.5px}
+#px{left:66px;top:1004px;width:90px;height:40px}
+#px i{position:absolute;background:var(--orange);border-radius:2px}
+#logo{left:40px;top:34px;width:178px}
+#tag{right:52px;top:50px;padding:10px 30px;border:2.5px solid var(--cyan);border-radius:999px;font:600 30px Plex;color:var(--cyan2);direction:rtl;background:rgba(7,26,51,.6)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter>
+  <filter id="paperNoise"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="4" seed="3"/><feColorMatrix type="matrix" values="0 0 0 0 .55  0 0 0 0 .5  0 0 0 0 .42  0 0 0 -1.1 1.05"/></filter>
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.3 1.35" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>
+</svg>
+<div id="bg" class="full"></div>
+<div id="spot" class="full"></div>
+
+<!-- other "missing" posters on the same wall -->
+<div id="scrapR" class="paper"><div class="tex"></div><h1>مفقود</h1><p>كمبروسر من المخزن</p></div>
+<div id="scrapL" class="paper"><div class="tex"></div><h1>مفقود</h1><p>فاتورة إمبارح</p></div>
+
+<div id="poster" class="paper">
+  <div class="tex"></div>
+  <div class="in">
+    <h1>مفقود</h1>
+    <h2><span>عميل</span></h2>
+    <div id="photo"><div class="av"></div><div class="bub">بكام؟<small>٣:١٢ م</small></div>
+      <svg id="circle" viewBox="0 0 190 120"><path d="M30 20 C80 -6 170 6 178 52 C186 98 110 118 60 108 C14 98 2 64 22 34 C30 22 46 14 62 12"/></svg></div>
+    <div id="facts">
+      <div><b>الاسم:</b><span>مش متسجّل عندك</span></div>
+      <div><b>آخر ظهور:</b><span>جروب الشغل · الخميس العصر</span></div>
+      <div><b>آخر كلمة قالها:</b><span>«بكام؟»</span></div>
+      <div><b>من غير رد:</b><span>٣ أيام</span></div>
+    </div>
+  </div>
+  <div id="stamp">اتلقى<small>عند المنافس</small></div>
+  <div id="strips"></div>
+</div>
+<div class="tape" style="left:222px;top:112px;transform:rotate(-38deg)"></div>
+<div class="tape" style="left:736px;top:98px;transform:rotate(30deg)"></div>
+
+<div id="band" class="abs"></div><div id="bandLine" class="abs"></div>
+<div id="px" class="abs"></div>
+<div id="copy" class="abs">
+  <div id="l1">العميل مش بيقولك إنه مشي…</div>
+  <div id="l2">هو بس <span class="br">{</span><span class="k">مبيرجعش</span><span class="br">}</span><span class="dot">.</span></div>
+  <div id="sub">كل «بكام؟» من غير متابعة… عميل بيروح لغيرك.</div>
+</div>
+<div id="foot" class="abs"><span class="wa">عاوز سيستم يفكّرك بكل عميل؟ كلّمنا على <b>الواتساب</b></span><span class="r">logika-eg.pages.dev</span></div>
+<img id="logo" class="abs" src="../post-09/brand/logo-on-dark.png">
+<div id="tag" class="abs">خلي بالك</div>
+<div id="grain" class="full"></div>
+
+<script>
+const st=document.getElementById('strips');
+for(let i=0;i<9;i++){const d=document.createElement('div');d.className='strip'+(i===2||i===5?' gone':'')+(i===6?' bent':'');
+  d.innerHTML='<div>لوجيكا · CRM<br><b>0122 641 2843</b></div>';st.appendChild(d);}
+[[0,10,12],[18,0,9],[16,22,7],[34,12,6],[50,4,4]].forEach(([x,y,s])=>document.getElementById('px').insertAdjacentHTML('beforeend',`<i style="left:${x}px;top:${y}px;width:${s}px;height:${s}px;opacity:${(s/12).toFixed(2)}"></i>`));
+document.fonts.ready.then(()=>{window.__ready=true;});
+</script>
+</body>
+</html>
