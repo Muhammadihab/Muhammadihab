@@ -1,0 +1,710 @@
+<title>أوضة CRM</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Sora:wght@600;700&display=swap">
+<style>
+/* local copies for offline recording; on the published page Google Fonts serves the same faces */
+@font-face{font-family:PlexL;src:url(fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2);font-weight:400}
+@font-face{font-family:PlexL;src:url(fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2);font-weight:500 600}
+@font-face{font-family:PlexL;src:url(fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
+@font-face{font-family:SoraL;src:url(fonts/sora-latin-700-normal.woff2);font-weight:600 700}
+
+/* Layout: app shell — nav rail (right), working area, and an always-there "how it works" console (left) */
+:root{
+  --bg:#EEF3F8; --surface:#FFFFFF; --sunk:#F5F8FB; --ink:#0A2444; --muted:#5A6F8C; --line:#DCE5EF;
+  --accent:#0096BF; --accent-soft:#E3F6FC; --brand:#0A2444; --orange:#F56A39;
+  --ok:#1C7E4E; --ok-soft:#E4F5EC; --bad:#B8322A; --bad-soft:#FCE9E7; --warn:#9A6200; --warn-soft:#FFF3DC;
+  --con-bg:#081A31; --con-panel:#0D2442; --con-ink:#D9E6F5; --con-muted:#8EA6C4; --con-line:#1C3657; --con-cyan:#3FD6F5;
+  --f-body:"IBM Plex Sans Arabic",PlexL,system-ui,sans-serif; --f-num:Sora,SoraL,"IBM Plex Sans Arabic",PlexL,sans-serif;
+  --f-code:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#06121F; --surface:#0C1D33; --sunk:#0A182B; --ink:#E6EEF7; --muted:#93A8C3; --line:#1B3150;
+  --accent:#3FD6F5; --accent-soft:#0E3047; --brand:#E6EEF7; --orange:#F7804F;
+  --ok:#4ED69A; --ok-soft:#0F3326; --bad:#FF7A6E; --bad-soft:#3A1715; --warn:#F2B84B; --warn-soft:#352A12;
+  --con-bg:#030B16; --con-panel:#08172A; --con-ink:#D9E6F5; --con-muted:#8EA6C4; --con-line:#17304F; --con-cyan:#3FD6F5;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#06121F; --surface:#0C1D33; --sunk:#0A182B; --ink:#E6EEF7; --muted:#93A8C3; --line:#1B3150;
+  --accent:#3FD6F5; --accent-soft:#0E3047; --brand:#E6EEF7; --orange:#F7804F;
+  --ok:#4ED69A; --ok-soft:#0F3326; --bad:#FF7A6E; --bad-soft:#3A1715; --warn:#F2B84B; --warn-soft:#352A12;
+  --con-bg:#030B16; --con-panel:#08172A; --con-ink:#D9E6F5; --con-muted:#8EA6C4; --con-line:#17304F; --con-cyan:#3FD6F5;
+  color-scheme:dark}
+
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.55 var(--f-body);overflow:hidden;direction:rtl}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+
+.app{height:100%;display:grid;grid-template-columns:212px minmax(0,1fr) 400px;grid-template-rows:auto minmax(0,1fr)}
+.top{grid-column:1/-1;display:flex;align-items:center;gap:14px;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--surface);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}
+.logo b{width:36px;height:36px;border-radius:10px;background:#0A2444;color:#3FD6F5;display:grid;place-items:center;font:700 15px var(--f-num)}
+.logo small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;background:var(--sunk);color:var(--muted);border:1px solid var(--line);white-space:nowrap}
+.spacer{flex:1}
+.who{display:flex;align-items:center;gap:8px}
+.who label{font-size:12px;color:var(--muted)}
+.who select{padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:var(--sunk);font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:14px;white-space:nowrap}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--brand);color:var(--surface);border-color:var(--brand)}
+.btn.cta{background:var(--orange);color:#fff;border-color:var(--orange)}
+.btn.wa{background:#1FA855;color:#fff;border-color:#1FA855;text-decoration:none}
+.btn.sm{padding:5px 10px;font-size:13px;border-radius:8px}
+.btn.ghost{background:transparent}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.conBtn{display:none}
+
+nav.rail{background:var(--surface);border-left:1px solid var(--line);padding:14px 10px;display:flex;flex-direction:column;gap:4px;overflow:auto}
+nav.rail button{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:0;background:transparent;text-align:right;font-weight:500;color:var(--muted)}
+nav.rail button svg{width:20px;height:20px;flex:none}
+nav.rail button.on{background:var(--accent-soft);color:var(--ink);font-weight:700}
+nav.rail button .lock{margin-right:auto;font-size:11px}
+nav.rail hr{border:0;border-top:1px solid var(--line);margin:8px 4px}
+nav.rail .reset{margin-top:auto;font-size:13px}
+
+main{overflow:auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));min-width:0}
+.view{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.vh{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.vh h1{font-size:24px;line-height:1.2;text-wrap:balance}
+.vh p{color:var(--muted);font-size:14px}
+.vh .spacer{min-width:8px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{padding:14px 16px}
+.kpi small{display:block;color:var(--muted);font-size:12px}
+.kpi b{display:block;font:700 24px var(--f-num);margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi em{font-style:normal;font-size:12px;color:var(--muted)}
+.kpi.hot b{color:var(--orange)}
+.sec{padding:6px 0}
+.sec h2{font-size:16px;padding:12px 16px 8px}
+.row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--line);min-width:0}
+.row:first-of-type{border-top:0}
+.av{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:700;background:var(--accent-soft);color:var(--accent)}
+.av.o{background:var(--warn-soft);color:var(--warn)}
+.tx{min-width:0;flex:1}
+.tx b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx small{color:var(--muted);font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.pill{display:inline-flex;align-items:center;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;background:var(--sunk);color:var(--muted)}
+.pill.late{background:var(--bad-soft);color:var(--bad)}
+.pill.today{background:var(--warn-soft);color:var(--warn)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.empty{padding:22px 16px;color:var(--muted);text-align:center}
+.tbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.tbar input,.tbar select,.field input,.field select{padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.tbar input{flex:1;min-width:180px}
+.src{font-size:12px;color:var(--muted)}
+
+/* pipeline */
+.kanbanWrap{overflow-x:auto;padding-bottom:8px}
+.kanban{display:grid;grid-template-columns:repeat(6,minmax(150px,1fr));gap:12px;min-width:960px}
+.col{background:var(--sunk);border:1px solid var(--line);border-radius:var(--r);padding:10px;display:flex;flex-direction:column;gap:8px;min-height:340px}
+.col.drop{border-color:var(--accent);background:var(--accent-soft)}
+.col h3{font-size:14px;display:flex;justify-content:space-between;align-items:center;padding:2px 4px}
+.col h3 span{font:600 12px var(--f-num);color:var(--muted)}
+.col .sum{font:600 12px var(--f-num);color:var(--muted);padding:0 4px}
+.dcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:grab;display:flex;flex-direction:column;gap:4px;text-align:right}
+.dcard:hover{border-color:var(--accent)}
+.dcard b{font-weight:600}
+.dcard .meta{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.dcard .val{font:700 13px var(--f-num);color:var(--ink)}
+.oi{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:700;background:var(--accent-soft);color:var(--accent)}
+
+/* tables */
+.tw{overflow-x:auto}
+table.t{width:100%;border-collapse:collapse;font-size:14px}
+table.t th{font-size:12px;color:var(--muted);font-weight:600;text-align:right;padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.t td{padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.t tr:last-child td{border-bottom:0}
+table.t input{width:120px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface)}
+.note{display:flex;gap:10px;padding:12px 14px;border-radius:12px;background:var(--accent-soft);font-size:14px;line-height:1.6}
+.note b{font-weight:700}
+.note.warn{background:var(--warn-soft)}
+
+/* reports */
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.bars{display:flex;flex-direction:column;gap:10px;padding:6px 16px 16px}
+.bar{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:10px;align-items:center;font-size:14px}
+.bar i{display:block;height:12px;border-radius:6px;background:var(--accent);min-width:3px}
+.bar span{font:600 13px var(--f-num)}
+
+/* steal */
+.att{display:flex;align-items:center;gap:14px;padding:14px 16px;border-top:1px solid var(--line)}
+.att:first-of-type{border-top:0}
+.att .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font:700 18px var(--f-num);background:var(--warn-soft);color:var(--warn);flex:none}
+.att.done .ic{background:var(--ok-soft);color:var(--ok)}
+.att .res{font-size:13px;color:var(--ok);margin-top:2px}
+.prog{height:10px;border-radius:5px;background:var(--sunk);overflow:hidden;border:1px solid var(--line)}
+.prog i{display:block;height:100%;background:var(--ok);transition:width .4s}
+
+/* drawer + modal */
+.scrim{position:fixed;inset:0;background:rgba(5,14,29,.45);z-index:40}
+.drawer{position:fixed;top:0;bottom:0;left:0;width:min(560px,100%);background:var(--bg);z-index:41;display:flex;flex-direction:column;box-shadow:0 0 60px rgba(5,14,29,.3);padding-left:env(safe-area-inset-left,0px)}
+.dh{display:flex;align-items:center;gap:12px;padding:16px 18px;padding-top:calc(16px + env(safe-area-inset-top,0px));background:var(--surface);border-bottom:1px solid var(--line)}
+.dh h2{font-size:20px;flex:1;min-width:0}
+.db{overflow:auto;padding:16px 18px calc(30px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px}
+.kv{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 12px;padding:14px 16px;font-size:14px;align-items:center}
+.kv dt{color:var(--muted)}
+.kv dd{display:flex;gap:8px;align-items:center;flex-wrap:wrap;min-width:0}
+.stages{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 14px}
+.stages button{padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:600}
+.stages button.on{background:var(--brand);color:var(--surface);border-color:var(--brand)}
+.addline{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line)}
+.addline select,.addline input{padding:7px 10px;border-radius:9px;border:1px solid var(--line);background:var(--surface);min-width:0}
+.addline select{flex:1;min-width:160px}
+.addline input{width:90px}
+.tot{display:flex;justify-content:space-between;padding:10px 16px;border-top:1px solid var(--line);font-weight:600}
+.tot .num{font-weight:700}
+.tl{padding:6px 16px 14px;display:flex;flex-direction:column;gap:10px}
+.tl div{display:flex;gap:10px;font-size:13px}
+.tl time{color:var(--muted);white-space:nowrap;min-width:84px}
+.denied{padding:30px 20px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+.denied b{font-size:44px;line-height:1}
+.modal{position:fixed;inset:0;display:grid;place-items:center;z-index:41;padding:16px}
+.mbox{width:min(460px,100%);background:var(--surface);border-radius:18px;border:1px solid var(--line);padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 30px 80px rgba(5,14,29,.35)}
+.mbox h2{font-size:19px}
+.field{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+.field input,.field select{color:var(--ink);font-size:15px}
+.err{color:var(--bad);font-size:13px;min-height:1em}
+.toast{position:fixed;top:calc(66px + env(safe-area-inset-top,0px));right:50%;transform:translateX(50%);background:var(--brand);color:var(--surface);padding:10px 18px;border-radius:12px;font-weight:600;z-index:60;box-shadow:0 10px 30px rgba(5,14,29,.3);max-width:calc(100% - 32px)}
+.toast.bad{background:var(--bad);color:#fff}
+
+/* console: how it works */
+aside.con{background:var(--con-bg);color:var(--con-ink);display:flex;flex-direction:column;min-height:0;border-right:1px solid var(--con-line)}
+.conH{padding:14px 16px 0}
+.conH h2{font-size:16px;display:flex;align-items:center;gap:8px}
+.conH h2 i{width:8px;height:8px;border-radius:50%;background:var(--con-cyan);box-shadow:0 0 0 4px rgba(63,214,245,.18)}
+.conH p{font-size:13px;color:var(--con-muted);margin-top:4px;line-height:1.6}
+.flow{display:flex;align-items:center;gap:6px;margin:12px 16px 0;font-size:12px;color:var(--con-muted)}
+.flow span{padding:4px 8px;border-radius:8px;background:var(--con-panel);border:1px solid var(--con-line);color:var(--con-ink);white-space:nowrap}
+.flow em{font-style:normal;color:var(--con-cyan)}
+.tabs{display:flex;gap:4px;padding:12px 16px 0;border-bottom:1px solid var(--con-line)}
+.tabs button{padding:8px 12px;border:0;background:transparent;color:var(--con-muted);font-weight:600;font-size:13px;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{color:var(--con-ink);border-bottom-color:var(--con-cyan)}
+.cb{overflow:auto;flex:1;padding:12px 16px 24px;display:flex;flex-direction:column;gap:8px;min-height:0}
+.req{background:var(--con-panel);border:1px solid var(--con-line);border-radius:12px;padding:10px 12px;font-size:13px;display:flex;flex-direction:column;gap:5px}
+.req.new{animation:flash 1.2s ease-out}
+@keyframes flash{from{border-color:var(--con-cyan);box-shadow:0 0 0 3px rgba(63,214,245,.25)}to{}}
+.req .l1{display:flex;align-items:center;gap:8px;direction:ltr;justify-content:flex-end}
+.req code{font:12px var(--f-code);color:var(--con-ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.req .m{font:700 11px var(--f-code);padding:1px 6px;border-radius:5px;background:#16365C;color:var(--con-cyan)}
+.st{font:700 11px var(--f-code);padding:1px 7px;border-radius:5px}
+.st.s2{background:#103D2B;color:#5BE3A6}.st.s4{background:#4A1A17;color:#FF8F84}.st.s3{background:#3D3112;color:#F5C35C}
+.req .why{color:var(--con-muted);line-height:1.5}
+.req .why b{color:var(--con-ink);font-weight:600}
+.req .who{font-size:11px;color:var(--con-muted)}
+.req pre{font:11px/1.5 var(--f-code);color:#B9CBE2;background:#06142A;border-radius:8px;padding:8px;overflow:auto;direction:ltr;text-align:left;max-height:160px;white-space:pre}
+.cb select{padding:6px 10px;border-radius:8px;background:var(--con-panel);color:var(--con-ink);border:1px solid var(--con-line)}
+.ctw{overflow:auto;border:1px solid var(--con-line);border-radius:10px}
+table.ct{border-collapse:collapse;font:11.5px var(--f-code);direction:ltr;width:max-content;min-width:100%}
+table.ct th{background:var(--con-panel);color:var(--con-cyan);text-align:left;padding:6px 8px;position:sticky;top:0;white-space:nowrap}
+table.ct td{padding:5px 8px;border-top:1px solid var(--con-line);white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
+table.ct tr.hid td{opacity:.32}
+table.ct tr.hid td:first-child{opacity:1;color:#FF8F84}
+.pol{background:var(--con-panel);border:1px solid var(--con-line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.pol b{color:var(--con-cyan);font:700 12px var(--f-code);direction:ltr;text-align:left}
+.pol pre{font:11px/1.5 var(--f-code);color:#B9CBE2;background:#06142A;border-radius:8px;padding:8px;overflow:auto;direction:ltr;text-align:left;white-space:pre}
+.legend{font-size:12px;color:var(--con-muted);line-height:1.6}
+.conX{display:none}
+
+@media (max-width:1180px){
+  .app{grid-template-columns:200px minmax(0,1fr)}
+  aside.con{position:fixed;top:0;bottom:0;left:0;width:min(420px,100%);z-index:50;box-shadow:0 0 60px rgba(0,0,0,.4);padding-top:env(safe-area-inset-top,0px);padding-left:env(safe-area-inset-left,0px)}
+  aside.con[data-open="0"]{display:none}
+  .conBtn{display:inline-flex}
+  .conX{display:inline-flex;margin-right:auto;background:transparent;border:1px solid var(--con-line);color:var(--con-ink);border-radius:8px;padding:2px 10px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto}
+  nav.rail{grid-row:3;flex-direction:row;border-left:0;border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));overflow-x:auto;gap:2px}
+  nav.rail button{flex-direction:column;gap:2px;font-size:11px;padding:6px 8px;min-width:64px}
+  nav.rail button .lock,nav.rail hr{display:none}
+  nav.rail .reset{margin-top:0}
+  .logo small,.top .chip{display:none}
+  .who label{display:none}
+  .grid2{grid-template-columns:minmax(0,1fr)}
+  .row{flex-wrap:wrap}
+  .acts{width:100%;justify-content:flex-start}
+  .kv{grid-template-columns:90px minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="app" dir="rtl" lang="ar">
+  <header class="top">
+    <div class="logo"><b>{ }</b><div>أوضة · CRM<small>مثال من Logika للتعلّم</small></div></div>
+    <span class="chip">داتا وهمية · كل حاجة بتتحفظ في متصفحك بس</span>
+    <div class="spacer"></div>
+    <div class="who"><label for="who">داخل كـ</label><select id="who"></select></div>
+    <button class="btn sm conBtn" id="conOpen">إزاي شغال؟</button>
+  </header>
+  <nav class="rail" id="rail"></nav>
+  <main id="main"></main>
+  <aside class="con" id="con" data-open="0"></aside>
+</div>
+<div id="layer" dir="rtl" lang="ar"></div>
+
+<script>
+/* =====================================================================
+   أوضة CRM: مثال صغير يشرح السيستم شغال إزاي.
+   ٣ طبقات منفصلة زي السيستم الحقيقي:
+     ١) DB      = الجداول (في الحقيقة: Postgres على Supabase)
+     ٢) SERVER  = api(): بيشيّك الصلاحيات (RLS) قبل ما يقرا أو يكتب
+     ٣) UI      = الشاشات. مبتلمسش الـ DB أبداً، بتكلّم api() بس
+   ===================================================================== */
+
+/* ---------------- helpers ---------------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const D = 864e5;
+const AR = new Intl.NumberFormat('ar-EG');
+const money = p => AR.format(Math.round(p / 100)) + ' ج';           // الفلوس متخزنة بالقرش
+const fmtT = new Intl.DateTimeFormat('ar-EG', {hour:'numeric', minute:'2-digit'});
+const fmtD = new Intl.DateTimeFormat('ar-EG', {day:'numeric', month:'short'});
+function dayDiff(ts){const a=new Date(ts);a.setHours(0,0,0,0);const b=new Date();b.setHours(0,0,0,0);return Math.round((a-b)/D);}
+function when(ts){const d=dayDiff(ts);const t=fmtT.format(ts);
+  return d===0?'النهارده '+t:d===-1?'إمبارح '+t:d===1?'بكرة '+t:fmtD.format(ts)+' '+t;}
+// البحث بالعربي: «أحمد» = «احمد»، «هدى» = «هدي»، «ة» = «ه»
+const norm = s => String(s).replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/[ً-ْ]/g,'')
+  .replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).toLowerCase().trim();
+// الموبايل بيتخزن بصيغة واحدة: +201XXXXXXXXX
+function normPhone(s){let d=String(s).replace(/[٠-٩]/g,x=>'٠١٢٣٤٥٦٧٨٩'.indexOf(x)).replace(/\D/g,'');
+  if(d.startsWith('0020'))d=d.slice(4);else if(d.startsWith('20'))d=d.slice(2);if(d.startsWith('0'))d=d.slice(1);
+  return /^1[0125]\d{8}$/.test(d)?'+20'+d:null;}
+const prettyPhone = p => p.replace(/^\+20(\d{3})(\d{3})(\d{4})$/,'0$1 $2 $3');
+const maskPhone = p => p.replace(/^\+20(\d{3})\d{4}(\d{3})$/,'0$1 ••• •$2');
+
+/* =====================================================================
+   ١) DB: الجداول. نفس شكل الجداول اللي هتتعمل على Supabase.
+   ===================================================================== */
+const STAGES=[['new','جديد'],['asking','بيسأل'],['offer','اتبعتله عرض'],['won','اتفقنا'],['delivered','اتسلّم'],['lost','ضاع']];
+const STAGE=Object.fromEntries(STAGES);
+const SOURCES=['واتساب','فيسبوك','انستجرام','تليفون','زيارة'];
+
+function seed(){
+  const now=Date.now(),at=(days,h=11,m=0)=>{const d=new Date(now+days*D);d.setHours(h,m,0,0);return d.getTime();};
+  const db={seq:{},members:[],customers:[],deals:[],products:[],deal_items:[],payments:[],followups:[],activities:[],audit_log:[]};
+  const ins=(t,row)=>{db.seq[t]=(db.seq[t]||0)+1;const id=t.slice(0,1)+db.seq[t];db[t].push({id,...row});return id;};
+  db.members=[{id:'m1',name:'كريم',role:'owner'},{id:'m2',name:'سامح',role:'sales'},{id:'m3',name:'منى',role:'sales'}];
+  const P={};[['أوضة نوم كاملة',48500],['أنتريه ٣ قطع',32000],['سفرة ٦ كراسي',27500],['دولاب ٤ ضلف',14800],['مرتبة طبي',6900],['ترابيزة صالون',4200]]
+    .forEach(([n,p],i)=>{P[i]=ins('products',{name:n,price:p*100,updated_at:at(-30)});});
+  const C=[
+    ['هدى سامي','01000000101','واتساب','m3','offer',-6, [[0,1,48500]],[], [[0,17,0,'اتصل بيها أكّد الأوضة']]],
+    ['محمود عادل','01000000102','فيسبوك','m2','new',-1, [],[], [[0,13,0,'رد على سؤاله عن الأنتريه']]],
+    ['رنا فؤاد','01000000103','انستجرام','m3','asking',-4, [],[], [[-1,12,0,'ابعتلها صور السفرة']]],
+    ['طارق منصور','01000000104','تليفون','m2','won',-12, [[1,1,32000]],[20000], [[2,12,0,'فكّره بباقي الحساب']]],
+    ['سلمى حسن','01000000105','زيارة','m3','delivered',-18, [[2,1,27500],[5,1,4200]],[31700], []],
+    ['يوسف عماد','01000000106','واتساب','m2','new',0, [],[], [[0,18,30,'رد على «بكام؟»']]],
+    ['نادية فكري','01000000107','فيسبوك','m3','lost',-15, [],[], []],
+    ['عمرو صبري','01000000108','واتساب','m2','offer',-3, [[3,1,14800]],[], [[1,12,0,'كلّمه بخصوص الدولاب']]],
+    ['دينا مجدي','01000000109','انستجرام','m2','won',-9, [[4,2,6500]],[6500], []],
+    ['حسام زكي','01000000110','تليفون','m3','asking',-2, [],[], []]];
+  C.forEach(([name,ph,src,own,stage,ago,items,pays,fus],k)=>{
+    const cid=ins('customers',{name,phone:normPhone(ph),source:src,owner_id:own,created_at:at(ago,10+k%5)});
+    const did=ins('deals',{customer_id:cid,owner_id:own,stage,created_at:at(ago,10+k%5),updated_at:at(Math.min(0,ago+2),15)});
+    ins('activities',{deal_id:did,at:at(ago,10+k%5),by:own,text:'عميل جديد من '+src});
+    items.forEach(([pi,q,price])=>ins('deal_items',{deal_id:did,product_id:P[pi],name:db.products.find(p=>p.id===P[pi]).name,qty:q,unit_price:price*100}));
+    if(stage!=='new'&&stage!=='asking')ins('activities',{deal_id:did,at:at(Math.min(0,ago+2),15),by:own,text:'اتنقل لـ «'+STAGE[stage]+'»'});
+    pays.forEach(a=>ins('payments',{deal_id:did,amount:a*100,at:at(Math.min(0,ago+3),14)}));
+    fus.forEach(([d,h,m,note])=>ins('followups',{deal_id:did,owner_id:own,due_at:at(d,h,m),note,done:false}));
+  });
+  return db;
+}
+const KEY='mini-crm-v1';
+let DB;
+try{DB=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!DB||!DB.members)DB=seed();
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}}
+
+/* =====================================================================
+   ٢) SERVER: كل طلب بيعدّي من هنا. أول حاجة: مين اللي بيطلب؟ وله حق؟
+   في Supabase ده بيبقى RLS جوّه قاعدة البيانات + Edge Functions.
+   ===================================================================== */
+const POLICIES={
+  customers_select:{t:'العملاء: المالك يشوف الكل، والبيّاع يشوف عملاءه بس.',
+    sql:`create policy customers_select on customers for select\n  using ( is_owner() or owner_id = auth.uid() );`},
+  deals_rw:{t:'الفرص: نفس القاعدة. البيّاع يقرا ويعدّل الفرص اللي باسمه بس.',
+    sql:`create policy deals_rw on deals for all\n  using ( is_owner() or owner_id = auth.uid() );`},
+  deal_children:{t:'المنتجات اللي اتباعت والدفعات والمتابعات تابعة للفرصة: لو مش شايف الفرصة، مش شايفهم.',
+    sql:`create policy items_rw on deal_items for all\n  using ( exists (select 1 from deals d\n    where d.id = deal_id\n      and (is_owner() or d.owner_id = auth.uid())) );`},
+  products_write:{t:'المنتجات والأسعار: الكل يقرا، والمالك بس يعدّل.',
+    sql:`create policy products_read on products for select using (true);\ncreate policy products_write on products for update\n  using ( is_owner() );`},
+  phone_mask:{t:'رقم العميل بيرجع متخبّي للبيّاع. الرقم الكامل من دالة على السيرفر بتسجّل مين طلبه.',
+    sql:`-- edge function: reveal_phone(customer_id)\n-- 1) check deals_rw  2) insert into audit_log  3) return phone`},
+  owner_reassign:{t:'نقل عميل من بيّاع لبيّاع: المالك بس.',
+    sql:`create policy deals_reassign on deals for update\n  using ( is_owner() ) with check ( is_owner() );`},
+  export_owner:{t:'تصدير كل العملاء: المالك بس، وأي محاولة تانية بتتسجّل.',
+    sql:`-- edge function: export_customers()\nif not is_owner() then\n  insert into audit_log ... ; raise exception 'forbidden';`},
+  audit_append_only:{t:'سجل «مين عمل إيه»: بيتكتب من السيرفر بس، ومحدش يقدر يمسحه، حتى المالك.',
+    sql:`revoke update, delete on audit_log from authenticated;\ncreate policy audit_read on audit_log for select\n  using ( is_owner() );`},
+  won_needs_items:{t:'قاعدة شغل: الفرصة متتقفلش «اتفقنا» من غير منتجات، عشان نعرف اتباع إيه وبكام.',
+    sql:`-- trigger before update on deals\nif new.stage = 'won' and not exists\n  (select 1 from deal_items where deal_id = new.id)\nthen raise exception 'add items first';`},
+  price_snapshot:{t:'السعر بيتنسخ في deal_items وقت البيع. لو المالك غيّر السعر بكرة، الأوردرات القديمة متتغيّرش.',
+    sql:`insert into deal_items (deal_id, product_id, qty, unit_price)\nselect $1, p.id, $2, p.price   -- snapshot\nfrom products p where p.id = $3;`}
+};
+let CUR='m1';
+const me=()=>DB.members.find(m=>m.id===CUR);
+const isOwner=()=>me().role==='owner';
+const memberName=id=>(DB.members.find(m=>m.id===id)||{}).name||'؟';
+const canDeal=d=>!!d&&(isOwner()||d.owner_id===CUR);
+const canCustomer=c=>!!c&&(isOwner()||c.owner_id===CUR);
+const dealOfCustomer=cid=>DB.deals.find(d=>d.customer_id===cid);
+const insert=(t,row)=>{DB.seq[t]=(DB.seq[t]||0)+1;const id=t.slice(0,1)+DB.seq[t];const r={id,...row};DB[t].push(r);return r;};
+const REQS=[];let reqN=0;
+function audit(action,target,result){insert('audit_log',{at:Date.now(),user_id:CUR,action,target,result});}
+function activity(deal_id,text){insert('activities',{deal_id,at:Date.now(),by:CUR,text});}
+const dealValue=id=>DB.deal_items.filter(x=>x.deal_id===id).reduce((s,x)=>s+x.qty*x.unit_price,0);
+const dealPaid=id=>DB.payments.filter(x=>x.deal_id===id).reduce((s,x)=>s+x.amount,0);
+const WON=s=>s==='won'||s==='delivered';
+function shapeCustomer(c,revealed){return {...c,phone:isOwner()||revealed?c.phone:maskPhone(c.phone),phone_masked:!(isOwner()||revealed)};}
+const REVEALED=new Set();
+
+function api(method,path,body){
+  const r=route(method,path,body||{});
+  const e={n:++reqN,at:Date.now(),user:CUR,method,path,status:r.status,policy:r.policy,why:r.why,rows:Array.isArray(r.data)?r.data.length:undefined,body};
+  REQS.unshift(e);if(REQS.length>60)REQS.pop();
+  if(r.status>=400&&r.status!==422)audit(method+' '+path,r.target||'',r.status===409?'duplicate':'denied');
+  persist();renderConsole(true);
+  return r;
+}
+function route(method,path,b){
+  let m;
+  const ok=(data,policy,why,status=200)=>({status,data,policy,why});
+  const deny=(policy,why,target)=>({status:403,policy,why,target});
+  // --- customers
+  if(method==='GET'&&path==='/customers'){
+    const rows=DB.customers.filter(canCustomer).map(c=>shapeCustomer(c,REVEALED.has(CUR+c.id)));
+    return ok(rows,'customers_select',isOwner()?'المالك: كل الصفوف':'رجّع صفوف '+me().name+' بس ('+rows.length+' من '+DB.customers.length+')');}
+  if(method==='POST'&&path==='/customers'){
+    const phone=normPhone(b.phone);if(!b.name||!b.name.trim())return {status:422,why:'الاسم مطلوب'};
+    if(!phone)return {status:422,why:'رقم موبايل مصري مش صحيح'};
+    const dup=DB.customers.find(c=>c.phone===phone);
+    if(dup)return {status:409,policy:'unique(phone)',why:'الرقم ده متسجّل قبل كده باسم «'+(canCustomer(dup)?dup.name:'عميل')+'» عند '+memberName(dup.owner_id),target:dup.id};
+    const owner_id=isOwner()&&b.owner_id?b.owner_id:CUR;
+    const c=insert('customers',{name:b.name.trim(),phone,source:b.source,owner_id,created_at:Date.now()});
+    const d=insert('deals',{customer_id:c.id,owner_id,stage:'new',created_at:Date.now(),updated_at:Date.now()});
+    activity(d.id,'عميل جديد من '+b.source);audit('إضافة عميل',c.name,'ok');
+    return ok({customer:c,deal:d},'customers_select','اتسجّل باسم '+memberName(owner_id),201);}
+  if(method==='POST'&&(m=path.match(/^\/customers\/(\w+)\/reveal_phone$/))){
+    const c=DB.customers.find(x=>x.id===m[1]);
+    if(!canCustomer(c))return deny('phone_mask','العميل ده مش بتاعك',m[1]);
+    REVEALED.add(CUR+c.id);audit('شاف رقم العميل كامل',c.name,'ok');
+    return ok({phone:c.phone},'phone_mask','الرقم رجع كامل، واتسجّل في «مين عمل إيه»');}
+  if(method==='GET'&&path==='/export/customers'){
+    if(!isOwner())return deny('export_owner','التصدير للمالك بس. المحاولة اتسجّلت واتبعت إشعار لكريم','كل العملاء');
+    audit('صدّر كل العملاء',DB.customers.length+' عميل','ok');return ok(DB.customers,'export_owner','المالك: مسموح');}
+  // --- deals
+  if(method==='GET'&&path==='/deals'){
+    const rows=DB.deals.filter(canDeal).map(d=>{const c=DB.customers.find(x=>x.id===d.customer_id);
+      return {...d,customer:c.name,source:c.source,value:dealValue(d.id),paid:dealPaid(d.id)};});
+    return ok(rows,'deals_rw',isOwner()?'المالك: كل الفرص':'فرص '+me().name+' بس ('+rows.length+' من '+DB.deals.length+')');}
+  if(method==='GET'&&(m=path.match(/^\/deals\/(\w+)$/))){
+    const d=DB.deals.find(x=>x.id===m[1]);if(!d)return {status:404,why:'مش موجود'};
+    if(!canDeal(d))return deny('deals_rw','الفرصة دي باسم '+memberName(d.owner_id)+'. RLS رجّعت صفر صفوف',m[1]);
+    const c=DB.customers.find(x=>x.id===d.customer_id);
+    return ok({...d,customer:shapeCustomer(c,REVEALED.has(CUR+c.id)),items:DB.deal_items.filter(x=>x.deal_id===d.id),
+      payments:DB.payments.filter(x=>x.deal_id===d.id),followups:DB.followups.filter(x=>x.deal_id===d.id),
+      activities:DB.activities.filter(x=>x.deal_id===d.id).sort((a,b)=>b.at-a.at)},'deals_rw','مسموح');}
+  if(method==='PATCH'&&(m=path.match(/^\/deals\/(\w+)$/))){
+    const d=DB.deals.find(x=>x.id===m[1]);
+    if(!canDeal(d))return deny('deals_rw','مش من حقك تعدّل فرصة '+memberName(d&&d.owner_id),m[1]);
+    if(b.owner_id&&b.owner_id!==d.owner_id){
+      if(!isOwner())return deny('owner_reassign','نقل العميل لبيّاع تاني للمالك بس',m[1]);
+      const from=memberName(d.owner_id);d.owner_id=b.owner_id;DB.customers.find(c=>c.id===d.customer_id).owner_id=b.owner_id;
+      activity(d.id,'اتنقل من '+from+' لـ '+memberName(b.owner_id));audit('نقل عميل',from+' ← '+memberName(b.owner_id),'ok');}
+    if(b.stage&&b.stage!==d.stage){
+      if(b.stage==='won'&&!DB.deal_items.some(x=>x.deal_id===d.id))
+        return {status:422,policy:'won_needs_items',why:'ضيف المنتجات الأول عشان نعرف اتباع إيه وبكام'};
+      activity(d.id,'اتنقل من «'+STAGE[d.stage]+'» لـ «'+STAGE[b.stage]+'»');d.stage=b.stage;}
+    d.updated_at=Date.now();return ok(d,'deals_rw','مسموح: الفرصة باسمك');}
+  // --- deal children
+  const child=(id)=>{const d=DB.deals.find(x=>x.id===id);return canDeal(d)?d:null;};
+  if(method==='POST'&&path==='/deal_items'){
+    const d=child(b.deal_id);if(!d)return deny('deal_children','مش شايف الفرصة دي',b.deal_id);
+    const p=DB.products.find(x=>x.id===b.product_id);const qty=Math.max(1,parseInt(b.qty)||1);
+    const it=insert('deal_items',{deal_id:d.id,product_id:p.id,name:p.name,qty,unit_price:p.price});
+    activity(d.id,'اتضاف '+p.name+' × '+AR.format(qty)+' بسعر '+money(p.price));
+    return ok(it,'price_snapshot','السعر اتنسخ دلوقتي: '+(p.price/100)+' ج',201);}
+  if(method==='DELETE'&&(m=path.match(/^\/deal_items\/(\w+)$/))){
+    const it=DB.deal_items.find(x=>x.id===m[1]);if(!it||!child(it.deal_id))return deny('deal_children','مش مسموح',m[1]);
+    DB.deal_items.splice(DB.deal_items.indexOf(it),1);activity(it.deal_id,'اتشال '+it.name);return ok(null,'deal_children','مسموح');}
+  if(method==='POST'&&path==='/payments'){
+    const d=child(b.deal_id);if(!d)return deny('deal_children','مش شايف الفرصة دي',b.deal_id);
+    const amount=Math.round(parseFloat(String(b.amount).replace(/[٠-٩]/g,x=>'٠١٢٣٤٥٦٧٨٩'.indexOf(x)))*100);
+    if(!(amount>0))return {status:422,why:'اكتب مبلغ صحيح'};
+    const p=insert('payments',{deal_id:d.id,amount,at:Date.now()});activity(d.id,'استلمنا '+money(amount));audit('دفعة',money(amount),'ok');
+    return ok(p,'deal_children','مسموح',201);}
+  if(method==='POST'&&path==='/followups'){
+    const d=child(b.deal_id);if(!d)return deny('deal_children','مش شايف الفرصة دي',b.deal_id);
+    const f=insert('followups',{deal_id:d.id,owner_id:d.owner_id,due_at:b.due_at,note:b.note||'متابعة',done:false});
+    activity(d.id,'متابعة: '+f.note+' · '+when(f.due_at));return ok(f,'deal_children','مسموح',201);}
+  if(method==='GET'&&path==='/followups'){
+    const rows=DB.followups.filter(f=>!f.done&&canDeal(DB.deals.find(d=>d.id===f.deal_id)));
+    return ok(rows,'deal_children',isOwner()?'كل المتابعات':'متابعات '+me().name+' بس');}
+  if(method==='PATCH'&&(m=path.match(/^\/followups\/(\w+)$/))){
+    const f=DB.followups.find(x=>x.id===m[1]);if(!f||!child(f.deal_id))return deny('deal_children','مش مسموح',m[1]);
+    if(b.done){f.done=true;activity(f.deal_id,'خلصت المتابعة: '+f.note);}
+    if(b.due_at){f.due_at=b.due_at;activity(f.deal_id,'اتأجّلت لـ '+when(b.due_at));}
+    return ok(f,'deal_children','مسموح');}
+  // --- products
+  if(method==='GET'&&path==='/products')return ok(DB.products,'products_write','القراية مسموحة للكل');
+  if(method==='PATCH'&&(m=path.match(/^\/products\/(\w+)$/))){
+    if(!isOwner())return deny('products_write','تعديل الأسعار للمالك بس',m[1]);
+    const p=DB.products.find(x=>x.id===m[1]);const price=Math.round(b.price*100);if(!(price>0))return {status:422,why:'سعر مش صحيح'};
+    audit('غيّر سعر '+p.name,money(p.price)+' ← '+money(price),'ok');p.price=price;p.updated_at=Date.now();
+    return ok(p,'price_snapshot','السعر الجديد للأوردرات الجاية بس');}
+  // --- audit log
+  if(method==='GET'&&path==='/audit_log'){
+    if(!isOwner())return deny('audit_append_only','السجل للمالك بس','audit_log');
+    return ok([...DB.audit_log].sort((a,b)=>b.at-a.at),'audit_append_only','المالك: مسموح يقرا');}
+  if(method==='DELETE'&&path==='/audit_log')return deny('audit_append_only','السجل مبيتمسحش، حتى للمالك','audit_log');
+  return {status:404,why:'مفيش route'};
+}
+
+/* =====================================================================
+   ٣) UI: الشاشات. كل اللي بتعرضه جاي من api()، مش من DB مباشرة.
+   ===================================================================== */
+const IC={
+ today:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>',
+ customers:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2 .6 3.2 2.5 3.5 5.5"/></svg>',
+ pipeline:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="11" rx="1.5"/><rect x="17" y="4" width="4" height="7" rx="1.5"/></svg>',
+ products:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 12l-8 8-9-9V3h8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>',
+ reports:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+ steal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+ audit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7M9 7h4"/></svg>'};
+const VIEWS=[['today','النهارده'],['customers','العملاء'],['pipeline','مسار البيع'],['products','المنتجات والأسعار'],['reports','التقارير'],['steal','جرّب تسرقني'],['audit','مين عمل إيه',true]];
+let VIEW='today',OPEN=null,CONTAB='reqs',CONTABLE='deals',toastT;
+
+function toast(msg,bad){clearTimeout(toastT);let t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';document.body.appendChild(t);}
+  t.className='toast'+(bad?' bad':'');t.textContent=msg;t.hidden=false;toastT=setTimeout(()=>t.hidden=true,2600);}
+function denyToast(r){toast(r.status===403?'اتمنع: '+r.why:r.why,true);}
+
+function renderRail(){
+  $('#rail').innerHTML=VIEWS.map(([id,n,own])=>(id==='steal'?'<hr>':'')+`<button data-v="${id}" class="${VIEW===id?'on':''}">${IC[id]}<span>${n}</span>${own?'<span class="lock">🔒 مالك</span>':''}</button>`).join('')
+    +'<button class="reset" id="reset">↺ رجّع الداتا الأصلية</button>';
+}
+function renderWho(){$('#who').innerHTML=DB.members.map(m=>`<option value="${m.id}" ${m.id===CUR?'selected':''}>${m.name} · ${m.role==='owner'?'مالك':'بيّاع'}</option>`).join('');}
+
+function render(){renderRail();renderWho();const f=V[VIEW];$('#main').innerHTML='<div class="view">'+f()+'</div>';if(OPEN)renderDeal();}
+
+const V={};
+V.today=()=>{
+  const deals=api('GET','/deals').data, fus=api('GET','/followups').data.sort((a,b)=>a.due_at-b.due_at);
+  const month=new Date();month.setDate(1);month.setHours(0,0,0,0);
+  const won=deals.filter(d=>WON(d.stage));const monthWon=won.filter(d=>d.updated_at>=month.getTime());
+  const rev=monthWon.reduce((s,d)=>s+d.value,0),owed=won.reduce((s,d)=>s+d.value-d.paid,0);
+  const fresh=deals.filter(d=>Date.now()-d.created_at<7*D).length;
+  const due=fus.filter(f=>dayDiff(f.due_at)<=0);
+  const rows=due.length?due.map(f=>{const d=deals.find(x=>x.id===f.deal_id);const late=f.due_at<Date.now()&&dayDiff(f.due_at)<0;
+    return `<div class="row"><span class="av">${esc(d.customer[0])}</span><div class="tx"><b>${esc(f.note)} · ${esc(d.customer)}</b><small>${STAGE[d.stage]}${isOwner()?' · '+memberName(d.owner_id):''}${d.value?' · '+money(d.value):''}</small></div>
+      <span class="pill ${late?'late':'today'}">${late?'متأخرة · ':''}${when(f.due_at)}</span>
+      <div class="acts"><button class="btn sm" data-open="${d.id}">افتح</button><button class="btn sm" data-fu-done="${f.id}">اتعمل ✓</button><button class="btn sm ghost" data-fu-later="${f.id}">بكرة</button></div></div>`;}).join('')
+    :'<div class="empty">مفيش متابعات النهارده. كل العملاء متكلّمين 👌</div>';
+  return `<div class="vh"><div><h1>صباح الخير يا ${me().name}</h1><p>${isOwner()?'ده الشغل كله.':'دي الحاجات اللي باسمك بس. كريم شايف الكل.'}</p></div></div>
+  <div class="kpis">
+    <div class="card kpi"><small>مبيعات الشهر</small><b>${money(rev)}</b><em>${AR.format(monthWon.length)} فرصة اتقفلت</em></div>
+    <div class="card kpi hot"><small>الآجل اللي لسه برّه</small><b>${money(owed)}</b><em>من الفرص اللي اتقفلت</em></div>
+    <div class="card kpi"><small>عملاء جداد الأسبوع ده</small><b>${AR.format(fresh)}</b><em>من كل المصادر</em></div>
+    <div class="card kpi"><small>متابعات النهارده</small><b>${AR.format(due.length)}</b><em>${AR.format(due.filter(f=>dayDiff(f.due_at)<0).length)} متأخرة</em></div>
+  </div>
+  <div class="card sec"><h2>لازم تكلّمهم النهارده</h2>${rows}</div>`;
+};
+let Q='',QS='';
+V.customers=()=>{
+  const cs=api('GET','/customers').data,deals=DB.deals;
+  const list=cs.filter(c=>(!QS||c.source===QS)&&(!Q||norm(c.name).includes(norm(Q))||String(c.phone).replace(/\D/g,'').includes(norm(Q).replace(/\D/g,'')||'#')));
+  return `<div class="vh"><div><h1>العملاء</h1><p>${isOwner()?AR.format(cs.length)+' عميل':AR.format(cs.length)+' عميل باسمك · الباقي مش راجعلك من السيرفر'}</p></div><div class="spacer"></div><button class="btn cta" id="addC">+ عميل جديد</button></div>
+  <div class="tbar"><input id="q" placeholder="دوّر بالاسم أو آخر أرقام الموبايل… جرّب «احمد» أو «هدي»" value="${esc(Q)}"><select id="qs"><option value="">كل المصادر</option>${SOURCES.map(s=>`<option ${QS===s?'selected':''}>${s}</option>`).join('')}</select></div>
+  <div class="card">${list.map(c=>{const d=deals.find(x=>x.customer_id===c.id);return `<div class="row"><span class="av">${esc(c.name[0])}</span><div class="tx"><b>${esc(c.name)}</b><small class="num" dir="ltr" style="text-align:right">${esc(c.phone_masked?c.phone:prettyPhone(c.phone))}</small></div>
+    <span class="src">${esc(c.source)}</span><span class="pill">${STAGE[d.stage]}</span>${isOwner()?`<span class="pill">${memberName(c.owner_id)}</span>`:''}<button class="btn sm" data-open="${d.id}">افتح</button></div>`;}).join('')||'<div class="empty">مفيش نتايج</div>'}</div>`;
+};
+V.pipeline=()=>{
+  const deals=api('GET','/deals').data;
+  return `<div class="vh"><div><h1>مسار البيع</h1><p>اسحب الكارت من مرحلة لمرحلة، أو افتحه واختار المرحلة.</p></div></div>
+  <div class="kanbanWrap"><div class="kanban">${STAGES.map(([s,n])=>{const ds=deals.filter(d=>d.stage===s).sort((a,b)=>b.updated_at-a.updated_at);
+    return `<div class="col" data-stage="${s}"><h3>${n}<span>${AR.format(ds.length)}</span></h3>${ds.some(d=>d.value)?`<div class="sum">${money(ds.reduce((x,d)=>x+d.value,0))}</div>`:''}
+      ${ds.map(d=>`<button class="dcard" draggable="true" data-deal="${d.id}" data-open="${d.id}"><b>${esc(d.customer)}</b><div class="meta"><span>${esc(d.source)}</span>${d.value?`<span class="val">${money(d.value)}</span>`:''}</div>
+        <div class="meta"><span>${Math.max(0,-dayDiff(d.updated_at))?AR.format(-dayDiff(d.updated_at))+' يوم في المرحلة':'النهارده'}</span><span class="oi" title="${memberName(d.owner_id)}">${memberName(d.owner_id)[0]}</span></div></button>`).join('')}</div>`;}).join('')}</div></div>`;
+};
+V.products=()=>{
+  const ps=api('GET','/products').data;
+  const old=DB.deal_items.filter(it=>{const p=DB.products.find(x=>x.id===it.product_id);return p&&p.price!==it.unit_price;});
+  return `<div class="vh"><div><h1>المنتجات والأسعار</h1><p>${isOwner()?'عدّل السعر واضغط حفظ.':'البيّاع يشوف الأسعار بس. التعديل للمالك.'}</p></div></div>
+  <div class="note"><span>💡</span><div><b>السعر بيتنسخ وقت البيع.</b> لما بيّاع يضيف منتج لعميل، السيستم بياخد نسخة من السعر ساعتها. لو المالك غيّر السعر بعدين، الأوردرات القديمة متتغيّرش. ${old.length?`مثال: ${esc(old[0].name)} اتباعت بـ ${money(old[0].unit_price)} والسعر دلوقتي ${money(DB.products.find(x=>x.id===old[0].product_id).price)}.`:''}</div></div>
+  <div class="card tw"><table class="t"><thead><tr><th>المنتج</th><th>السعر الحالي</th><th>آخر تعديل</th><th></th></tr></thead><tbody>
+  ${ps.map(p=>`<tr><td>${esc(p.name)}</td><td><input class="num" id="pr-${p.id}" value="${p.price/100}" inputmode="decimal" aria-label="سعر ${esc(p.name)}"></td><td>${fmtD.format(p.updated_at)}</td><td><button class="btn sm" data-save-price="${p.id}">حفظ</button></td></tr>`).join('')}
+  </tbody></table></div>`;
+};
+V.reports=()=>{
+  const deals=api('GET','/deals').data;const won=deals.filter(d=>WON(d.stage));
+  const group=(key)=>{const m={};won.forEach(d=>{const k=key(d);m[k]=(m[k]||0)+d.value;});return Object.entries(m).sort((a,b)=>b[1]-a[1]);};
+  const prodM={};won.forEach(d=>DB.deal_items.filter(x=>x.deal_id===d.id).forEach(x=>{prodM[x.name]=(prodM[x.name]||0)+x.qty*x.unit_price;}));
+  const bars=(arr)=>{const mx=Math.max(1,...arr.map(a=>a[1]));return arr.length?arr.map(([k,v])=>`<div class="bar"><b>${esc(k)}</b><i style="width:${v/mx*100}%"></i><span>${money(v)}</span></div>`).join(''):'<div class="empty">لسه مفيش بيع</div>';};
+  const allLeads={};deals.forEach(d=>{allLeads[d.source]=allLeads[d.source]||[0,0];allLeads[d.source][0]++;if(WON(d.stage))allLeads[d.source][1]++;});
+  const owed=won.filter(d=>d.value>d.paid);
+  return `<div class="vh"><div><h1>التقارير</h1><p>${isOwner()?'الأرقام دي محسوبة من كل الفرص.':'الأرقام دي محسوبة من فرصك إنت بس. نفس الشاشة عند كريم بتطلع أرقام الكل.'}</p></div></div>
+  <div class="grid2">
+    ${isOwner()?`<div class="card sec"><h2>مبيعات كل بيّاع</h2><div class="bars">${bars(group(d=>memberName(d.owner_id)))}</div></div>`:''}
+    <div class="card sec"><h2>اتباع إيه</h2><div class="bars">${bars(Object.entries(prodM).sort((a,b)=>b[1]-a[1]))}</div></div>
+    <div class="card sec"><h2>العملاء جايين منين · وكام منهم اشترى</h2><div class="bars">${(()=>{const arr=Object.entries(allLeads).sort((a,b)=>b[1][0]-a[1][0]);const mx=Math.max(1,...arr.map(a=>a[1][0]));
+      return arr.map(([k,[n,w]])=>`<div class="bar"><b>${esc(k)}</b><i style="width:${n/mx*100}%"></i><span>${AR.format(n)} · اشترى ${AR.format(w)}</span></div>`).join('');})()}</div></div>
+    <div class="card sec"><h2>الآجل</h2>${owed.length?owed.map(d=>`<div class="row"><div class="tx"><b>${esc(d.customer)}</b><small>دفع ${money(d.paid)} من ${money(d.value)}</small></div><span class="pill late num">${money(d.value-d.paid)}</span><button class="btn sm" data-open="${d.id}">افتح</button></div>`).join(''):'<div class="empty">مفيش آجل</div>'}</div>
+  </div>`;
+};
+const STEAL=[
+  ['افتح عميل مش بتاعك','بيّاع بيغيّر رقم الفرصة في الطلب عشان يشوف عملاء زميله',()=>{const d=DB.deals.find(x=>x.owner_id!==CUR);return api('GET','/deals/'+d.id);}],
+  ['صدّر كل العملاء','موظف ناوي يمشي وعاوز ياخد الأرقام معاه',()=>api('GET','/export/customers')],
+  ['غيّر سعر أوضة النوم لـ ١ جنيه','بيّاع بيعدّل السعر عشان يبيع لقريبه',()=>api('PATCH','/products/p1',{price:1})],
+  ['انقل عميل منى لنفسك','بيّاع عاوز ياخد عمولة على عميل مش بتاعه',()=>{const d=DB.deals.find(x=>x.owner_id!==CUR);return api('PATCH','/deals/'+d.id,{owner_id:CUR});}],
+  ['امسح سجل «مين عمل إيه»','حد عاوز يخفي اللي عمله',()=>api('DELETE','/audit_log')]];
+let STOLEN={};
+V.steal=()=>{
+  if(isOwner())return `<div class="vh"><div><h1>جرّب تسرقني</h1><p>المحاولات دي بتتجرّب كبيّاع.</p></div></div><div class="card denied"><b>🔑</b><div>إنت داخل كمالك، والمالك مسموحله بحاجات كتير. بدّل لـ «سامح» من فوق وجرّب.</div><button class="btn pri" id="asSameh">ادخل كـ سامح</button></div>`;
+  const done=STEAL.filter((_,i)=>STOLEN[CUR+i]).length;
+  return `<div class="vh"><div><h1>جرّب تسرقني</h1><p>كل زرار بيبعت طلب حقيقي للسيرفر. شوف لوحة «إزاي شغال» وإنت بتجرّب.</p></div></div>
+  <div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px"><b>اتمنع ${AR.format(done)} من ${AR.format(STEAL.length)}</b><div class="prog"><i style="width:${done/STEAL.length*100}%"></i></div></div>
+  <div class="card">${STEAL.map(([t,s],i)=>{const r=STOLEN[CUR+i];return `<div class="att ${r?'done':''}"><span class="ic">${r?'✓':'!'}</span><div class="tx"><b>${t}</b><small>${s}</small>${r?`<div class="res">اتمنع: ${esc(r)}</div>`:''}</div><button class="btn sm ${r?'':'cta'}" data-steal="${i}">${r?'تاني':'جرّب'}</button></div>`;}).join('')}</div>`;
+};
+V.audit=()=>{
+  const r=api('GET','/audit_log');
+  if(r.status!==200)return `<div class="vh"><div><h1>مين عمل إيه</h1></div></div><div class="card denied"><b>🔒</b><div><b>السيرفر رفض الطلب (403).</b><br>السجل ده للمالك بس. والمحاولة نفسها اتسجّلت فيه.</div></div>`;
+  return `<div class="vh"><div><h1>مين عمل إيه</h1><p>بيتكتب من السيرفر لوحده. محدش يقدر يعدّله أو يمسحه.</p></div></div>
+  <div class="card tw"><table class="t"><thead><tr><th>إمتى</th><th>مين</th><th>عمل إيه</th><th>على إيه</th><th>النتيجة</th></tr></thead><tbody>
+  ${r.data.slice(0,80).map(a=>`<tr><td>${when(a.at)}</td><td>${memberName(a.user_id)}</td><td>${esc(a.action)}</td><td>${esc(a.target)}</td><td><span class="pill ${a.result==='ok'?'ok':'late'}">${a.result==='ok'?'تم':a.result==='duplicate'?'مكرر':'اتمنع'}</span></td></tr>`).join('')||'<tr><td colspan="5" class="empty">لسه مفيش حاجة</td></tr>'}
+  </tbody></table></div>`;
+};
+
+/* ---------- deal drawer (customer card) ---------- */
+function renderDeal(){
+  const r=api('GET','/deals/'+OPEN);const L=$('#layer');
+  if(r.status!==200){L.innerHTML=`<div class="scrim" data-close></div><div class="drawer" role="dialog" aria-modal="true"><div class="dh"><h2>كارت العميل</h2><button class="btn sm" data-close>قفل</button></div><div class="db"><div class="card denied"><b>🔒</b><div><b>${r.status} · السيرفر رفض</b><br>${esc(r.why)}</div><small class="src">مفيش داتا وصلت للموبايل أصلاً. ده مش زرار متخبّي، ده رفض من قاعدة البيانات.</small></div></div></div>`;return;}
+  const d=r.data,c=d.customer,val=d.items.reduce((s,x)=>s+x.qty*x.unit_price,0),paid=d.payments.reduce((s,x)=>s+x.amount,0);
+  const prods=DB.products;const digits=c.phone_masked?'':c.phone.replace(/\D/g,'');
+  const fus=d.followups.filter(f=>!f.done).sort((a,b)=>a.due_at-b.due_at);
+  L.innerHTML=`<div class="scrim" data-close></div><div class="drawer" role="dialog" aria-modal="true" aria-label="كارت ${esc(c.name)}">
+  <div class="dh"><span class="av">${esc(c.name[0])}</span><h2>${esc(c.name)}</h2><button class="btn sm" data-close>قفل</button></div>
+  <div class="db">
+    <div class="card"><dl class="kv">
+      <dt>الموبايل</dt><dd><span class="num" dir="ltr">${esc(c.phone_masked?c.phone:prettyPhone(c.phone))}</span>${c.phone_masked?`<button class="btn sm" id="reveal">اظهر الرقم</button>`:`<a class="btn sm wa" href="https://wa.me/${digits}?text=${encodeURIComponent('أهلاً يا '+c.name+' 👋 معاك '+me().name+' من أوضة')}" target="_blank" rel="noopener">واتساب</a>`}</dd>
+      <dt>جاي من</dt><dd>${esc(c.source)}</dd>
+      <dt>البيّاع</dt><dd>${isOwner()?`<select id="reassign">${DB.members.filter(m=>m.role==='sales').map(m=>`<option value="${m.id}" ${m.id===d.owner_id?'selected':''}>${m.name}</option>`).join('')}</select>`:memberName(d.owner_id)}</dd>
+    </dl>
+    <div class="stages" role="group" aria-label="المرحلة">${STAGES.map(([s,n])=>`<button data-stage-set="${s}" class="${d.stage===s?'on':''}">${n}</button>`).join('')}</div></div>
+    <div class="card"><h2 style="font-size:15px;padding:12px 16px 4px">اتباع إيه</h2>
+      ${d.items.length?`<div class="tw"><table class="t"><thead><tr><th>المنتج</th><th>الكمية</th><th>سعر الوحدة وقت البيع</th><th></th></tr></thead><tbody>${d.items.map(it=>{const p=prods.find(x=>x.id===it.product_id);
+        return `<tr><td>${esc(it.name)}</td><td class="num">${AR.format(it.qty)}</td><td>${money(it.unit_price)}${p&&p.price!==it.unit_price?`<br><small class="src">السعر دلوقتي ${money(p.price)}</small>`:''}</td><td><button class="btn sm ghost" data-del-item="${it.id}" aria-label="شيل">✕</button></td></tr>`;}).join('')}</tbody></table></div>`:'<div class="empty">لسه مفيش منتجات</div>'}
+      <div class="addline"><select id="ip" aria-label="المنتج">${prods.map(p=>`<option value="${p.id}">${esc(p.name)} · ${money(p.price)}</option>`).join('')}</select><input id="iq" type="number" min="1" value="1" aria-label="الكمية"><button class="btn sm pri" id="addItem">ضيف</button></div>
+      <div class="tot"><span>الإجمالي</span><span class="num">${money(val)}</span></div>
+      <div class="tot"><span>اتدفع</span><span class="num">${money(paid)}</span></div>
+      <div class="tot" style="color:${val-paid>0?'var(--orange)':'var(--ok)'}"><span>الباقي (آجل)</span><span class="num">${money(Math.max(0,val-paid))}</span></div>
+      <div class="addline"><input id="pay" inputmode="decimal" placeholder="المبلغ" style="flex:1;width:auto" aria-label="مبلغ الدفعة"><button class="btn sm" id="addPay">سجّل دفعة</button></div></div>
+    <div class="card"><h2 style="font-size:15px;padding:12px 16px 4px">المتابعات</h2>
+      ${fus.map(f=>`<div class="row"><div class="tx"><b>${esc(f.note)}</b></div><span class="pill ${f.due_at<Date.now()?'late':'today'}">${when(f.due_at)}</span><button class="btn sm" data-fu-done="${f.id}">اتعمل ✓</button></div>`).join('')||'<div class="empty">مفيش متابعة. متسيبوش يبرد.</div>'}
+      <div class="addline"><input id="fuN" placeholder="مثلاً: كلّمه أكّد الميعاد" style="flex:1;width:auto" aria-label="المتابعة"><select id="fuW" aria-label="إمتى" style="flex:none;min-width:0"><option value="2h">بعد ساعتين</option><option value="t17" selected>بكرة ٥ م</option><option value="3d">بعد ٣ أيام</option></select><button class="btn sm" id="addFu">ضيف</button></div></div>
+    <div class="card"><h2 style="font-size:15px;padding:12px 16px 4px">اللي حصل معاه</h2><div class="tl">${d.activities.map(a=>`<div><time>${when(a.at)}</time><span>${esc(a.text)} <span class="src">· ${memberName(a.by)}</span></span></div>`).join('')}</div></div>
+  </div></div>`;
+}
+function openDeal(id){OPEN=id;renderDeal();}
+function closeDeal(){OPEN=null;$('#layer').innerHTML='';}
+
+function addCustomerModal(){
+  $('#layer').innerHTML=`<div class="scrim" data-close></div><div class="modal"><form class="mbox" id="cForm"><h2>عميل جديد</h2>
+    <label class="field">الاسم<input id="cn" required autocomplete="off"></label>
+    <label class="field">الموبايل<input id="cp" inputmode="tel" placeholder="010…" autocomplete="off" dir="ltr" style="text-align:right"></label>
+    <label class="field">جاي من<select id="cs">${SOURCES.map(s=>`<option>${s}</option>`).join('')}</select></label>
+    ${isOwner()?`<label class="field">البيّاع<select id="co">${DB.members.filter(m=>m.role==='sales').map(m=>`<option value="${m.id}">${m.name}</option>`).join('')}</select></label>`:''}
+    <div class="err" id="cErr"></div>
+    <div style="display:flex;gap:8px"><button class="btn pri" type="submit">سجّل</button><button class="btn" type="button" data-close>إلغاء</button></div></form></div>`;
+  $('#cn').focus();
+}
+
+/* ---------- console: how it works ---------- */
+function renderConsole(fresh){
+  const C=$('#con');if(!C)return;
+  const tabs=[['reqs','الطلبات'],['tables','الجداول'],['rules','قواعد الأمان']];
+  let body='';
+  if(CONTAB==='reqs'){
+    body=`<p class="legend">كل ضغطة في الشاشة بتبعت طلب. السيرفر بيعرف مين اللي بيطلب، ويطبّق القاعدة قبل ما يرجّع أي داتا. الأحدث فوق.</p>`+
+    REQS.slice(0,40).map((q,i)=>{const pol=POLICIES[q.policy];const cls=q.status<300?'s2':q.status<500&&q.status!==403?'s3':'s4';
+      return `<div class="req ${fresh&&i===0?'new':''}"><div class="l1"><span class="m">${q.method}</span><code>${esc(q.path)}</code><span class="st ${cls}">${q.status}</span></div>
+      <div class="why"><b>${q.status===403?'اتمنع':q.status>=400?'اترفض':'تمام'}:</b> ${esc(q.why||'')}${q.rows!==undefined?` · <span class="num">${q.rows}</span> صف`:''}</div>
+      ${pol?`<div class="why">القاعدة: <b>${esc(pol.t)}</b></div>`:''}<div class="who">${memberName(q.user)} · ${fmtT.format(q.at)}</div>
+      ${q.body&&Object.keys(q.body).length?`<pre>${esc(JSON.stringify(q.body))}</pre>`:''}</div>`;}).join('');
+  }else if(CONTAB==='tables'){
+    const T=CONTABLE,rows=DB[T];
+    const visible=row=>{if(isOwner())return true;
+      if(T==='customers')return row.owner_id===CUR;if(T==='deals')return row.owner_id===CUR;
+      if(['deal_items','payments','followups','activities'].includes(T))return canDeal(DB.deals.find(d=>d.id===row.deal_id));
+      if(T==='audit_log')return false;return true;};
+    const cols=rows[0]?Object.keys(rows[0]):[];
+    const show=v=>typeof v==='number'&&v>1e12?new Date(v).toISOString().slice(5,16).replace('T',' '):typeof v==='object'?JSON.stringify(v):String(v);
+    body=`<label class="legend" for="ctab">ده عرض المطوّر: كل الصفوف اللي في قاعدة البيانات. ${isOwner()?'كريم مالك، فبيشوف كل حاجة.':'الصفوف الباهتة <b style="color:#FF8F84">'+me().name+' مش بيشوفها</b>، لأن القاعدة بتمنعها من السيرفر.'}</label>
+      <select id="ctab">${['customers','deals','deal_items','payments','followups','products','members','activities','audit_log'].map(t=>`<option ${t===T?'selected':''}>${t}</option>`).join('')}</select>
+      <div class="ctw"><table class="ct"><thead><tr><th>👁</th>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>
+      ${rows.slice(-60).map(r=>{const v=visible(r);return `<tr class="${v?'':'hid'}"><td>${v?'✓':'✕'}</td>${cols.map(c=>`<td>${esc(show(r[c]))}</td>`).join('')}</tr>`;}).join('')}</tbody></table></div>
+      ${T==='deal_items'?'<p class="legend">unit_price بالقرش، ومنسوخ من products وقت البيع.</p>':''}${T==='customers'?'<p class="legend">phone متخزن بصيغة واحدة +20…، عشان البحث ومنع التكرار.</p>':''}`;
+  }else{
+    body=`<p class="legend">القواعد دي متكتوبة جوّه قاعدة البيانات نفسها (Row Level Security على Supabase). حتى لو حد عدّل التطبيق أو بعت طلب بإيده، القاعدة بتشتغل.</p>`+
+      Object.entries(POLICIES).map(([k,p])=>`<div class="pol"><b>${k}</b><div>${esc(p.t)}</div><pre>${esc(p.sql)}</pre></div>`).join('');
+  }
+  C.innerHTML=`<div class="conH"><h2><i></i>إزاي شغال<button class="conX" id="conClose">قفل</button></h2><p>داخل دلوقتي كـ <b>${me().name}</b> (${isOwner()?'مالك':'بيّاع'}).</p></div>
+   <div class="flow"><span>الشاشة</span><em>←</em><span>api()</span><em>←</em><span>قاعدة الأمان</span><em>←</em><span>الجداول</span></div>
+   <div class="tabs" role="tablist">${tabs.map(([k,n])=>`<button role="tab" aria-selected="${CONTAB===k}" data-ct="${k}" class="${CONTAB===k?'on':''}">${n}${k==='reqs'?' · <span class="num">'+REQS.length+'</span>':''}</button>`).join('')}</div>
+   <div class="cb">${body}</div>`;
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button,[data-close],a');if(!t)return;
+  if(t.matches('a'))return;
+  if(t.dataset.v){VIEW=t.dataset.v;closeDeal();render();$('#main').scrollTop=0;return;}
+  if(t.id==='reset'){DB=seed();REQS.length=0;REVEALED.clear();STOLEN={};persist();closeDeal();render();toast('رجعت الداتا الأصلية');return;}
+  if(t.dataset.close!==undefined&&(t.matches('[data-close]'))){closeDeal();return;}
+  if(t.dataset.open){openDeal(t.dataset.open);return;}
+  if(t.dataset.ct){CONTAB=t.dataset.ct;renderConsole();return;}
+  if(t.id==='conOpen'){$('#con').dataset.open='1';return;}
+  if(t.id==='conClose'){$('#con').dataset.open='0';return;}
+  if(t.id==='addC'){addCustomerModal();return;}
+  if(t.id==='asSameh'){CUR='m2';render();return;}
+  if(t.dataset.fuDone){const r=api('PATCH','/followups/'+t.dataset.fuDone,{done:true});r.status<300?toast('تمام، اتسجّلت'):denyToast(r);render();return;}
+  if(t.dataset.fuLater){const d=new Date(Date.now()+D);d.setHours(12,0,0,0);api('PATCH','/followups/'+t.dataset.fuLater,{due_at:d.getTime()});toast('اتأجّلت لبكرة');render();return;}
+  if(t.dataset.savePrice){const v=parseFloat($('#pr-'+t.dataset.savePrice).value);const r=api('PATCH','/products/'+t.dataset.savePrice,{price:v});
+    r.status<300?toast('السعر اتغيّر. الأوردرات القديمة زي ما هي'):denyToast(r);render();return;}
+  if(t.dataset.steal){const i=+t.dataset.steal;const r=STEAL[i][2]();if(r.status>=400){STOLEN[CUR+i]=r.why;toast('اتمنع ✓ '+r.why);}else toast('عدّت؟! ده مش المفروض',true);render();return;}
+  if(t.dataset.stageSet){const r=api('PATCH','/deals/'+OPEN,{stage:t.dataset.stageSet});r.status<300?toast('اتنقل لـ «'+STAGE[t.dataset.stageSet]+'»'):denyToast(r);render();return;}
+  if(t.dataset.delItem){api('DELETE','/deal_items/'+t.dataset.delItem);render();return;}
+  if(t.id==='reveal'){const c=api('GET','/deals/'+OPEN).data.customer;const r=api('POST','/customers/'+c.id+'/reveal_phone');r.status<300?toast('الرقم ظهر، واتسجّل إنك شفته'):denyToast(r);render();return;}
+  if(t.id==='addItem'){const r=api('POST','/deal_items',{deal_id:OPEN,product_id:$('#ip').value,qty:$('#iq').value});r.status<300?toast('اتضاف بالسعر الحالي'):denyToast(r);render();return;}
+  if(t.id==='addPay'){const r=api('POST','/payments',{deal_id:OPEN,amount:$('#pay').value});r.status<300?toast('الدفعة اتسجّلت'):denyToast(r);render();return;}
+  if(t.id==='addFu'){const w=$('#fuW').value,d=new Date();if(w==='2h')d.setTime(Date.now()+2*36e5);else if(w==='3d'){d.setTime(Date.now()+3*D);d.setHours(12,0,0,0);}else{d.setTime(Date.now()+D);d.setHours(17,0,0,0);}
+    const r=api('POST','/followups',{deal_id:OPEN,note:$('#fuN').value.trim()||'متابعة',due_at:d.getTime()});r.status<300?toast('السيستم هيفكّرك'):denyToast(r);render();return;}
+});
+document.addEventListener('change',e=>{
+  if(e.target.id==='who'){CUR=e.target.value;closeDeal();render();toast('دخلت كـ '+me().name);}
+  if(e.target.id==='qs'){QS=e.target.value;render();}
+  if(e.target.id==='ctab'){CONTABLE=e.target.value;renderConsole();}
+  if(e.target.id==='reassign'){const r=api('PATCH','/deals/'+OPEN,{owner_id:e.target.value});r.status<300?toast('العميل اتنقل لـ '+memberName(e.target.value)):denyToast(r);render();}
+});
+let qT;document.addEventListener('input',e=>{if(e.target.id==='q'){Q=e.target.value;clearTimeout(qT);qT=setTimeout(()=>{const pos=e.target.selectionStart;render();const q=$('#q');q.focus();q.setSelectionRange(pos,pos);},180);}});
+document.addEventListener('submit',e=>{if(e.target.id!=='cForm')return;e.preventDefault();
+  const r=api('POST','/customers',{name:$('#cn').value,phone:$('#cp').value,source:$('#cs').value,owner_id:$('#co')&&$('#co').value});
+  if(r.status>=300){$('#cErr').textContent=r.why;return;}
+  closeDeal();VIEW='pipeline';render();toast('اتسجّل في «جديد»');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#layer').innerHTML)closeDeal();});
+// drag & drop on the pipeline
+let dragId=null;
+document.addEventListener('dragstart',e=>{const c=e.target.closest('.dcard');if(!c)return;dragId=c.dataset.deal;e.dataTransfer.setData('text/plain',dragId);e.dataTransfer.effectAllowed='move';});
+document.addEventListener('dragover',e=>{const col=e.target.closest('.col');if(!col||!dragId)return;e.preventDefault();document.querySelectorAll('.col.drop').forEach(c=>c!==col&&c.classList.remove('drop'));col.classList.add('drop');});
+document.addEventListener('drop',e=>{const col=e.target.closest('.col');if(!col||!dragId)return;e.preventDefault();
+  const r=api('PATCH','/deals/'+dragId,{stage:col.dataset.stage});dragId=null;r.status<300?toast('اتنقل لـ «'+STAGE[col.dataset.stage]+'»'):denyToast(r);render();});
+document.addEventListener('dragend',()=>{dragId=null;document.querySelectorAll('.col.drop').forEach(c=>c.classList.remove('drop'));});
+
+if(matchMedia('(min-width:1181px)').matches)$('#con').dataset.open='1';
+render();
+</script>
