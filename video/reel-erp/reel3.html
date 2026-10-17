@@ -170,9 +170,9 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
 #odoL b{color:var(--cyan2)}
 
 /* captions */
-#capBg{position:absolute;left:0;right:0;top:0;height:480px;z-index:79;pointer-events:none;background:linear-gradient(180deg,rgba(3,10,22,.88),rgba(3,10,22,.5) 62%,transparent)}
-#cap{position:absolute;left:50px;right:50px;top:130px;height:220px;display:flex;align-items:center;justify-content:center;direction:rtl;text-align:center;z-index:80}
-#cap .ln{font:700 78px Plex;line-height:1.25;color:#fff;text-shadow:0 4px 0 rgba(0,0,0,.35),0 0 30px rgba(0,0,0,.6);white-space:nowrap}
+#capBg{display:none!important}
+#cap{position:absolute;left:50px;right:170px;top:1250px;height:230px;display:flex;align-items:center;justify-content:center;direction:rtl;text-align:center;z-index:80}
+#cap .ln{font:700 66px Plex;line-height:1.3;color:#fff;white-space:nowrap;padding:16px 34px 22px;border-radius:30px;background:rgba(5,14,29,.8);box-shadow:0 20px 50px rgba(0,0,0,.35)}
 #cap .w{display:inline-block;margin:0 10px;opacity:0}
 #cap .w.k{color:var(--cyan2)}
 #cap .w.k:before{content:'{';font-family:Sora;color:var(--cyan);margin-left:6px}
@@ -187,8 +187,8 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
 #vhs{position:absolute;inset:0;z-index:90;display:none;pointer-events:none}
 #vhs .lines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.07) 0 2px,transparent 2px 6px)}
 #vhs .band{position:absolute;left:0;right:0;height:110px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.4),transparent);mix-blend-mode:screen}
-#vhs .osd{position:absolute;left:70px;top:1700px;font:700 72px Sora;color:#fff;text-shadow:4px 0 rgba(255,0,80,.7),-4px 0 rgba(0,220,255,.7);direction:ltr}
-#vhs .tc{position:absolute;right:70px;top:1710px;font:700 56px Sora;color:#fff;direction:ltr;text-shadow:4px 0 rgba(255,0,80,.7),-4px 0 rgba(0,220,255,.7)}
+#vhs .osd{position:absolute;left:70px;top:330px;font:700 72px Sora;color:#fff;text-shadow:4px 0 rgba(255,0,80,.7),-4px 0 rgba(0,220,255,.7);direction:ltr}
+#vhs .tc{position:absolute;right:70px;top:340px;font:700 56px Sora;color:#fff;direction:ltr;text-shadow:4px 0 rgba(255,0,80,.7),-4px 0 rgba(0,220,255,.7)}
 
 /* end card */
 #end{position:absolute;inset:0;z-index:95;display:none;direction:rtl;text-align:center}
@@ -242,7 +242,7 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
 .bright .popc .h{color:#5A6F8C}.bright .popc .v{color:#0A2444}.bright .popc .s{color:#5A6F8C}.bright .popc .h span{background:#E6F8FD;color:#0096BF}
 .bright .chip{background:#fff;border-color:rgba(0,170,210,.6);box-shadow:0 20px 50px rgba(10,36,68,.18)}.bright .chip small{color:#5A6F8C}.bright .chip b{color:#0A2444!important}
 .bright #capBg{background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.6) 62%,transparent)}
-.bright #cap .ln{color:#0A2444;text-shadow:none}.bright #cap .w.k{color:#0096BF}
+.bright #cap .ln{color:#0A2444;background:rgba(255,255,255,.92);box-shadow:0 20px 50px rgba(10,36,68,.18)}.bright #cap .w.k{color:#0096BF}
 .bright #odoN{color:#0A2444;text-shadow:0 0 30px rgba(0,204,242,.35)}.bright #odoL{color:#0A2444}
 .bright #vig{background:radial-gradient(ellipse 80% 70% at 50% 50%,transparent 60%,rgba(10,36,68,.16) 100%)}
 .bright #grain{opacity:.035}
@@ -296,9 +296,9 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
   <div id="fxLayer"></div>
   <div id="tint"></div>
 </div>
-<div id="secChips"><div class="chip sc" id="sc1" style="left:40px;top:1330px"><div><small>صلاحيات لكل موظف</small><b style="font-size:46px;color:#fff">الفني مش بيشوف الخزنة</b></div></div>
-<div class="chip sc" id="sc2" style="left:460px;top:1500px"><div><small>كل تعديل متسجّل</small><b style="font-size:46px;color:#fff">باسم مين وإمتى</b></div></div>
-<div class="chip sc" id="sc3" style="left:90px;top:1670px"><div><small>قبل التسليم</small><b style="font-size:46px">اتجرّب ضد الاختراق ✓</b></div></div></div>
+<div id="secChips"><div class="chip sc" id="sc1" style="left:40px;top:760px"><div><small>صلاحيات لكل موظف</small><b style="font-size:46px;color:#fff">الفني مش بيشوف الخزنة</b></div></div>
+<div class="chip sc" id="sc2" style="left:470px;top:910px"><div><small>كل تعديل متسجّل</small><b style="font-size:46px;color:#fff">باسم مين وإمتى</b></div></div>
+<div class="chip sc" id="sc3" style="left:90px;top:1060px"><div><small>قبل التسليم</small><b style="font-size:46px">اتجرّب ضد الاختراق ✓</b></div></div></div>
 <div id="odo"><div id="odoN"></div><div id="odoL">سطر خرجوا من <b>الدفتر</b></div></div>
 <div id="capBg"></div><div id="cap"></div>
 <div id="big"><div class="a" id="bigA">ولو موبايله وقع…</div><div class="b">الشغل كله <span id="fall"><span class="br">{</span>يقع<span class="br">}</span></span></div></div>
@@ -471,6 +471,7 @@ function ring(t,t0,x,y,size,dur=.6,color){const p=P(t,t0,t0+dur);if(p<=0||p>=1)r
   if(color)r.style.borderColor=color;else r.style.borderColor='';}
 function caption(t){
   CAPS.forEach(([a,b],i)=>{const ln=capLines[i];const vis=t>=a&&t<b;ln.style.display=vis?'block':'none';if(!vis)return;
+    if(!ln.dataset.fit){let fs=66;ln.style.fontSize=fs+'px';while(ln.offsetWidth>850&&fs>40){fs-=2;ln.style.fontSize=fs+'px';}ln.dataset.fit=1;}
     const ws=[...ln.children],per=Math.min(.22,(b-a)*.6/ws.length);
     ws.forEach((w,j)=>{const x=P(t,a+j*per,a+j*per+.22),sp=spring(x,11);w.style.opacity=Math.min(1,x*2.5);
       w.style.filter=`blur(${(1-x)*10}px)`;w.style.transform=`translateY(${(1-sp)*40}px) scale(${L(1.35,1,sp)}) rotate(${(1-x)*(j%2?4:-4)}deg)`;
@@ -588,7 +589,7 @@ function renderFrame(i){
     $('popStock').textContent=t>T.z2+.5?'٣':'٤';
     $('popCash').textContent=Math.round(L(41200,48750,eo(P(t,T.z3+.2,T.z3+.9)))).toLocaleString('en-US');
     popEls[2].querySelectorAll('.bars i').forEach((b,j)=>b.style.height=(+b.dataset.h*eo(P(t,T.z3+.2+j*.06,T.z3+.6+j*.06)))+'%');
-    if(t>T.z4){const c=$('chCalls');c.style.display='flex';const y=spring(P(t,T.z4+.05,T.z4+.45),9);c.style.transform=`scale(${L(.3,1,y)}) rotate(-4deg)`;c.style.left='60px';c.style.top='1180px';
+    if(t>T.z4){const c=$('chCalls');c.style.display='flex';const y=spring(P(t,T.z4+.05,T.z4+.45),9);c.style.transform=`scale(${L(.3,1,y)}) rotate(-4deg)`;c.style.left='60px';c.style.top='1000px';
       const b=$('chBatt');b.style.display='flex';b.style.transform=`scale(${L(.3,1,spring(P(t,T.z4+.25,T.z4+.65),9))}) rotate(4deg)`;b.style.left='600px';b.style.top='380px';
       mega('صفر',P(t,T.z4,T.z4+.3)*.3,1,'rgba(63,214,245,.6)');}
   } else if(t<T.sec){ // ===== PROOF: pages fly in + odometer
