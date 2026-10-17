@@ -101,6 +101,29 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
 #px{left:66px;top:990px;width:90px;height:40px}
 #px i{position:absolute;background:var(--orange);border-radius:2px}
 
+/* whatsapp chat */
+#wa{position:absolute;inset:0;background:#0B141A;display:flex;flex-direction:column}
+#wa .top{display:flex;align-items:center;gap:12px;padding:66px 18px 14px;background:#1F2C34;direction:rtl}
+#wa .bk{width:26px;height:26px;color:#AEBAC1;transform:scaleX(-1)}
+#wa .av{width:52px;height:52px;border-radius:50%;background:#0A2444;border:1.5px solid var(--cyan);display:flex;align-items:center;justify-content:center;font:700 22px Sora;color:var(--cyan2)}
+#wa .top b{display:block;font:700 23px Sora;color:#E9EDEF;direction:ltr;text-align:right}
+#wa .top small{font:400 17px Plex;color:#8696A0}
+#wa .chat{flex:1;padding:16px 16px 0;background:#0B141A;direction:rtl;display:flex;flex-direction:column}
+#wa .sys{margin:0 auto 14px;max-width:90%;padding:10px 16px;border-radius:12px;background:#182229;font:400 17px Plex;line-height:1.5;color:#FFD279;text-align:center}
+#wa .gap{flex:1}
+#wa .day{margin:0 auto 14px;width:max-content;padding:5px 14px;border-radius:10px;background:#182229;font:400 16px Plex;color:#8696A0}
+#wa .in,#wa .out{max-width:84%;padding:12px 16px 28px;border-radius:16px;font:400 22px Plex;line-height:1.45;color:#E9EDEF;position:relative;margin-bottom:12px}
+#wa .in{background:#202C33;border-top-right-radius:4px;margin-left:auto}
+#wa .out{background:#005C4B;border-top-left-radius:4px;margin-right:auto}
+#wa em{position:absolute;left:12px;bottom:6px;font:400 14px Plex;font-style:normal;color:rgba(233,237,239,.6)}
+#wa .bar{display:flex;align-items:center;gap:10px;padding:12px 14px 40px;background:#0B141A;direction:rtl}
+#wa .fld{flex:1;height:52px;border-radius:26px;background:#1F2C34;display:flex;align-items:center;padding:0 20px;font:400 20px Plex;color:#8696A0}
+#wa .mic{width:52px;height:52px;border-radius:50%;background:#00A884;display:flex;align-items:center;justify-content:center;padding:13px}
+#cta{display:inline-flex;align-items:center;gap:14px;margin-top:20px;padding:0 34px 0 30px;height:84px;border-radius:999px;background:var(--orange);font:700 32px Plex;color:#fff;box-shadow:0 12px 40px rgba(245,106,57,.45)}
+#cta .w{width:40px;height:40px;display:flex}
+#cta .w svg{width:100%;height:100%}
+#cta .num{font:700 22px Sora;direction:ltr;padding-right:16px;border-right:2px solid rgba(255,255,255,.4)}
+.s3 #rig{transform:rotate(3deg)}
 /* ---------- band ---------- */
 #sink{left:0;right:0;top:880px;height:80px;background:linear-gradient(180deg,rgba(6,20,40,0),rgba(6,20,40,.6))}
 #band{left:0;right:0;top:960px;bottom:0;background:linear-gradient(180deg,#061428,#050F1F 80%)}
@@ -145,7 +168,7 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
 <div id="foot" class="abs"></div>
 <img id="logo" class="abs" src="brand/logo-on-dark.png">
 <div id="tag" class="abs">لصاحب الشغل</div>
-<div id="count" class="abs"><i></i><i></i></div>
+<div id="count" class="abs"><i></i><i></i><i></i></div>
 <div id="grain" class="full"></div>
 
 <script>
@@ -171,7 +194,7 @@ const nt=(x,y,r,app,title,time,msg,far)=>`<div class="nt${far?' far':''}" style=
 
 const n=(parseInt(location.hash.slice(1))||1);
 document.body.className='s'+n;
-document.querySelectorAll('#count i')[n-1].className='on';
+document.querySelectorAll('#count i').forEach((e,k)=>{if(k<n)e.className='on'});
 const arw=document.getElementById('arw');
 
 if(n===1){
@@ -196,7 +219,7 @@ if(n===1){
   document.getElementById('l2').innerHTML='<span class="br">{</span><span class="k">انت</span><span class="br">}</span> السيستم بتاعها<span class="dot">.</span>';
   document.getElementById('sub').textContent='كل سؤال في الشغل بيعدّي عليك… ولو قفلت موبايلك، الشغل يقف.';
   document.getElementById('foot').innerHTML=`<span class="wa">كلّمنا على <b>الواتساب</b></span><span class="swipe">اسحب وشوف الفرق <span>${ic('left')}</span></span>`;
-}else{
+}else if(n===2){
   document.getElementById('bt').textContent='٦٤٪';
   Object.assign(document.getElementById('bi').style,{width:'64%',background:'#fff'});
   const R=[['user','أحمد الفني','وصل للعميل · ١٠:١٢ م'],['box','كمبروسر','٣ قطع في المخزن'],['bill','عم مصطفى','دفع الفاتورة · ٩:٤٠ م'],['truck','أوردر ٢١٤','خرج مع كريم · ٨:٢٥ م']];
@@ -214,7 +237,29 @@ if(n===1){
   document.getElementById('l1').textContent='نفس الساعة… بعد السيستم:';
   document.getElementById('l2').innerHTML='<span class="br">{</span><span class="k">ولا</span><span class="br">}</span> مكالمة<span class="dot">.</span>';
   document.getElementById('sub').textContent='نظام واحد على طريقة شغلك: الفنيين، والمخزن، والعملاء، والخزنة.';
-  document.getElementById('foot').innerHTML=`<span class="wa">ابعتلنا شغلك ماشي إزاي على <b>الواتساب</b></span><span class="r">logika-eg.pages.dev</span>`;
+  document.getElementById('foot').innerHTML=`<span class="wa">عاوز ده عندك؟</span><span class="swipe">اسحب <span>${ic('left')}</span></span>`;
+}else{
+  document.getElementById('bt').textContent='٦٤٪';
+  Object.assign(document.getElementById('bi').style,{width:'64%',background:'#fff'});
+  const tick='<svg viewBox="0 0 24 24" width="22" height="14" style="vertical-align:-1px"><path d="M2 13l4 4 8-9M10 15l2 2 8-9" fill="none" stroke="#53BDEB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  put('content',`<div id="wa">
+    <div class="top"><span class="bk">${ic('left')}</span><span class="av">{ }</span><div><b>Logika</b><small>حساب تجاري</small></div></div>
+    <div class="chat">
+      <div class="sys">🔒 الرسايل والمكالمات مشفّرة من طرف لطرف.</div><div class="gap"></div><div class="day">النهارده</div>
+      <div class="in">أهلًا 👋 احكيلنا في سطرين: شغلك إيه؟ وبتتابعه إزاي دلوقتي؟<em>١١:٥٢ م</em></div>
+      <div class="out">عندي شركة صيانة… والشغل كله على دفتر وجروب واتساب 😅<em>١١:٥٤ م ${tick}</em></div>
+      <div class="in">تمام، هنكلمك النهارده ونفهم شغلك ماشي إزاي.<em>١١:٥٥ م</em></div>
+    </div>
+    <div class="bar"><span class="fld">اكتب رسالة</span><span class="mic"><svg viewBox="0 0 24 24" width="100%" height="100%"><rect x="8.5" y="3" width="7" height="12" rx="3.5" fill="#fff"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span></div>
+  </div>`);
+  put('front',`<div class="chip" style="left:44px;top:330px;transform:rotate(-3deg)"><span class="ok" style="color:var(--cyan2);background:rgba(0,204,242,.16)">${ic('clock')}</span><div><small>أول رد</small><b style="font-size:28px;color:#fff">في نفس اليوم</b></div></div>`);
+  put('front',`<div class="chip" style="left:736px;top:610px;transform:rotate(3deg)"><div><small>عملناه لشركة صيانة</small><b style="font-size:30px">6,690 <span style="font:600 22px Plex;color:#fff">سطر خرجوا من الدفتر</span></b></div></div>`);
+  put('front',`<div class="note" style="left:40px;top:560px">ابعتها كده<br>بالظبط!</div>`);
+  arw.innerHTML=`<path d="M150 690 C175 740 260 742 330 712"/><path d="M312 704 L330 712 L316 727"/>`;
+  document.getElementById('l1').textContent='عاوز ترجع صاحب الشركة…';
+  document.getElementById('l2').innerHTML='مش <span class="br">{</span><span class="k">السيستم</span><span class="br">}</span> بتاعها<span class="dot">؟</span>';
+  document.getElementById('sub').outerHTML=`<div id="cta"><span class="w"><svg viewBox="0 0 24 24">${P.wa.replace('#25D366','#F56A39')}</svg></span>ابعتلنا على الواتساب<span class="num">+20 122 641 2843</span></div>`;
+  document.getElementById('foot').innerHTML=`<span class="wa">ابعتلنا شغلك ماشي إزاي في سطرين</span><span class="r">logika-eg.pages.dev</span>`;
 }
 // logo squares, one corner only
 [[0,10,12],[18,0,9],[16,22,7],[34,12,6],[50,4,4]].forEach(([x,y,s])=>put('px',`<i style="left:${x}px;top:${y}px;width:${s}px;height:${s}px;opacity:${(s/12).toFixed(2)}"></i>`));
