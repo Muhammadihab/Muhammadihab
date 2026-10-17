@@ -8,63 +8,85 @@
 @font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2);font-weight:600}
 @font-face{font-family:Plex;src:url(fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
 @font-face{font-family:Sora;src:url(fonts/sora-latin-700-normal.woff2);font-weight:700}
-:root{--navy:#0A2444;--deep:#071A33;--cyan:#00CCF2;--cyan2:#3FD6F5;--orange:#F56A39;--text:#F4F7FB;--muted:#9FB3CC;--leak:#FF8577}
+:root{--navy:#0A2444;--deep:#061428;--cyan:#00CCF2;--cyan2:#3FD6F5;--orange:#F56A39;--text:#F4F7FB;--muted:#BFD0E6;--leak:#FF7A66}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:1080px;height:1350px;overflow:hidden;background:var(--navy)}
+html,body{width:1080px;height:1350px;overflow:hidden;background:var(--deep)}
 body{position:relative;font-family:Plex,sans-serif;color:var(--text)}
 .abs{position:absolute}.full{position:absolute;inset:0}
+
 #bg{background:
-  linear-gradient(rgba(0,204,242,.05) 1px,transparent 1px) 0 0/54px 54px,
-  linear-gradient(90deg,rgba(0,204,242,.05) 1px,transparent 1px) 0 0/54px 54px,
-  radial-gradient(ellipse 55% 45% at 50% 44%,#0E3563 0%,#0A2444 60%,#08203D 100%)}
+  linear-gradient(rgba(0,204,242,.045) 1px,transparent 1px) 0 0/54px 54px,
+  linear-gradient(90deg,rgba(0,204,242,.045) 1px,transparent 1px) 0 0/54px 54px,
+  radial-gradient(ellipse 70% 55% at 50% 45%,#0D2D55 0%,#0A2444 45%,#071A33 100%)}
+#pool{background:radial-gradient(ellipse 26% 30% at 50% 46%,rgba(0,204,242,.20),rgba(0,204,242,.06) 55%,transparent 75%)}
+#vig{background:radial-gradient(ellipse 75% 70% at 50% 45%,transparent 55%,rgba(2,8,18,.65) 100%)}
+#grain{filter:url(#noise);opacity:.07;mix-blend-mode:overlay}
 
-/* scattered, unprotected data outside the braces: icon + label + broken bar, no real values */
-.frag{position:absolute;display:flex;align-items:center;gap:12px;direction:rtl;color:var(--leak);font:600 26px Plex;opacity:.55}
-.frag i{width:34px;height:34px;display:inline-flex}
-.frag u{display:inline-block;height:12px;border-radius:6px;background:repeating-linear-gradient(90deg,var(--leak) 0 14px,transparent 14px 22px);text-decoration:none}
+/* ---------- chips ---------- */
+.chip{position:absolute;display:flex;align-items:center;gap:16px;height:96px;padding:0 22px;border-radius:24px;direction:rtl}
+.chip .ic{width:52px;height:52px;flex:none;border-radius:16px;display:flex;align-items:center;justify-content:center}
+.chip .ic svg{width:28px;height:28px}
+.chip b{font:600 29px Plex;white-space:nowrap}
+.chip .mask{margin-right:auto;font:700 22px Sora;letter-spacing:5px;direction:ltr}
+.chip .lk{width:26px;height:26px;flex:none}
 
-/* the braces = the brand asset */
-.brace{position:absolute;top:286px;font:700 580px/1 Sora;color:var(--cyan);text-shadow:0 0 70px rgba(0,204,242,.35)}
-#bL{left:150px}#bR{right:150px}
+/* protected (inside) */
+.safe{background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.04));border:1.5px solid rgba(0,204,242,.42);
+  box-shadow:0 18px 40px rgba(0,0,0,.35),inset 1px 1px 0 rgba(255,255,255,.18);backdrop-filter:blur(8px)}
+.safe .ic{background:rgba(0,204,242,.14);color:var(--cyan2)}
+.safe .mask{color:var(--cyan2)}
+.safe .lk{color:var(--cyan2)}
 
-/* protected data inside */
-#safe{left:318px;right:318px;top:406px;direction:rtl}
-#lock{width:96px;height:96px;margin:0 auto 34px;border-radius:50%;border:2.5px solid var(--cyan);display:flex;align-items:center;justify-content:center;color:var(--cyan2);background:rgba(0,204,242,.08);box-shadow:0 0 40px rgba(0,204,242,.25)}
-.row{display:flex;align-items:center;gap:18px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.1)}
-.row:last-child{border-bottom:none}
-.row i{width:40px;height:40px;color:var(--cyan2);display:inline-flex;flex:none}
-.row b{font:600 30px Plex;width:130px;flex:none}
-.row s{flex:1;height:16px;border-radius:8px;text-decoration:none;background:repeating-linear-gradient(90deg,rgba(0,204,242,.85) 0 16px,transparent 16px 26px);opacity:.9}
+/* exposed (outside), dissolving into pixels */
+.open{border:1.5px solid rgba(255,122,102,.55);background:rgba(255,122,102,.06)}
+.open .ic{background:rgba(255,122,102,.14);color:var(--leak)}
+.open b{color:#FFB3A6}
+.open.l{-webkit-mask-image:linear-gradient(90deg,transparent 15%,rgba(0,0,0,.4) 45%,#000 70%);mask-image:linear-gradient(90deg,transparent 15%,rgba(0,0,0,.4) 45%,#000 70%)}
+.open.r{-webkit-mask-image:linear-gradient(270deg,transparent 15%,rgba(0,0,0,.4) 45%,#000 70%);mask-image:linear-gradient(270deg,transparent 15%,rgba(0,0,0,.4) 45%,#000 70%)}
+.px{position:absolute;border-radius:1.5px;box-shadow:0 0 6px rgba(255,122,102,.45)}
 
-/* bottom band, same system as the other posts */
-#band{left:0;right:0;top:1030px;bottom:0;background:linear-gradient(180deg,rgba(6,20,40,.92),#061428 70%)}
-#bandLine{left:0;right:0;top:1030px;height:2px;background:linear-gradient(90deg,transparent,rgba(0,204,242,.8) 30%,rgba(0,204,242,.8) 70%,transparent)}
-#headline{right:60px;left:60px;top:1066px;direction:rtl;text-align:right}
-#headline .l1{font:700 64px Plex;color:#DCE6F2;line-height:1.25}
-#headline .l2{font:700 96px Plex;line-height:1.15}
+#shield{left:50%;top:300px;margin-left:-46px;width:92px;height:92px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 35% 30%,rgba(63,214,245,.35),rgba(0,204,242,.08) 70%);border:2px solid rgba(63,214,245,.75);color:#E9FBFF;
+  box-shadow:0 0 40px rgba(0,204,242,.45)}
+
+/* ---------- band (same system as the other posts) ---------- */
+#band{left:0;right:0;top:1040px;bottom:0;background:linear-gradient(180deg,rgba(6,20,40,.96),#050F1F 80%)}
+#bandLine{left:0;right:0;top:1040px;height:2px;background:linear-gradient(90deg,transparent,rgba(0,204,242,.85) 30%,rgba(0,204,242,.85) 70%,transparent);box-shadow:0 0 18px rgba(0,204,242,.6)}
+#headline{right:64px;left:64px;top:1074px;direction:rtl;text-align:right}
+#headline .l1{font:700 62px Plex;color:#D6E2F0;line-height:1.25}
+#headline .l2{font:700 100px Plex;line-height:1.12;letter-spacing:-.5px}
 #headline .dot{color:var(--orange)}
-#sub{right:60px;top:1282px;font:400 30px Plex;color:var(--muted);direction:rtl}
+#sub{right:64px;top:1284px;font:400 30px Plex;color:var(--muted);direction:rtl}
 #logo{left:40px;top:34px;width:178px}
 #tag{right:52px;top:50px;padding:10px 34px;border:2.5px solid var(--cyan);border-radius:999px;font:700 32px Plex;color:var(--cyan2);direction:rtl}
-#grain{filter:url(#noise);opacity:.08;mix-blend-mode:overlay}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter></svg>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter>
+  <filter id="glow" x="-40%" y="-10%" width="180%" height="120%"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6BE3FA"/><stop offset=".5" stop-color="#00CCF2"/><stop offset="1" stop-color="#00A3CC"/></linearGradient>
+</svg>
+
 <div id="bg" class="full"></div>
+<div id="pool" class="full"></div>
+<div id="leaks" class="full"></div>
 
-<div id="frags"></div>
+<!-- the braces, drawn in the logo's rounded-stroke style -->
+<svg class="full" width="1080" height="1350" style="pointer-events:none">
+  <g filter="url(#glow)" fill="none" stroke="url(#bg1)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+    <path id="braceL" d="M330 232 C270 232 250 256 250 318 L250 520 C250 574 230 600 192 610 C230 620 250 646 250 700 L250 902 C250 964 270 988 330 988"/>
+    <path d="M750 232 C810 232 830 256 830 318 L830 520 C830 574 850 600 888 610 C850 620 830 646 830 700 L830 902 C830 964 810 988 750 988"/>
+  </g>
+  <g fill="none" stroke="#E9FBFF" stroke-width="4" stroke-linecap="round" opacity=".55">
+    <path d="M318 238 C276 240 258 262 257 318 L257 470"/>
+    <path d="M762 238 C804 240 822 262 823 318 L823 470"/>
+  </g>
+</svg>
 
-<div id="bL" class="brace">{</div>
-<div id="bR" class="brace">}</div>
-
-<div id="safe" class="abs">
-  <div id="lock"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
-  <div class="row"><i data-ic="user"></i><b>الاسم</b><s></s></div>
-  <div class="row"><i data-ic="phone"></i><b>الموبايل</b><s></s></div>
-  <div class="row"><i data-ic="pin"></i><b>العنوان</b><s></s></div>
-  <div class="row"><i data-ic="card"></i><b>الدفع</b><s></s></div>
-</div>
+<div id="shield" class="abs"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+<div id="inside"></div>
+<div id="vig" class="full"></div>
 
 <div id="band" class="abs"></div><div id="bandLine" class="abs"></div>
 <div id="headline" class="abs"><div class="l1">اللي جوه أقواسنا…</div><div class="l2">محدش يوصله<span class="dot">.</span></div></div>
@@ -79,15 +101,37 @@ const IC={
  phone:'<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/>',
  pin:'<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
  card:'<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/>'};
-const svg=k=>`<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${IC[k]}</svg>`;
-document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=svg(e.dataset.ic));
-// unprotected copies drifting outside the braces: same four data types, broken and scattered
-const F=[['user','الاسم',110,60,330,-12,.5],['phone','الموبايل',120,70,520,8,.4],['pin','العنوان',130,58,715,-6,.46],
-         ['card','الدفع',100,760,330,11,.46],['user','الاسم',110,772,520,-9,.4],['phone','الموبايل',120,744,715,6,.5],
-         ['pin','العنوان',120,300,250,5,.34],['card','الدفع',110,560,250,-6,.34]];
-const host=document.getElementById('frags');
-F.forEach(([k,l,w,x,y,r,o])=>{const d=document.createElement('div');d.className='frag';d.style.left=x+'px';d.style.top=y+'px';d.style.transform=`rotate(${r}deg)`;d.style.opacity=o;
-  d.innerHTML=`<i>${svg(k)}</i>${l}<u style="width:${w}px"></u>`;host.appendChild(d);});
+const LOCK='<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>';
+const svg=(d,w=2)=>`<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const DATA=[['user','الاسم'],['phone','الموبايل'],['pin','العنوان'],['card','الدفع']];
+const rnd=n=>{const s=Math.sin(n*12.9898+78.233)*43758.5453;return s-Math.floor(s)};
+
+// protected chips, centred between the braces
+const inside=document.getElementById('inside');
+DATA.forEach(([k,l],i)=>{const c=document.createElement('div');c.className='chip safe';
+  Object.assign(c.style,{left:'300px',width:'480px',top:(428+i*122)+'px'});
+  c.innerHTML=`<span class="ic">${svg(IC[k])}</span><b>${l}</b><span class="mask">••••••</span><span class="lk">${svg(LOCK,2.2)}</span>`;inside.appendChild(c);});
+
+// exposed chips outside the braces, breaking apart into pixels that fly off the canvas
+const leaks=document.getElementById('leaks');
+const W=236,H=80;
+const OUT=[['user','الاسم','l',-18,318,-6],['pin','العنوان','l',-30,560,4],['card','الدفع','l',-14,812,-5],
+           ['phone','الموبايل','r',1080-W+22,382,5],['user','الاسم','r',1080-W+30,642,-4],['pin','العنوان','r',1080-W+16,880,6]];
+OUT.forEach(([k,l,side,x,y,r],j)=>{
+  const c=document.createElement('div');c.className='chip open '+side;
+  Object.assign(c.style,{left:x+'px',top:y+'px',width:W+'px',height:H+'px',transform:`rotate(${r}deg)`});
+  c.innerHTML=side==='l'?`<b>${l}</b><span class="ic">${svg(IC[k])}</span>`:`<span class="ic">${svg(IC[k])}</span><b>${l}</b>`;
+  leaks.appendChild(c);
+  // the chip's outer half breaks into square pixels that drift off-canvas
+  const root=side==='l'?x+W*.55:x+W*.45, dir=side==='l'?-1:1, cy=y+H/2;
+  for(let n=0;n<60;n++){const p=document.createElement('div');p.className='px';
+    const t=Math.pow(rnd(j*97+n*3.1),.85), d=t*(W*.55+90);
+    const s=Math.round(12-7*t+rnd(j*31+n)*4), spread=H*.5+t*46;
+    const px=root+dir*d-s/2, py=cy+(rnd(j*13+n*7)-.5)*2*spread+dir*t*r*4;
+    const col=rnd(n*11+j)<.3?'#FFD2C9':'var(--leak)';
+    Object.assign(p.style,{left:px.toFixed(0)+'px',top:py.toFixed(0)+'px',width:s+'px',height:s+'px',background:col,opacity:(.95-.75*t).toFixed(2)});
+    leaks.appendChild(p);}
+});
 document.fonts.ready.then(()=>{window.__ready=true;});
 </script>
 </body>
