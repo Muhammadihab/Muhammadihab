@@ -204,6 +204,13 @@ def soft_tick():
     return mallet(1318.5, .08, .1) * .3
 
 
+def lock():
+    a = mallet(1568, .07, .2) * .5; b = mallet(1046.5, .09, .2) * .5
+    th = sine_sweep(140, 60, .2) * env(int(.2*SR), curve=8) * .5
+    out = np.zeros(int(.3*SR)); out[:len(a)] += a; o = int(.06*SR); out[o:o+len(b)] += b; out[:len(th)] += th
+    return out
+
+
 def nothing():
     return np.zeros(10)
 
@@ -216,7 +223,7 @@ def note_minor(k):
 
 
 GEN = dict(softclick=softclick, vib=haptic, air=lambda: swish(.42, 1200), flip=softflip, riser=riser, impact=softimpact, whistle=nothing,
-           crt=crt2, tape=tape2, swell=swell, bubble=bubble, roll=soft_tick, heart=heart, glitch=nothing, sting=sting, tap=tap)
+           crt=crt2, tape=tape2, swell=swell, bubble=bubble, roll=soft_tick, heart=heart, glitch=nothing, sting=sting, tap=tap, lock=lock)
 
 # ---------------- bed ----------------
 def saw(f, t):

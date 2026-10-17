@@ -159,6 +159,8 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
 .tapr{position:absolute;width:120px;height:120px;border-radius:50%;border:5px solid rgba(255,255,255,.9);display:none;z-index:50}
 
 /* odometer */
+#secChips .chip{z-index:72}
+#shield path{fill:none;stroke:var(--cyan2);stroke-width:12;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 20px rgba(0,204,242,.9))}
 #odo{position:absolute;left:0;right:0;top:430px;display:none;flex-direction:column;align-items:center;z-index:70}
 #odoN{display:flex;direction:ltr;height:230px;overflow:hidden;font:700 220px Sora;line-height:230px;color:#fff;text-shadow:0 0 50px rgba(0,204,242,.55)}
 #odoN .col{display:flex;flex-direction:column}
@@ -247,16 +249,23 @@ svg.i{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke
   </div></div>
   
     <div id="pops"></div>
+    <svg id="shield" style="position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible;display:none" viewBox="0 0 1080 1920">
+      <path id="shL" d="M190 340 C110 340 86 372 86 452 L86 1000 C86 1074 64 1104 20 1116 C64 1128 86 1158 86 1232 L86 1780 C86 1860 110 1892 190 1892"/>
+      <path id="shR" d="M890 340 C970 340 994 372 994 452 L994 1000 C994 1074 1016 1104 1060 1116 C1016 1128 994 1158 994 1232 L994 1780 C994 1860 970 1892 890 1892"/></svg>
+    <div id="lockB" style="position:absolute;left:470px;top:150px;width:140px;height:140px;border-radius:50%;display:none;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,rgba(63,214,245,.45),rgba(11,42,79,.95) 70%);border:4px solid var(--cyan2);box-shadow:0 0 60px rgba(0,204,242,.7);color:#fff"><svg viewBox="0 0 24 24" width="70" height="70" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path id="shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
   </div>
   <div id="qLayer"></div>
   <div id="fxLayer"></div>
   <div id="tint"></div>
 </div>
+<div id="secChips"><div class="chip sc" id="sc1" style="left:40px;top:1330px"><div><small>صلاحيات لكل موظف</small><b style="font-size:46px;color:#fff">الفني مش بيشوف الخزنة</b></div></div>
+<div class="chip sc" id="sc2" style="left:460px;top:1500px"><div><small>كل تعديل متسجّل</small><b style="font-size:46px;color:#fff">باسم مين وإمتى</b></div></div>
+<div class="chip sc" id="sc3" style="left:90px;top:1670px"><div><small>قبل التسليم</small><b style="font-size:46px">اتجرّب ضد الاختراق ✓</b></div></div></div>
 <div id="odo"><div id="odoN"></div><div id="odoL">سطر خرجوا من <b>الدفتر</b></div></div>
 <div id="capBg"></div><div id="cap"></div>
 <div id="big"><div class="a" id="bigA">ولو موبايله وقع…</div><div class="b">الشغل كله <span id="fall"><span class="br">{</span>يقع<span class="br">}</span></span></div></div>
 <div id="vhs"><div class="lines"></div><div class="band" id="vband"></div><div class="osd">◀◀ REW</div><div class="tc" id="vtc">23:48</div></div>
-<div id="end"><div class="shade"></div><img id="endLogo" src="brand/logo-on-dark.png">
+<div id="end"><div class="shade"></div><img id="endLogo" src="brand/logo-on-dark.png"><div id="endTag" style="position:absolute;left:0;right:0;top:612px;font:700 46px Plex;color:var(--cyan2);letter-spacing:.5px">متأمّن من جوّا 🔒</div>
   <svg class="br" viewBox="0 0 1080 1920"><path id="brL" d="M150 700 C96 700 80 724 80 780 L80 940 C80 990 64 1012 34 1020 C64 1028 80 1050 80 1100 L80 1260 C80 1316 96 1340 150 1340"/>
     <path id="brR" d="M930 700 C984 700 1000 724 1000 780 L1000 940 C1000 990 1016 1012 1046 1020 C1016 1028 1000 1050 1000 1100 L1000 1260 C1000 1316 984 1340 930 1340"/></svg>
   <div class="a" id="endA">خليك صاحب الشركة…</div>
@@ -271,7 +280,7 @@ const FPS=30;
 const T={
   burst0:.35, burst1:4.9, call:5.3, chat:6.15, xls:7.0, recap:7.95,
   night:10.4, off:12.05, black:12.45, drop:13.55, rew:15.15, calm:16.65, tap:17.85, dash:18.3,
-  z1:18.6, z2:19.9, z3:21.0, z4:21.9, proof:22.8, end:26.2, DUR:30.4};
+  z1:18.6, z2:19.9, z3:21.0, z4:21.9, proof:22.8, sec:25.6, end:28.7, DUR:32.9};
 const CAPS=[
   [.2,1.35,'ده موبايل صاحب شركة…'],[1.35,2.6,'الساعة ٦:٣٠ الصبح'],
   [2.7,3.7,'وقبل ما يصحى…'],[3.7,5.2,'فيه ٤٧ رسالة مستنياه','٤٧'],
@@ -280,7 +289,8 @@ const CAPS=[
   [10.5,11.9,'ولحد آخر اليوم…'],
   [15.3,16.4,'طب نرجّع اليوم ده تاني…'],[16.4,17.6,'بس بسيستم','بسيستم'],
   [18.6,19.85,'الفني بيسجّل من موبايله'],[19.9,20.95,'والمخزن متحدّث لوحده'],[21.0,21.85,'والفلوس قدامك'],[21.9,22.7,'من غير ولا مكالمة','ولا'],
-  [22.9,24.4,'عملنا كده لشركة صيانة'],[24.4,26.0,'كانت ماشية على دفتر','دفتر'],
+  [22.9,24.2,'عملنا كده لشركة صيانة'],[24.2,25.5,'كانت ماشية على دفتر','دفتر'],
+  [25.7,27.1,'وكل ده متأمّن من جوّا','متأمّن'],[27.1,27.85,'واتجرّب ضد الاختراق'],[27.85,28.6,'قبل ما يتسلّم'],
 ];
 /* ===================================================================================== */
 const $=id=>document.getElementById(id);
@@ -317,7 +327,7 @@ const SYSN=[['أحمد الفني وصل للعميل ✓','الحاج سيد ·
 const sysEls=SYSN.map(([t,m])=>{const d=document.createElement('div');d.className='nt sys';
   d.innerHTML=`<span class="ap" style="background:#0A2444;border:2px solid var(--cyan)">${I.lg}</span><div class="bd"><div class="tt"><b>${t}</b><small>لوجيكا</small></div><p>${m}</p></div>`;
   d.style.display='none';$('stack').appendChild(d);return d;});
-$('screen').insertAdjacentHTML('beforeend','<div class="tapr" id="tapr"></div>');
+$('screen').insertAdjacentHTML('beforeend','<div class="tapr" id="tapr"></div><div class="nt" id="secA" style="position:absolute;top:120px;left:30px;right:30px;display:none;z-index:45"><span class="ap" id="secIc" style="background:#FF453A;font:700 44px Sora;color:#fff">!</span><div class="bd"><div class="tt"><b id="secT">محاولة دخول من جهاز غريب</b><small>٢:١٤ ص</small></div><p id="secP">بيحاول يفتح الخزنة</p></div></div>');
 const MSG=['الكمبروسر خلص','أطلب تاني ولا لأ؟','الحاج سيد مستني القطعة','؟؟','ألو؟؟','رد يا باشا 😅'];
 const msgEls=MSG.map((m,i)=>{const d=document.createElement('div');d.className='bub';d.innerHTML=`${m}<em>١٢:${AR(36+i)} م</em>`;$('msgs').appendChild(d);return d;});
 const typ=document.createElement('div');typ.className='typing';typ.innerHTML='<i></i><i></i><i></i>';$('msgs').appendChild(typ);
@@ -379,6 +389,8 @@ sfx(T.tap,'tap',.8);sfx(T.tap+.08,'airLR',.6);
 [T.z1,T.z2,T.z3].forEach((z,j)=>{sfx(z,'flip',.55);sfx(z+.2,'bubble',.4);});sfx(T.z4+.12,'pM1',.4);sfx(T.z4+.32,'pM3',.4);
 sfx(T.proof+.1,'airLR',.6);pages.forEach((p,j)=>sfx(T.proof+.4+j*.24,'air',.18,(j%2?.5:-.5)));
 for(let i=0;i<36;i++)sfx(T.proof+.5+i*.055,'roll',.5);sfx(T.proof+2.55,'pM5',.6);
+sfx(T.sec+.22,'pm2',.5);sfx(T.sec+.32,'pm0',.5);sfx(T.sec+.4,'vib',.4);sfx(T.sec+.92,'lock',.9);sfx(T.sec+.95,'airLR',.45);sfx(T.sec+1.6,'lock',.7);sfx(T.sec+1.62,'pM4',.5);
+[0,1,2].forEach(j=>sfx(T.sec+1.72+j*.3,'bubble',.45,[-.4,.4,0][j]));
 sfx(T.end+.1,'sting',.8);sfx(T.end+.5,'airLR',.4);sfx(T.end+1.05,'bubble',.6);
 const BED=[[0,T.off,'tense'],[T.calm-.4,T.DUR,'calm']];
 
@@ -391,7 +403,7 @@ const CAM=[
   [T.recap+.55,.56,0,90,8,0,0],[T.night-.15,.6,0,90,6,0,0],
   [T.night+.3,1.02,0,40,2,-8,0],[T.off,1.16,0,0,0,4,0],[T.rew,1,0,40,0,0,0],
   [T.calm,1.0,0,40,6,-12,0],[T.tap-.1,1.04,0,40,2,8,0],[T.tap+.4,...focus(364,640,3.2),0,0,0],[T.dash-.001,...focus(364,640,3.2),0,0,0],[T.dash,1.0,0,40,0,0,0],
-  [T.z1,.84,-170,60,0,18,0],[T.z4-.1,.84,-170,60,0,14,0],[T.z4+.3,.9,0,60,0,0,0],[T.proof,.9,0,60,0,0,0],[T.proof+.7,.6,0,360,10,-22,0],[T.end,.58,0,380,10,-26,0],[T.DUR,.58,0,380,10,-26,0]];
+  [T.z1,.84,-170,60,0,18,0],[T.z4-.1,.84,-170,60,0,14,0],[T.z4+.3,.9,0,60,0,0,0],[T.proof,.9,0,60,0,0,0],[T.proof+.7,.6,0,360,10,-22,0],[T.sec,.6,0,360,10,-22,0],[T.sec+.4,...focus(364,200,1.2,540,900),0,0,0],[T.sec+.95,...focus(364,200,1.2,540,900),0,0,0],[T.sec+1.35,.62,0,150,0,0,0],[T.end-.1,.66,0,150,0,8,0],[T.end+.3,.58,0,380,10,-26,0],[T.DUR,.58,0,380,10,-26,0]];
 function cam(t){let a=CAM[0],b=CAM[CAM.length-1];if(t<=CAM[0][0])return CAM[0].slice(1);
   for(let i=0;i<CAM.length-1;i++)if(t>=CAM[i][0]&&t<=CAM[i+1][0]){a=CAM[i];b=CAM[i+1];break;}
   if(t>CAM[CAM.length-1][0])return b.slice(1);const x=eio(P(t,a[0],b[0]));return a.slice(1).map((v,k)=>L(v,b[k+1],x));}
@@ -428,9 +440,9 @@ function renderFrame(i){
   ['vhs','end','big','crt','odo'].forEach(id=>$(id).style.display='none');
   qEls.forEach(e=>e.style.display='none');pages.forEach(e=>e.style.display='none');popEls.forEach(e=>e.style.display='none');
   RINGS.forEach(r=>r.style.display='none');DUST.forEach(d=>d.style.display='none');ringN=0;
-  ['chCalls','chBatt','lowbat','tapr'].forEach(id=>$(id).style.display='none');
+  ['chCalls','chBatt','lowbat','tapr','secA','shield','lockB','sc1','sc2','sc3'].forEach(id=>$(id).style.display='none');
   $('hl').style.opacity=0;$('flash').style.opacity=0;$('fade').style.opacity=0;$('pulseV').style.opacity=0;
-  $('world').style.display='block';$('phone').style.filter='';sysEls.forEach(e=>e.style.display='none');
+  $('world').style.display='block';$('phone').style.filter='';$('screen').style.filter='';sysEls.forEach(e=>e.style.display='none');
   $('cap').style.display='flex';$('capBg').style.display='block';$('dash').style.transform='none';$('dash').style.opacity=1;
   let shake=0,glitch=0,rgb=0,tint='transparent',warm=0,flip=0;mega('',0);
   const lk1=$('lk1'),lk2=$('lk2');lk1.style.opacity=0;lk2.style.opacity=0;
@@ -532,7 +544,7 @@ function renderFrame(i){
     if(t>T.z4){const c=$('chCalls');c.style.display='flex';const y=spring(P(t,T.z4+.05,T.z4+.45),9);c.style.transform=`scale(${L(.3,1,y)}) rotate(-4deg)`;c.style.left='60px';c.style.top='1180px';
       const b=$('chBatt');b.style.display='flex';b.style.transform=`scale(${L(.3,1,spring(P(t,T.z4+.25,T.z4+.65),9))}) rotate(4deg)`;b.style.left='600px';b.style.top='380px';
       mega('صفر',P(t,T.z4,T.z4+.3)*.3,1,'rgba(63,214,245,.6)');}
-  } else if(t<T.end){ // ===== PROOF: pages fly in + odometer
+  } else if(t<T.sec){ // ===== PROOF: pages fly in + odometer
     show('dash');status('٦:٠٠',72);$('odo').style.display='flex';$('cap').style.display='flex';
     const x=P(t,T.proof+.5,T.proof+2.5),v=6690*eo5(x);
     [1000,100,10,1].forEach((pl,j)=>{const col=$('odoN').querySelectorAll('.col')[j];
@@ -545,11 +557,26 @@ function renderFrame(i){
       pg.style.left=(L(sx,pcx-130,eio(y)))+'px';pg.style.top=(L(sy,pcy-165,eio(y))-Math.sin(y*Math.PI)*220)+'px';
       pg.style.transform=`rotate(${L((rnd(j)-.5)*120,0,y)}deg) scale(${L(1.6,.12,eio(y))})`;pg.style.filter=`blur(${Math.abs(.5-y)*10}px)`;pg.style.opacity=y>.85?(1-y)/.15:1;});
     lk1.style.opacity=.4;lk1.style.left='-200px';lk1.style.top=L(1200,200,P(t,T.proof,T.end))+'px';
+  } else if(t<T.end){ // ===== SECURITY: alert blocked, brand braces close around the phone like a shield
+    show('dash');status('٢:١٤',64);
+    const a=P(t,T.sec+.2,T.sec+.55),sp=spring(a,10),blocked=t>T.sec+.95;const A=$('secA');A.style.display='flex';
+    A.style.transform=`translateY(${(1-sp)*-160}px) scale(${L(.9,1,sp)})`;A.style.opacity=Math.min(1,a*3);
+    A.className='nt'+(blocked?' sys':'');A.style.background=blocked?'rgba(10,36,68,.98)':'rgba(64,22,28,.98)';$('secIc').style.background=blocked?'#0A2444':'#FF453A';$('secIc').textContent=blocked?'🔒':'!';
+    $('secT').textContent=blocked?'اتمنعت ✓':'محاولة دخول من جهاز غريب';$('secP').textContent=blocked?'محدش يدخل غير اللي ليه حق':'بيحاول يفتح الخزنة';
+    if(!blocked&&t>T.sec+.3){shake=4;$('pulseV').style.opacity=.35+.25*Math.sin(t*20);}
+    $('shield').style.display='block';['shL','shR'].forEach(id=>{const p=$(id),len=p.getTotalLength(),d=eio(P(t,T.sec+.9,T.sec+1.45));p.style.strokeDasharray=len;p.style.strokeDashoffset=len*(1-d);});
+    if(t>T.sec+1.35){const l=$('lockB');l.style.display='flex';const k=spring(P(t,T.sec+1.35,T.sec+1.75),9);l.style.transform=`scale(${L(.2,1,k)})`;
+      $('shackle').setAttribute('d',t>T.sec+1.6?'M8 11V8a4 4 0 0 1 8 0v3':'M8 11V6a4 4 0 0 1 8 0');}
+    const c=cam(t);ring(t,T.sec+1.6,540+c[1],1110+c[0]*(220-1110)+c[2],700,.6);ring(t,T.sec+1.45,540+c[1],1110+c[2],1250,.8);
+    ['sc1','sc2','sc3'].forEach((id,j)=>{const q=P(t,T.sec+1.7+j*.3,T.sec+2.1+j*.3);if(q<=0)return;const e=$(id);e.style.display='flex';const k=spring(q,9);
+      e.style.transform=`scale(${L(.3,1,k)}) rotate(${[-3,3,-2][j]}deg)`;e.style.opacity=Math.min(1,q*3);});
+    lk1.style.opacity=.5;lk1.style.left=L(-500,200,P(t,T.sec,T.end))+'px';lk1.style.top='700px';
   } else { // ===== END CARD
     $('end').style.display='block';$('cap').style.display='none';$('capBg').style.display='none';$('world').style.display='block';
     show('dash');status('٦:٠٠',72);
     const e0=P(t,T.end,T.end+.4);$('end').style.opacity=1;$('end').querySelector('.shade').style.opacity=e0;
     const lg=spring(P(t,T.end+.1,T.end+.6),9);$('endLogo').style.transform=`scale(${L(.4,1,lg)})`;$('endLogo').style.opacity=Math.min(1,lg*2);
+    const tg=P(t,T.end+.45,T.end+.75);$('endTag').style.opacity=tg;$('endTag').style.transform=`translateY(${(1-eo(tg))*20}px)`;
     ['brL','brR'].forEach(id=>{const p=$(id),len=p.getTotalLength(),d=eio(P(t,T.end+.35,T.end+1.1));p.style.strokeDasharray=len;p.style.strokeDashoffset=len*(1-d);});
     const a=P(t,T.end+.6,T.end+.9);$('endA').style.opacity=a;$('endA').style.transform=`translateY(${(1-eo(a))*30}px)`;$('endA').style.filter=`blur(${(1-a)*10}px)`;
     const b=spring(P(t,T.end+.75,T.end+1.2),9);$('endB').style.opacity=Math.min(1,b*2);$('endB').style.transform=`scale(${L(1.4,1,b)})`;
@@ -582,7 +609,7 @@ function renderFrame(i){
   BOK.forEach((b,j)=>{const y=((b.y-t*b.v*b.depth)%2100+2100)%2100-90;b.d.style.top=y+'px';b.d.style.left=(b.x-b.s/2-c[1]*b.depth*.4-ry*b.depth*5)+'px';
     b.d.style.background=warmC>.4?`radial-gradient(circle,rgba(255,${Math.round(150-60*warmC)},90,${.35*b.depth}),transparent 70%)`:`radial-gradient(circle,rgba(63,214,245,${.3*b.depth}),transparent 70%)`;
     b.d.style.opacity=(t>T.off&&t<T.rew)?0:1;});
-  $('tint').style.background=warmC?`rgba(255,${Math.round(110-40*warmC)},60,${.35*warmC})`:(t>T.calm?'rgba(0,200,255,.12)':'transparent');
+  $('tint').style.background=warmC?`rgba(255,${Math.round(110-40*warmC)},60,${.35*warmC})`:(t>T.calm?(t>T.sec&&t<T.sec+.95?'rgba(255,60,50,.18)':'rgba(0,200,255,.12)'):'transparent');
   caption(t);
   $('grain').style.transform=`translate(${(rnd(i)-.5)*60}px,${(rnd(i+3)-.5)*60}px)`;
 }
