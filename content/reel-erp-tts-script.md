@@ -1,11 +1,11 @@
 # ريل الـ ERP: «الموبايل اللي شايل شركة» · سكريبت الـ TTS
 
-المدة المستهدفة: من ٤٢ لـ ٤٤ ثانية.
+المدة المستهدفة: من ٣٦ لـ ٣٩ ثانية.
 
 ## 1) Style instructions (حطها في خانة الـ style / prompt)
 
 ```
-Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A sharp, slightly dramatic Instagram ad narrator. Natural, unhurried pace with clear pauses between lines, like telling a story, never rushed. Part one builds pressure: quicker and more tense with every line, like the day is running away. Then a sudden stop and a calm, low line after the silence. Part two is relieved and confident, with a small smile. The last line is warm, proud and a little slower.
+Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A sharp, slightly dramatic Instagram ad narrator. Brisk reel pace with short, clear pauses; confident, never rushed. Part one builds pressure: quicker and more tense with every line, like the day is running away. Then a sudden stop and a calm, low line after the silence. Part two is relieved and confident, with a small smile. The last line is warm, proud and a little slower.
 ```
 
 ## 2) Script بالـ expressions (انسخه زي ما هو)
@@ -21,13 +21,13 @@ Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A shar
 [short pause] [low, serious] ولو موبايله وقع… الشغل كله يقع.
 
 [confident] طب نرجّع اليوم ده تاني… بس بسيستم.
-[relieved] الفني بيسجّل من موبايله، والمخزن متحدّث لوحده، والفلوس قدامك…
-[smiling] والمندوب بيقفل الأوردر من مكانه… من غير ولا مكالمة.
+[relieved] الفني بيسجّل من موبايله، والمخزن متحدّث لوحده، والفلوس قدامك… من غير ولا مكالمة.
 
 [proud] عملنا كده لشركة صيانة كانت ماشية على دفتر فيه ستة آلاف سطر.
 [serious, confident] وكل ده متأمّن من جوّا… واتجرّب ضد الاختراق قبل ما يتسلّم.
 
-[warm, slower] خليك صاحب الشركة… مش السيستم بتاعها.
+[warm, slower] بدل ما تصدّع دماغك باللي رايح واللي جاي…
+[confident, warm] ركّز انت في القرارات المصيرية… وعينك على اللي بيحصل جوّا.
 [smiling] ابعتلنا على واتساب. لوجيكا.
 ```
 
@@ -36,8 +36,8 @@ Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A shar
 ## 3) لو حصلت مشكلة
 | المشكلة | الحل |
 |---|---|
-| الصوت أطول من ٤٥ ثانية | شيل `unhurried` من الـ style |
-| الصوت أقصر من ٤٠ ثانية | زوّد في الـ style: `slower, with longer pauses` |
+| الصوت أطول من ٤٠ ثانية | زوّد في الـ style: `energetic, quick` |
+| الصوت أقصر من ٣٥ ثانية | زوّد في الـ style: `with slightly longer pauses` |
 | بينطق الكلام فصحى | زوّد في الـ style: `Strictly Egyptian colloquial` |
 | «لوجيكا» طالعة غريبة | اكتبها «لُوجيكا» |
 | بيبدّل الجمل أو بيكرر | ولّده على جزئين: من الأول لحد «الشغل كله يقع.»، ومن «طب نرجّع» لحد الآخر |
