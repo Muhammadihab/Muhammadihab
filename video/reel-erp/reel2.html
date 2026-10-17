@@ -292,6 +292,7 @@ const CAPS=[
   [22.9,24.2,'عملنا كده لشركة صيانة'],[24.2,25.5,'كانت ماشية على دفتر','دفتر'],
   [25.7,27.1,'وكل ده متأمّن من جوّا','متأمّن'],[27.1,27.85,'واتجرّب ضد الاختراق'],[27.85,28.6,'قبل ما يتسلّم'],
 ];
+const K=1.12; Object.keys(T).forEach(k=>T[k]=+(T[k]*K).toFixed(3)); CAPS.forEach(c=>{c[0]=+(c[0]*K).toFixed(3);c[1]=+(c[1]*K).toFixed(3);});
 /* ===================================================================================== */
 const $=id=>document.getElementById(id);
 const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), P=(t,a,b)=>cl((t-a)/(b-a)), L=(a,b,x)=>a+(b-a)*x;
@@ -372,26 +373,30 @@ const capLines=CAPS.map(([a,b,txt,k])=>{const ln=document.createElement('div');l
 /* ---------- SFX + bed ---------- */
 const SFX=[];const sfx=(t,n,g=1,pan)=>SFX.push(pan===undefined?[+t.toFixed(3),n,g]:[+t.toFixed(3),n,g,pan]);
 function burstT(k){return T.burst0+(T.burst1-T.burst0)*Math.pow(k/(N-1),.58);}
-sfx(.05,'softclick',.6);sfx(.1,'swell',.25);
-for(let k=0;k<N;k++){sfx(burstT(k),'pm'+Math.min(14,Math.floor(k*15/N)),.42,(rnd(k)-.5)*.8);if(k%9===4)sfx(burstT(k),'vib',.22);}
-sfx(T.call-1.6,'riser',.55);
-[T.call,T.chat,T.xls].forEach(c=>sfx(c-.1,'flip',.75));
-sfx(T.call+.05,'vib',.6);sfx(T.call+.5,'vib',.5);
-MSG.forEach((m,i)=>sfx(T.chat+.06+i*.12,'bubble',.5,(i%2?.3:-.3)));
-sfx(T.xls+.25,'airLR',.5);sfx(T.xls+.45,'glitch',.5);
-sfx(T.recap,'airLR',.7);QS.forEach((q,i)=>sfx(T.recap+.35+i*.18+1.2,'bubble',.35,(rnd(i)-.5)));
-[0,.62,1.24].forEach(o=>sfx(T.night+.5+o,'heart',.95));sfx(T.night+.9,'bubble',.4);
-sfx(T.off,'crt',.9);
-sfx(T.black+.2,'air',.3);sfx(T.drop-.55,'whistle',.8);sfx(T.drop,'impact',1);
-sfx(T.rew-.05,'tape',.8);sfx(T.rew+.6,'glitch',.4);
-sfx(T.calm-.75,'swell',.6);[0,1,2].forEach(j=>sfx(T.calm+.2+j*.52,'pM'+[0,2,4][j],.5,[-.3,0,.3][j]));
-sfx(T.tap,'tap',.8);sfx(T.tap+.08,'airLR',.6);
-[T.z1,T.z2,T.z3].forEach((z,j)=>{sfx(z,'flip',.55);sfx(z+.2,'bubble',.4);});sfx(T.z4+.12,'pM1',.4);sfx(T.z4+.32,'pM3',.4);
-sfx(T.proof+.1,'airLR',.6);pages.forEach((p,j)=>sfx(T.proof+.4+j*.24,'air',.18,(j%2?.5:-.5)));
-for(let i=0;i<36;i++)sfx(T.proof+.5+i*.055,'roll',.5);sfx(T.proof+2.55,'pM5',.6);
-sfx(T.sec+.22,'pm2',.5);sfx(T.sec+.32,'pm0',.5);sfx(T.sec+.4,'vib',.4);sfx(T.sec+.92,'lock',.9);sfx(T.sec+.95,'airLR',.45);sfx(T.sec+1.6,'lock',.7);sfx(T.sec+1.62,'pM4',.5);
-[0,1,2].forEach(j=>sfx(T.sec+1.72+j*.3,'bubble',.45,[-.4,.4,0][j]));
-sfx(T.end+.1,'sting',.8);sfx(T.end+.5,'airLR',.4);sfx(T.end+1.05,'bubble',.6);
+// hook: real message pops + light haptics, no notes
+sfx(.05,'screen_on',.8);sfx(.12,'softclick',.5);
+for(let k=0;k<N;k++){sfx(burstT(k),'npop',.42+.18*k/N,(rnd(k)-.5)*.9);if(k%4===1)sfx(burstT(k)+.02,'vib',.28);}
+sfx(T.call-1.7,'riser',.45);
+[T.call,T.chat,T.xls].forEach(c=>sfx(c-.1,'flip',.7));
+sfx(T.call+.05,'vib',.6);sfx(T.call+.5,'vib',.55);sfx(T.call+.95,'vib',.5);
+MSG.forEach((m,i)=>{const tm=T.chat+.06+i*.12;sfx(tm-.05,'keytap',.4);sfx(tm,'npop',.45,(i%2?.3:-.3));});
+for(let i=0;i<5;i++)sfx(T.chat+.8+i*.07,'keytap',.3);
+sfx(T.xls+.15,'softclick',.6);sfx(T.xls+.3,'whoosh_in',.5);sfx(T.xls+.45,'thud',.8);sfx(T.xls+.6,'npop',.35);
+sfx(T.recap,'airLR',.6);QS.forEach((q,i)=>{const t0=T.recap+.3+i*.18;sfx(t0+.2,'air',.25,(rnd(i)-.5));sfx(t0+1.2,'thud',.38);});
+for(let i=0;i<7;i++)sfx(T.night+.15+i*.25,'woodtick',.45);
+[0,.62,1.24].forEach(o=>sfx(T.night+.5+o,'heart',.95));sfx(T.night+.9,'alert',.45);
+sfx(T.off,'crt',.85);
+sfx(T.black+.2,'air',.25);sfx(T.drop-.5,'whoosh_in',.7);sfx(T.drop,'impact',1);sfx(T.drop+.05,'debris',.6);
+sfx(T.rew-.05,'tape',.8);
+sfx(T.calm-.75,'swell',.5);[0,1,2].forEach(j=>sfx(T.calm+.2+j*.52,'npop',.45,[-.3,0,.3][j]));
+sfx(T.tap,'tap',.8);sfx(T.tap+.08,'whoosh_in',.6);
+[T.z1,T.z2,T.z3].forEach((z,j)=>{sfx(z,'flip',.5);sfx(z+.25,'npop',.4);});
+for(let i=0;i<5;i++)sfx(T.z3+.25+i*.12,'woodtick',.25);sfx(T.z4+.12,'npop',.4);sfx(T.z4+.32,'npop',.4);
+sfx(T.proof+.1,'airLR',.55);pages.forEach((p,j)=>sfx(T.proof+.4+j*.24,'paper',.5,(j%2?.5:-.5)));
+for(let i=0;i<36;i++)sfx(T.proof+.5+i*.055,'roll',.5);sfx(T.proof+2.55,'thud',.5);
+sfx(T.sec+.22,'alert',.7);sfx(T.sec+.3,'vib',.4);sfx(T.sec+.92,'lock',.9);sfx(T.sec+.9,'energy',.6);sfx(T.sec+1.6,'lock',.7);
+[0,1,2].forEach(j=>sfx(T.sec+1.72+j*.3,'npop',.42,[-.4,.4,0][j]));
+sfx(T.end+.1,'sting',.75);sfx(T.end+.35,'airLR',.35);sfx(T.end+1.05,'npop',.55);
 const BED=[[0,T.off,'tense'],[T.calm-.4,T.DUR,'calm']];
 
 /* ---------- camera: [t, scale, x, y, rotX, rotY, rotZ] ---------- */
