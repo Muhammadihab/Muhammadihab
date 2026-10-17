@@ -1,0 +1,273 @@
+<title>Logika Brand Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Sora:wght@500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column, RTL, each section = a decision block; brand palette drives the page itself */
+:root{
+  --bg:#F4F7FB; --surface:#FFFFFF; --fg:#0A2444; --muted:#4A5F7D; --line:#D6E0EC;
+  --navy:#0A2444; --blue:#0B335F; --orange:#F56A39; --cyan:#00B8DE; --cyan-text:#007FA0;
+  --chip:#E7EEF7;
+  --f-ar:"IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif;
+  --f-en:"Sora","Segoe UI",Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#071A33; --surface:#0C2546; --fg:#EAF1FA; --muted:#9FB3CC; --line:#1D3A60; --cyan-text:#3FD6F5; --chip:#12305A; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#071A33; --surface:#0C2546; --fg:#EAF1FA; --muted:#9FB3CC; --line:#1D3A60; --cyan-text:#3FD6F5; --chip:#12305A; color-scheme:dark}
+
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ar);font-size:16px;line-height:1.8}
+.wrap{max-width:860px;margin:0 auto;padding-inline:18px;padding-block:28px 64px;display:flex;flex-direction:column;gap:44px}
+.en{font-family:var(--f-en);direction:ltr;unicode-bidi:isolate}
+h1,h2,h3{text-wrap:balance;line-height:1.35;margin:0}
+h2{font-size:1.45rem;display:flex;align-items:baseline;gap:10px}
+h2 .k{font-family:var(--f-mono);font-size:.8rem;color:var(--orange);letter-spacing:.04em}
+h3{font-size:1.05rem;margin-bottom:4px}
+p{margin:0}
+section{display:flex;flex-direction:column;gap:16px}
+.lead{color:var(--muted);max-width:62ch}
+
+.hero{background:var(--navy);color:#EAF1FA;border-radius:18px;padding:28px 24px;display:flex;flex-direction:column;gap:14px;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:32px 32px}
+.hero .mark{font-family:var(--f-en);font-weight:700;font-size:clamp(1.8rem,6vw,2.6rem);letter-spacing:.08em;direction:ltr;text-align:right}
+.hero .mark b{color:var(--cyan);font-weight:500}
+.hero .tag{font-family:var(--f-en);letter-spacing:.14em;font-size:.8rem;color:#BFD0E6;direction:ltr;text-align:right}
+.hero .one{font-size:1.25rem;font-weight:700;max-width:40ch}
+.hero .one em{font-style:normal;color:var(--orange)}
+.pix{display:flex;gap:5px;justify-content:flex-end}
+.pix i{width:9px;height:9px;background:var(--orange);transform:rotate(45deg);display:block}
+.pix i:nth-child(2){opacity:.7}.pix i:nth-child(3){opacity:.45}
+
+.status{font-size:.75rem;font-weight:700;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.s-ok{background:#1FA86A22;color:#13945A}
+.s-q{background:#F56A3922;color:var(--orange)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .s-ok{color:#4ED69A}}
+:root[data-theme="dark"] .s-ok{color:#4ED69A}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0;display:flex;flex-direction:column;gap:6px}
+.card p{color:var(--muted);font-size:.95rem}
+.card .lbl{font-family:var(--f-mono);font-size:.72rem;color:var(--cyan-text);letter-spacing:.05em}
+
+.statement{border-inline-start:4px solid var(--orange);padding:6px 16px;font-size:1.15rem;font-weight:500;max-width:60ch}
+
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+th,td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.8rem;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:0}
+
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.sw{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.sw .c{height:74px}
+.sw .t{padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.sw .t b{font-size:.92rem}
+.sw .t code{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);direction:ltr;text-align:right}
+.sw .t span{font-size:.8rem;color:var(--muted)}
+.ratio{display:flex;height:14px;border-radius:7px;overflow:hidden}
+.ratio div{height:100%}
+
+.type{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.type .card .sample-en{font-family:var(--f-en);font-size:1.7rem;font-weight:700;direction:ltr;text-align:right;color:var(--fg)}
+.type .card .sample-ar{font-family:var(--f-ar);font-size:1.6rem;font-weight:700;color:var(--fg)}
+
+.dd{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.dd ul{margin:0;padding-inline-start:20px;color:var(--muted);font-size:.95rem}
+.dd .yes h3{color:#13945A}.dd .no h3{color:#D2463A}
+
+ol.steps,ul.plain{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+.check li{list-style:none;position:relative}
+.check{padding-inline-start:0}
+.check li::before{content:"";display:inline-block;width:12px;height:12px;border:2px solid var(--line);border-radius:3px;margin-inline-end:10px;vertical-align:-1px}
+.check li.done::before{background:var(--cyan);border-color:var(--cyan)}
+
+.funnel{display:flex;flex-direction:column;gap:8px}
+.funnel .row{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.funnel .row b{color:var(--cyan-text)}
+.funnel .row p{color:var(--muted);font-size:.95rem}
+@media (max-width:480px){.funnel .row{grid-template-columns:1fr;gap:2px}}
+
+.decide{background:var(--chip);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.decide .q{display:flex;gap:10px;align-items:baseline;justify-content:space-between;flex-wrap:wrap;border-bottom:1px dashed var(--line);padding-bottom:10px}
+.decide .q:last-child{border-bottom:0;padding-bottom:0}
+.decide .q div{min-width:0;flex:1 1 300px}
+.decide .q small{display:block;color:var(--muted);font-size:.88rem}
+footer{color:var(--muted);font-size:.85rem}
+</style>
+
+<div class="wrap" dir="rtl">
+
+<header class="hero">
+  <div class="pix" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="mark"><b>{</b>LOGIKA<b>}</b></div>
+  <div class="tag">BUILT SIMPLE. BUILT RIGHT.</div>
+  <div class="tag" style="font-family:var(--f-ar);letter-spacing:0;font-size:1rem;color:#00CCF2">متأمّن من جوّا</div>
+  <p class="one">فريق برمجة واحد بيبنيلك <em>تطبيقك ونظام شركتك</em>، بالعربي، ومتأمّنين من أول يوم.</p>
+</header>
+
+<section>
+  <p class="lead">ده المرجع اللي أي حاجة بتطلع باسم Logika ترجعله: بوست، بروفايل، عرض سعر، أو تصميم. كل الأجزاء اتفقنا عليها، وملخص القرارات في آخر الصفحة. أي تغيير يحصل هنا الأول، وبعدين في الحسابات.</p>
+</section>
+
+<section id="positioning">
+  <h2><span class="k">01</span> إحنا مين <span class="status s-ok">ثابت</span></h2>
+  <p class="statement">Logika فريق مطورين بيبني لأصحاب الشركات في العالم العربي أنظمة إدارة (ERP وCRM) وتطبيقات موبايل على طريقة شغلهم، من أول ما نفهم الشغل لحد ما النظام يشتغل في إيد الموظفين، وكل حاجة بتتسلم متأمّنة ومتجربة ضد الاختراق.</p>
+  <div class="grid">
+    <div class="card"><span class="lbl">ميزة 1</span><h3>فريق واحد لكل حاجة</h3><p>التطبيق والباك إند ولوحة التحكم والرفع على المتجر. العميل مش محتاج يجمع 4 فريلانسرز.</p></div>
+    <div class="card"><span class="lbl">ميزة 2</span><h3>شغال في الواقع العربي</h3><p>عربي كامل من اليمين للشمال، وتصميم مريح للمستخدم العربي، وبيتربط ببوابات الدفع المحلية.</p></div>
+    <div class="card"><span class="lbl">ميزة 3</span><h3>الأمان جزء من الشغل</h3><p>واحد من المؤسسين متخصص اختبار اختراق، فكل نظام بيتجرّب ضد هجمات حقيقية قبل التسليم. دي حاجة نادر حد يقدمها في السوق ده.</p></div>
+  </div>
+  <p class="lead">الإثبات اللي بنستند عليه: نظام النور، اللي نقل 6,690 سجل من الدفتر لنظام واحد شغال على أندرويد وويندوز.</p>
+</section>
+
+<section id="audience">
+  <h2><span class="k">02</span> بنكلّم مين <span class="status s-ok">ثابت</span></h2>
+  <p class="lead">العميل الأساسي هو صاحب الشركة اللي شغالة فعلًا، وشغلها كبر على الدفتر والإكسيل وجروبات الواتساب. كل البوستات والعروض بتتكتب ليه. صاحب الفكرة بنقبله، وبنكلّمه في بوست كل فترة.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>العميل</th><th>مشكلته</th><th>بنقوله إيه</th><th>بنلاقيه فين</th></tr></thead>
+    <tbody>
+      <tr><td><b>صاحب شركة شغالة</b><br><small>العميل الأساسي · خدمات، صيانة، توزيع، تجارة (زي النور)</small></td><td>الشغل متسجل في دفاتر وإكسيل وواتساب، والفلوس والمخزون بيضيعوا، ومش عارف يشوف شغله كله من مكان واحد</td><td>نظام واحد على طريقة شغلك (ERP وCRM): العملاء، والمخزون، والخزنة، والموظفين، بصلاحيات وسجل لكل تعديل</td><td>فيسبوك، لينكدإن، مجموعات أصحاب الأعمال، معارف</td></tr>
+      <tr><td><b>صاحب محل أو مطعم أو عيادة</b></td><td>عاوز تطبيق أو نظام حجز ومبيعات بسعر معقول</td><td>تطبيق باسمك ولوحة تتحكم منها، والسعر واضح من الأول</td><td>مستقل، خمسات، فيسبوك</td></tr>
+      <tr><td><b>صاحب فكرة أو ستارت أب</b></td><td>عنده فكرة ومش عارف يبدأ منين، وخايف يصرف فلوس كتير قبل ما يجرّب</td><td>نبنيلك نسخة أولى (MVP) تنزل السوق بسرعة وبميزانية محسوبة، متأمّنة وجاهزة تكبر</td><td>لينكدإن، مستقل، مجموعات رواد الأعمال</td></tr>
+    </tbody>
+  </table></div>
+  <p class="lead">البداية في مصر والخليج. العميل الأجنبي يتأجل لحد ما يبقى عندنا 3 مشاريع منشورة على الأقل، زي ما اتفقنا.</p>
+</section>
+
+<section id="services">
+  <h2><span class="k">03</span> بنبيع إيه <span class="status s-ok">ثابت</span></h2>
+  <div class="grid">
+    <div class="card"><span class="lbl">مدخل · خمسات</span><h3>خدمات Flutter صغيرة</h3><p>إصلاح أخطاء (10$)، ربط API أو Firebase (15$)، رفع على Google Play (20$). هدفها أول تقييمات وأول عملاء.</p></div>
+    <div class="card"><span class="lbl">الأساسي · فيسبوك ولينكدإن</span><h3>أنظمة الشركات (ERP · CRM)</h3><p>نظام واحد مصمم على طريقة شغلك: العملاء والمبيعات، والمخزون والخزنة، والموظفين والصلاحيات، على الموبايل والكمبيوتر. الإثبات: نظام النور.</p></div>
+    <div class="card"><span class="lbl">تاني · مستقل ولينكدإن</span><h3>نسخة أولى من فكرتك (MVP)</h3><p>تطبيق Flutter بالباك إند ولوحة التحكم، بأهم المميزات بس، عشان الفكرة تنزل السوق وتتجرب. بعدها نكبّره معاك.</p></div>
+    <div class="card"><span class="lbl">إضافة · ثابتة</span><h3>فحص أمان التطبيق</h3><p>اختبار اختراق لتطبيق أو API موجود، وتقرير بالثغرات وحلها. تتباع لوحدها أو مع أي مشروع.</p></div>
+  </div>
+</section>
+
+<section id="voice">
+  <h2><span class="k">04</span> بنتكلم إزاي <span class="status s-ok">ثابت</span></h2>
+  <p class="lead">زي واحد شغال في الأمان وبيكلم صاحب شغل: صريح، قصير، وبيوريك المشكلة بعينك قبل ما يقولك الحل. مفيش كلام عام ينفع أي شركة تقوله.</p>
+  <p class="statement" style="font-size:1rem">اللغة: <b>مصري صريح</b> في كل المنصات. جمل قصيرة، وكلام زي ما بنتكلم، وأسماء التقنيات زي API وFlutter تفضل بالإنجليزي. المصري مفهوم في الخليج، فمش محتاجين لغة تانية.</p>
+  <div class="dd">
+    <div class="card yes"><h3>بنقول</h3><ul>
+      <li>"النظام بيوفرلك ساعتين كل يوم في الجرد"</li>
+      <li>أرقام حقيقية من شغلنا (6,690 سجل)</li>
+      <li>السعر والمدة بوضوح من الأول</li>
+      <li>"إحنا" مش "أنا"، حتى في البروفايل الشخصي لما الكلام عن Logika</li>
+    </ul></div>
+    <div class="card no"><h3>مبنقولش</h3><ul>
+      <li>"حلول مبتكرة ورائدة" وأي كلام فاضي من النوع ده</li>
+      <li>مصطلحات تقنية من غير ما نشرحها</li>
+      <li>وعود زي "أرخص سعر" أو "في 24 ساعة"</li>
+      <li>إيموجي كتير أو هاشتاجات أكتر من 5</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="visual">
+  <h2><span class="k">05</span> الشكل والألوان <span class="status s-ok">من اللوجو الحالي</span></h2>
+  <div class="swatches">
+    <div class="sw"><div class="c" style="background:#0A2444"></div><div class="t"><b>كحلي Logika</b><code>#0A2444</code><span>الخلفية الأساسية، 60%</span></div></div>
+    <div class="sw"><div class="c" style="background:#0B335F"></div><div class="t"><b>أزرق الشبكة</b><code>#0B335F</code><span>الكروت والتدرجات، 25%</span></div></div>
+    <div class="sw"><div class="c" style="background:#00CCF2"></div><div class="t"><b>سماوي</b><code>#00CCF2</code><span>العناوين المهمة والأقواس { }، 8%</span></div></div>
+    <div class="sw"><div class="c" style="background:#F56A39"></div><div class="t"><b>برتقاني</b><code>#F56A39</code><span>زرار أو سهم أو نقطة واحدة بس، 5%</span></div></div>
+    <div class="sw"><div class="c" style="background:#F4F7FB;border-bottom:1px solid var(--line)"></div><div class="t"><b>أبيض مزرق</b><code>#F4F7FB</code><span>النص على الكحلي، 2%</span></div></div>
+  </div>
+  <div class="ratio" aria-label="نسب الألوان في أي تصميم"><div style="flex:60;background:#0A2444"></div><div style="flex:25;background:#0B335F"></div><div style="flex:8;background:#00CCF2"></div><div style="flex:5;background:#F56A39"></div><div style="flex:2;background:#F4F7FB"></div></div>
+
+  <h3 style="margin-top:8px">الخطوط <span class="status s-ok">ثابت</span></h3>
+  <div class="type">
+    <div class="card"><span class="lbl">الخط الأساسي · كل حاجة</span><div class="sample-ar">نظام واحد لشغلك كله</div><p><span class="en">IBM Plex Sans Arabic</span> في العناوين (Bold) والنصوص (Regular). مجاني ومتاح في Canva.</p></div>
+    <div class="card"><span class="lbl">الكلمات الإنجليزي جوه التصميم</span><div class="sample-en">Flutter · API</div><p><span class="en">Sora</span> لأسماء التقنيات بس، لأنه قريب من شكل كلمة LOGIKA.</p></div>
+  </div>
+
+  <h3 style="margin-top:8px">قواعد اللوجو</h3>
+  <div class="dd">
+    <div class="card yes"><h3>صح</h3><ul>
+      <li>الأيقونة لوحدها في الصور الصغيرة (بروفايل لينكدإن ومستقل وخمسات)</li>
+      <li>الأيقونة فوق كلمة {LOGIKA} فوق الجملة، كلهم في نص محور واحد</li>
+      <li>على خلفية كحلي أو أبيض بس</li>
+    </ul></div>
+    <div class="card no"><h3>غلط</h3><ul>
+      <li>تغيير ألوان اللوجو أو خطه، أو تمطيطه</li>
+      <li>إن الأيقونة تتحط جنب الكلمة</li>
+      <li>تعديل اللوجو بالذكاء الاصطناعي، لأنه بيبوظه زي ما حصل مع Gemini</li>
+    </ul></div>
+  </div>
+
+  <h3 style="margin-top:8px">عناصر بنكررها في كل تصميم</h3>
+  <ul class="plain">
+    <li>خلفية كحلي عليها شبكة خفيفة، زي الكافر.</li>
+    <li>المربعات البرتقاني الصغيرة اللي في اللوجو، في ركن واحد.</li>
+    <li>الأقواس السماوي { } حوالي كلمة مهمة في العنوان.</li>
+    <li>صور حقيقية من شغلنا جوه إطار موبايل، بدل صور الستوك.</li>
+  </ul>
+</section>
+
+<section id="content">
+  <h2><span class="k">06</span> بننشر إيه <span class="status s-ok">ثابت</span></h2>
+  <p class="lead">كل البوستات بصوت واحد: صاحبك اللي فاهم في الأنظمة والأمان، بيقولك "خلي بالك" بالمصري ومن غير مصطلحات. وكل بوست أمان بيخلص بـ <b>Logika. متأمّن من جوّا.</b></p>
+  <div class="grid">
+    <div class="card"><span class="lbl">سلسلة · 40%</span><h3>خلي بالك</h3><p>حاجة واحدة بتضيع من شغلك في كل بوست: مخزون ناقص، فاتورة اتمسحت، عميل محدش تابع معاه. "متأمّن من جوّا" يعني من الفوضى ومن جوّه الشركة، مش من الهاكر بس.</p></div>
+    <div class="card"><span class="lbl">سلسلة · 25%</span><h3>من جوّا</h3><p>الدليل: نظام النور قسم قسم (الأعطال، الزيارات، المخزون، الخزنة، الحضور، سجل التعديلات)، بسكرينز حقيقية جوه إطار موبايل.</p></div>
+    <div class="card"><span class="lbl">سلسلة · 20%</span><h3>لصاحب الشغل</h3><p>نصايح قبل ما تشتري أو تبني سيستم: إكسيل ولا سيستم، CRM يعني إيه، الكود باسم مين، بيتكلف كام. وكل فترة بوست لصاحب الفكرة (MVP).</p></div>
+    <div class="card"><span class="lbl">سلسلة · 15%</span><h3>سرقناه</h3><p>الأمان، بوست أو فيديو كل أسبوعين: غلطة شائعة نسرقها قدام الناس وبعدين نقفلها. دي الميزة اللي بتفرّقنا، مش الموضوع الأساسي.</p></div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>اليوم</th><th>السلسلة</th></tr></thead>
+    <tbody>
+      <tr><td>الأحد</td><td>خلي بالك</td></tr>
+      <tr><td>الثلاثاء</td><td>لصاحب الشغل</td></tr>
+      <tr><td>الخميس</td><td>من جوّا وسرقناه بالتبادل</td></tr>
+    </tbody>
+  </table></div>
+  <p class="lead">نفس البوست ينزل على لينكدإن وفيسبوك، وكل حد في الفريق يعمله Share من حسابه.</p>
+</section>
+
+<section id="marketing">
+  <h2><span class="k">07</span> العميل بيوصلنا إزاي <span class="status s-ok">ثابت</span></h2>
+  <div class="funnel">
+    <div class="row"><b>يشوفنا</b><p>بوستات لينكدإن وفيسبوك، وخدمات خمسات، والعروض اليومية على مستقل.</p></div>
+    <div class="row"><b>يثق فينا</b><p>دراسة حالة النور، وتقييمات خمسات، وصفحة الشركة شكلها متناسق في كل حتة.</p></div>
+    <div class="row"><b>يكلمنا</b><p>زرار واتساب في كل مكان. أول رد في نفس اليوم، بأسئلة جاهزة نفهم بيها المشروع.</p></div>
+    <div class="row"><b>يتعاقد</b><p>عرض سعر بقالب ثابت: المشكلة، الحل، المراحل، السعر، المدة. ودفعة مقدمة 30 إلى 50%.</p></div>
+    <div class="row"><b>يرشّحنا</b><p>بعد التسليم نطلب تقييم، وموافقة ننشر الشغل، وترشيح لحد يعرفه.</p></div>
+  </div>
+</section>
+
+<section id="basics">
+  <h2><span class="k">08</span> الأساسيات</h2>
+  <div class="grid">
+    <div class="card"><h3>خلصت</h3><ul class="plain check">
+      <li class="done">اللوجو والكافر</li>
+      <li class="done">صفحة لينكدإن وبروفايلات الفريق</li>
+      <li class="done">إيميل الشركة</li>
+      <li class="done">بروفايل مستقل</li>
+      <li class="done">خدمات خمسات</li>
+    </ul></div>
+    <div class="card"><h3>ناقص</h3><ul class="plain check">
+      <li>واتساب بيزنس بالبروفايل والردود الجاهزة</li>
+      <li>صفحة فيسبوك بنفس الهوية</li>
+      <li>دومين وموقع صفحة واحدة</li>
+      <li>قالب عرض سعر</li>
+      <li>بروفايل الشركة PDF (5 صفحات)</li>
+      <li>قوالب بوستات في Canva بالألوان والخطوط دي</li>
+      <li>تحويل نبذة صفحة لينكدإن وأول بوست للعربي</li>
+      <li>موافقة النور على ذكر اسمها</li>
+      <li>عملين كمان في معرض مستقل</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="decisions">
+  <h2><span class="k">09</span> القرارات اللي اتفقنا عليها</h2>
+  <div class="decide">
+    <div class="q"><div><b>1. الأمان يبقى جزء من الرسالة الأساسية؟</b><small>اتفقنا: أيوة. "تطبيقات وأنظمة متأمّنة من أول يوم" جزء من تعريف الشركة. اتعدّل 17 أكتوبر: الأمان 15% بس من المحتوى (كان وصل 50% في أول 8 بوستات).</small></div><span class="status s-ok">اتفقنا</span></div>
+    <div class="q"><div><b>2. العميل الأساسي مين؟</b><small>اتعدّل 17 أكتوبر: صاحب الشركة اللي شغالة فعلًا. الخدمة الأساسية أنظمة الشركات (ERP وCRM)، والـ MVP بقى الخدمة التانية.</small></div><span class="status s-ok">اتفقنا</span></div>
+    <div class="q"><div><b>3. لغة كل منصة</b><small>اتفقنا: مصري صريح في كل مكان (اتغيّر من الفصحى لأنها كانت ناشفة).</small></div><span class="status s-ok">اتفقنا</span></div>
+    <div class="q"><div><b>4. الخطوط</b><small>اتفقنا: IBM Plex Sans Arabic لكل حاجة، و Sora للكلمات الإنجليزي بس.</small></div><span class="status s-ok">اتفقنا</span></div>
+    <div class="q"><div><b>5. عدد البوستات</b><small>اتفقنا: 3 في الأسبوع، الأحد والثلاثاء والخميس.</small></div><span class="status s-ok">اتفقنا</span></div>
+  </div>
+</section>
+
+<footer>آخر تحديث: 17 أكتوبر 2026. أي حاجة تتغير هنا، تتغير في كل الحسابات.</footer>
+</div>
