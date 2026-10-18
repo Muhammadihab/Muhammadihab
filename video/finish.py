@@ -1,7 +1,7 @@
 """Final mix and edit for one reel variant: cuts picture, voice and effects with the same segments,
 then lays ONE continuous music bed over the edited timeline (so a cold open never chops the music),
 carves room for the voice and ducks the music under it.
-usage: python3 finish.py <erp|crm> <variant: full|cut|hookB|hookC> <out.mp4>
+usage: python3 finish.py <erp|crm> <variant: full|cut|hookB|hookC> <out.mp4> [nomusic]
 """
 import sys, json, subprocess, os, numpy as np, wave
 
@@ -58,12 +58,14 @@ bed[:min(n, len(A))] += A[:n]
 o = int(b_at * SR); B = norm(load(R['B'], R['b_off'])); B = np.tile(B, (n // len(B) + 2, 1))[:n - o]
 f = int(.25 * SR); B[:f] *= np.linspace(0, 1, f)[:, None]; bed[o:] += B
 f = int(1.5 * SR); bed[-f:] *= np.linspace(1, 0, f)[:, None]
+MUSIC = sys.argv[4:5] != ['nomusic']
+if not MUSIC: bed[:] = 0   # voice and effects only
 
 tmp = f'/tmp/finish_{kind}_{variant}'
 for name, x in (('voice', voice), ('sfx', sfx), ('bed', bed)): save(f'{tmp}_{name}.wav', x[:n])
 # music: cut the voice band, sit low, duck hard and fast under speech, come back in the gaps
 fc = (f"[0:a]pan=stereo|c0=c0|c1=c0,asplit=3[vo][k1][k2];"
-      f"[1:a]volume=-8dB[fx0];[fx0][k1]sidechaincompress=threshold=0.02:ratio=4:attack=10:release=250[fx];"
+      f"[1:a]volume={-8 if MUSIC else -5}dB[fx0];[fx0][k1]sidechaincompress=threshold=0.02:ratio=4:attack=10:release=250[fx];"
       f"[2:a]equalizer=f=2500:t=q:w=1.4:g=-5,equalizer=f=350:t=q:w=1:g=-2,volume=-4dB[mu0];"
       f"[mu0][k2]sidechaincompress=threshold=0.015:ratio=4:attack=10:release=400[mu];"
       f"[vo][fx][mu]amix=inputs=3:normalize=0:duration=first[m]")
@@ -81,4 +83,4 @@ vf = ''.join(f'[0:v]trim={a}:{b},setpts=PTS-STARTPTS[v{i}];' for i, (a, b) in en
 subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', R['video'], '-i', f'{tmp}_mix.wav', '-filter_complex', vf, '-map', '[vo]', '-map', '1:a',
                 '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest',
                 '-movflags', '+faststart', out], check=True)
-print(out, round(dur, 1), 's  music turns at', round(turn, 1))
+print(out, round(dur, 1), 's', f'music turns at {turn:.1f}' if MUSIC else 'no music')
