@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muhammad Ihab</title>
+<meta name="description" content="Muhammad Ihab, a cybersecurity engineer who builds Flutter apps and attacks them before anyone else can.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231C1A16'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-style='italic' font-size='20' fill='%23D9DDC2' text-anchor='middle'%3Emi%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="me" href="#top">muhammad<b>.</b>ihab</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#checklist">Security</a>
+      <a href="#process">Process</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="lang" href="ar.html" hreflang="ar" lang="ar">عربي</a>
+    <button class="mode" type="button" aria-pressed="false" title="Switch between build and break view (B)">
+      <span class="m-build">build</span><span class="m-break">break</span><kbd>B</kbd>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow mono"><span>Flutter developer</span><span>Cybersecurity engineer</span><span>Egypt</span></p>
+      <h1 class="b-only">I <span class="strike">build</span> apps.<br>Then I try to <em>break</em> them.</h1>
+      <h1 class="k-only">Every screen is an <em>attack surface</em>. I check all of them.</h1>
+      <p class="lede b-only">I studied security, then learned Flutter. Now I do both on the same project: I write the app, and then I attack it myself before it goes to you or your users.</p>
+      <p class="lede k-only">You are looking at break mode. The red notes on this page are the questions I ask about every app I build. Press <span class="mono">B</span> to go back.</p>
+      <div class="cta">
+        <a class="btn solid" href="https://wa.me/201226412843" target="_blank" rel="noopener" data-sec="plain wa.me link · no form, nothing stored">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5 0a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2l-.5-.3Z"/></svg>
+          Message me on WhatsApp
+        </a>
+        <a class="link-quiet" href="#work">or look at the work first</a>
+      </div>
+    </div>
+
+    <figure class="inspect">
+      <div class="frame">
+        <i class="h"></i><i class="h"></i><i class="h"></i><i class="h"></i>
+      </div>
+      <img src="assets/me.jpg" alt="Muhammad Ihab standing on a hill at sunset, wearing glasses and a sand-coloured shirt" width="1000" height="1333">
+      <div class="scan" aria-hidden="true"></div>
+      <span class="tag b-only">Person(name: 'Muhammad Ihab')</span>
+      <span class="tag k-only">target: muhammad_ihab · status: friendly</span>
+      <span class="pin r k-only" style="top:22%;right:22px" aria-hidden="true">reads logs for fun</span>
+      <span class="pin l k-only" style="top:56%;left:22px" aria-hidden="true">hands: in pockets, not in your data</span>
+      <figcaption>1000 × 1333 · Image.asset</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap">
+    <div class="facts">
+      <ul>
+        <li><b data-count="6690">6,690</b><span>notebook lines moved into one system for Al-Nour</span></li>
+        <li><b>2</b><span>platforms from one Flutter codebase: Android and Windows</span></li>
+        <li><b><i>1</i></b><span>company built along the way: Logika</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 01 · BUILD / BREAK -->
+<section class="sec" id="idea">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="no mono">01 / how I think</span>
+      <div>
+        <h2>Most apps are built by one team and checked by another, <em>months later.</em></h2>
+        <p>If they're checked at all. I do both jobs, in the same week, on the same code. Every feature I write comes with a question I ask against it.</p>
+      </div>
+    </div>
+
+    <div class="pairs-head mono"><span>+ what I build</span><span></span><span>− what I ask it, as an attacker</span></div>
+    <div class="pairs">
+      <div class="row">
+        <div class="b"><span class="lbl mono">build</span>Roles for owner, manager, technician and accountant.</div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="k"><span class="lbl mono">break</span>Can a technician open another branch's invoices by changing one number in the request?</div>
+      </div>
+      <div class="row">
+        <div class="b"><span class="lbl mono">build</span>A login that remembers you, so the app opens straight to work.</div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="k"><span class="lbl mono">break</span>Where is that token stored, and what happens if the phone is lost or stolen?</div>
+      </div>
+      <div class="row">
+        <div class="b"><span class="lbl mono">build</span>An Android build you can send to your team as an APK.</div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="k"><span class="lbl mono">break</span>If I unpack that APK, do I find your API keys in it?</div>
+      </div>
+      <div class="row">
+        <div class="b"><span class="lbl mono">build</span>A cash screen that shows today's money in and out.</div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="k"><span class="lbl mono">break</span>If someone edits a number, will anyone ever know who did it?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · WORK -->
+<section class="sec" id="work" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="no mono">02 / selected work</span>
+      <div>
+        <h2>Three projects, told properly instead of a <em>grid of thumbnails.</em></h2>
+      </div>
+    </div>
+
+    <article class="case">
+      <div>
+        <span class="mono" style="color:var(--muted)">case 01 · with Logika</span>
+        <h3>Al-Nour</h3>
+        <div class="meta"><span class="chip">maintenance company</span><span class="chip">ERP</span><span class="chip">Flutter</span><span class="chip">Android + Windows</span></div>
+        <div class="story">
+          <p>A maintenance company was running everything from <strong>a paper notebook</strong>: faults, field visits, spare parts, payments. Every question about the business went through one person's phone.</p>
+          <p>We moved <strong>6,690 lines</strong> off the paper and into one system that runs on the technicians' Android phones and the office's Windows PC. The owner opens it and gets the answer, without calling anyone.</p>
+        </div>
+        <ul class="modules">
+          <li>Faults</li><li>Field visits</li><li>Inventory</li><li>Cash</li><li>Attendance</li><li data-sec="append-only: edits are recorded, not overwritten">Edit history</li>
+        </ul>
+        <span class="todo">Add 2–3 real screenshots (with customer data blurred) and one result after launch, e.g. "the owner stopped getting 30 calls a day".</span>
+      </div>
+
+      <div class="ledger" aria-label="Before and after: a paper notebook next to the same records in the app">
+        <div class="paper">
+          <div class="scrawl">
+            12/3 · AC unit · Nasr City · paid?<br>
+            12/3 · fridge compressor · <s>200</s> 350<br>
+            13/3 · visit again, customer not home<br>
+            13/3 · part from warehouse (who took it?)<br>
+            14/3 · Hany → Maadi · cash with him<br>
+            14/3 · ???<br>
+            15/3 · see page 212
+          </div>
+          <div class="count"><b data-count="6690">6,690</b>lines, one notebook</div>
+        </div>
+        <div class="arrowmid" aria-hidden="true">→</div>
+        <div class="app" data-sec="technician sees only their own visits · role checked on the server">
+          <div class="bar2"><span>Visits · today</span><span>3 open</span></div>
+          <div class="row2"><i></i><span>AC unit · Nasr City</span><small>paid</small></div>
+          <div class="row2"><i></i><span>Fridge compressor</span><small>EGP 350</small></div>
+          <div class="row2"><i class="w"></i><span>Revisit · not home</span><small>15:00</small></div>
+          <div class="row2"><i></i><span>Part #A-114 out</span><small>Hany</small></div>
+          <div class="who">edited by Hany · 14:02 · price 200 → 350</div>
+        </div>
+      </div>
+    </article>
+
+    <div class="more">
+      <article class="small-case">
+        <span class="idx mono">case 02</span>
+        <h3>Zaboon</h3>
+        <div class="meta" style="margin:0 0 14px"><span class="chip">Flutter</span></div>
+        <p>A Flutter app for customers.</p>
+        <span class="todo">What is Zaboon, who uses it, what did you build in it, and one security decision you made. Plus one number (users, orders, rating) and a screenshot.</span>
+      </article>
+      <article class="small-case">
+        <span class="idx mono">case 03</span>
+        <h3>Real estate app</h3>
+        <div class="meta" style="margin:0 0 14px"><span class="chip">Flutter</span><span class="chip">real estate</span></div>
+        <p>An app for listing and finding properties.</p>
+        <span class="todo">Project name, who it was for, the main screens, and what was sensitive in it (owner phone numbers? exact locations?) and how you protected it.</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · LOGIKA -->
+<section class="sec logika" id="logika">
+  <div class="wrap">
+    <div class="word" aria-hidden="true">Logi<i>ka</i></div>
+    <div>
+      <span class="no mono">03 / the company</span>
+      <h2>Logika: systems for Egyptian businesses that outgrew Excel and WhatsApp.</h2>
+      <p>Logika builds one system around how a business already works: customers, stock, cash, staff and permissions, on the phone and on the desktop. Al-Nour is the proof.</p>
+      <p>The line on every Logika post is the same one I work by: <em>secure from the inside.</em></p>
+      <span class="todo">Confirm your title at Logika (founder? co-founder? lead engineer?) and add it here in one line.</span>
+    </div>
+  </div>
+</section>
+
+<!-- 04 · CHECKLIST -->
+<section class="sec" id="checklist">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="no mono">04 / before you see it</span>
+      <div>
+        <h2>What I attack in every app <em>before</em> I hand it over.</h2>
+        <p>Open each one. This is the short version of the list, written for people who don't do security for a living.</p>
+      </div>
+    </div>
+
+    <div class="checks">
+      <ol>
+        <li>
+          <button type="button" aria-expanded="false"><span class="n">01</span><span class="t">Secrets inside the app</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
+          <div class="d"><div><p>I unpack my own release build the way an attacker would and look for API keys, database URLs and anything else that shouldn't ship. Release builds are obfuscated with <code>--obfuscate --split-debug-info</code>.</p></div></div>
+        </li>
+        <li>
+          <button type="button" aria-expanded="false"><span class="n">02</span><span class="t">Seeing other people's data</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
+          <div class="d"><div><p>The classic bug: change <code>/orders/1041</code> to <code>/orders/1042</code> and get someone else's order. I try it on every endpoint. The server checks who's asking, not just whether they're logged in.</p></div></div>
+        </li>
+        <li>
+          <button type="button" aria-expanded="false"><span class="n">03</span><span class="t">What's stored on the phone</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
+          <div class="d"><div><p>Tokens go into the platform's secure storage (Keychain / Keystore), not plain preferences. If the phone is lost, nothing useful is lying around in a file.</p></div></div>
+        </li>
+        <li>
+          <button type="button" aria-expanded="false"><span class="n">04</span><span class="t">Hidden buttons aren't permissions</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
+          <div class="d"><div><p>Hiding the "delete" button from a technician is design, not security. Every role is enforced on the server, so calling the API directly gets the same "no".</p></div></div>
+        </li>
+        <li>
+          <button type="button" aria-expanded="false"><span class="n">05</span><span class="t">The connection itself</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
+          <div class="d"><div><p>HTTPS everywhere, and certificate pinning when the data is worth intercepting. I put the app behind a proxy and watch what it actually sends.</p></div></div>
+        </li>
+        <li>
+          <button type="button" aria-expanded="false"><span class="n">06</span><span class="t">A trail nobody can erase</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
+          <div class="d"><div><p>Who changed a price, who deleted an invoice, and when. The log is kept where users, including admins, can read it but can't edit it.</p></div></div>
+        </li>
+        <li>
+          <button type="button" aria-expanded="false"><span class="n">07</span><span class="t">Wrong input, on purpose</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
+          <div class="d"><div><p>Negative quantities, a 10,000-character name, a script inside a note field. Users will do all of it by accident. I do it first, on purpose.</p></div></div>
+        </li>
+      </ol>
+      <aside class="score" aria-live="polite">
+        <span class="mono" style="color:var(--muted)">you've opened</span>
+        <div class="big"><b data-score>0</b><span>/7</span></div>
+        <div class="meter"></div>
+        <p>I don't ship until it's seven out of seven. You get a short report with what I tried and what happened.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · PROCESS -->
+<section class="sec" id="process" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="no mono">05 / how a project goes</span>
+      <div>
+        <h2>Four steps. Written the way I write <em>commits.</em></h2>
+      </div>
+    </div>
+    <div class="log">
+      <div class="top"><i></i><i></i><i></i><span>git log --oneline your-app</span></div>
+      <div class="commit"><span class="sha">a1c09e2</span><span class="type t-talk">talk</span><div class="msg"><b>two lines on WhatsApp</b><span>You tell me what the app should do and who uses it. I reply the same day, and if you don't need an app, I'll say so.</span></div></div>
+      <div class="commit"><span class="sha">4be17f0</span><span class="type t-feat">build</span><div class="msg"><b>a working build on your phone, early</b><span>Not slides. You install it, tap through it, and tell me what's wrong while it's still cheap to change.</span></div></div>
+      <div class="commit"><span class="sha">9d3a5c1</span><span class="type t-sec">break</span><div class="msg"><b>I attack it, you get the report</b><span>The seven checks above, plus whatever is specific to your app. Every finding gets fixed before handover.</span></div></div>
+      <div class="commit"><span class="sha">e70b2d8</span><span class="type t-ship">ship</span><div class="msg"><b>handover, with the keys</b><span>Source code, accounts and builds are in your name. You're not locked in to me.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · ABOUT -->
+<section class="sec" id="about" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="no mono">06 / about</span>
+      <div></div>
+    </div>
+    <div class="about">
+      <p class="quote">I'm a cybersecurity engineer who learned Flutter, and liked building too much to <em>go back to only breaking things.</em></p>
+      <div class="body">
+        <p>I'm Muhammad Ihab. I studied cybersecurity, so I learned to look at software the way an attacker does. Then I learned Flutter, and started building the apps myself.</p>
+        <p>Now I do both on every project. The app gets built, then I attack it, then it ships.</p>
+        <dl class="spec">
+          <div><dt>based in</dt><dd>Egypt</dd></div>
+          <div><dt>builds with</dt><dd>Flutter, Dart</dd></div>
+          <div><dt>breaks with</dt><dd>security testing, reverse engineering, traffic inspection</dd></div>
+          <div><dt>speaks</dt><dd>Arabic, English</dd></div>
+        </dl>
+        <span class="todo">Add your backend stack (Firebase? Supabase? Laravel?), certificates if any, and university/year if you want them shown.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="mono" style="color:var(--muted)">07 / contact</span>
+    <h2 style="margin-top:14px">Tell me what your app does, <em>in two lines.</em></h2>
+    <p class="sub">Who uses it, and what's sensitive in it. I'll answer the same day with what I'd build first and what I'd attack first.</p>
+    <div class="row3">
+      <a class="btn solid" href="https://wa.me/201226412843" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5 0a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2l-.5-.3Z"/></svg>
+        WhatsApp
+      </a>
+      <a class="btn" href="#" data-linkedin aria-disabled="true" title="LinkedIn link coming">LinkedIn</a>
+      <span class="num">+20 122 641 2843</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap mono">
+    <span>Muhammad Ihab · 2026</span>
+    <span class="b-only">Built by hand. Then I tried to break it too.</span>
+    <span class="k-only">0 trackers · 0 cookies · 0 third-party scripts</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
