@@ -202,110 +202,75 @@
 
 <!-- 03 · LOGIKA -->
 <section class="sec logika" id="logika">
-  <div class="wrap">
-    <div class="word" aria-hidden="true">Logi<i>ka</i></div>
-    <div>
+  <div class="wrap lg">
+    <div class="lg-text">
       <span class="no mono">٠٣ / الشركة</span>
-      <h2>أسست لوجيكا: سيستمات للشركات المصرية اللي شغلها كبر على الإكسيل والواتساب.</h2>
-      <p>بديرها كـ CEO، وماسك فيها الأمان والماركتنج كمان. يعني نفس الشخص اللي بيكتب الـ threat model بيكتب كابشن الإنستجرام، وبيتأكد إن الاتنين مش بيناقضوا بعض.</p>
-      <p>لوجيكا بتعمل سيستم واحد على طريقة شغل الشركة: العملاء، والمخزن، والخزنة، والموظفين والصلاحيات، على الموبايل والكمبيوتر. والنور وزبون الاتنين من شغل لوجيكا.</p>
-      <p>تقدر تشوفها على <a href="https://logika-eg.pages.dev" target="_blank" rel="noopener" class="ltr">logika-eg.pages.dev</a>. والجملة اللي في آخر كل بوست للوجيكا هي نفسها اللي بشتغل بيها: <em>متأمّن من جوّا.</em></p>
+      <h2>أسست لوجيكا، وبديرها.</h2>
+      <p>لوجيكا بتعمل سيستم واحد على طريقة شغل الشركة: العملاء، والمخزن، والخزنة، والموظفين والصلاحيات. والنور وزبون الاتنين من شغل لوجيكا.</p>
+      <p>كـ CEO ماسك كمان الأمان والماركتنج، فنفس الشخص اللي بيكتب الـ threat model بيكتب بوست الإنستجرام. ودي شوية من البوستات دي. وآخر كل بوست نفس الجملة: <em>متأمّن من جوّا.</em></p>
+      <p><a href="https://logika-eg.pages.dev" target="_blank" rel="noopener" class="ltr">logika-eg.pages.dev ↗</a></p>
       <dl class="spec roles"><div><dt>الدور</dt><dd>مؤسس و CEO</dd></div><div><dt>كمان</dt><dd>Security lead · Marketing lead</dd></div></dl>
     </div>
-  </div>
-</section>
-
-<!-- 04 · CHECKLIST -->
-<section class="sec" id="checklist">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="no mono">٠٤ / قبل ما تشوفه</span>
-      <div>
-        <h2>اللي بهاجمه في أي تطبيق <em>قبل</em> ما أسلّمه.</h2>
-        <p>افتح كل واحدة. دي النسخة المختصرة من اللستة، مكتوبة لناس شغلهم مش في الأمن.</p>
-      </div>
-    </div>
-
-    <div class="checks">
-      <ol>
-        <li>
-          <button type="button" aria-expanded="false"><span class="n">٠١</span><span class="t">أسرار جوه التطبيق</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
-          <div class="d"><div><p>بفك نسخة الريليس بتاعتي زي ما المخترق هيعمل، وبدوّر على مفاتيح API ولينكات قواعد بيانات وأي حاجة مكانهاش هناك. ونسخ الريليس بتتعمل بـ <code>--obfuscate --split-debug-info</code>.</p></div></div>
-        </li>
-        <li>
-          <button type="button" aria-expanded="false"><span class="n">٠٢</span><span class="t">إنك تشوف بيانات غيرك</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
-          <div class="d"><div><p>الغلطة الكلاسيك: تغيّر <code>/orders/1041</code> لـ <code>/orders/1042</code> فيطلعلك أوردر حد تاني. بجرّبها على كل endpoint. السيرفر بيشوف مين اللي بيسأل، مش بس إنه عامل لوجين.</p></div></div>
-        </li>
-        <li>
-          <button type="button" aria-expanded="false"><span class="n">٠٣</span><span class="t">إيه اللي متخزن على الموبايل</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
-          <div class="d"><div><p>التوكنز بتتحط في التخزين الآمن بتاع الموبايل (Keychain / Keystore)، مش في ملف عادي. لو الموبايل ضاع، مفيش حاجة مفيدة مرمية في ملف.</p></div></div>
-        </li>
-        <li>
-          <button type="button" aria-expanded="false"><span class="n">٠٤</span><span class="t">إخفاء الزرار مش صلاحية</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
-          <div class="d"><div><p>إنك تخبّي زرار «مسح» عن الفني ده تصميم، مش أمان. كل صلاحية بتتراجع على السيرفر، فلو حد كلّم الـ API مباشرة هياخد نفس الـ «لأ».</p></div></div>
-        </li>
-        <li>
-          <button type="button" aria-expanded="false"><span class="n">٠٥</span><span class="t">الاتصال نفسه</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
-          <div class="d"><div><p>HTTPS في كل حتة، وcertificate pinning لما البيانات تستاهل إن حد يحاول يتصنّت عليها. بحط التطبيق ورا بروكسي وبشوف هو بيبعت إيه فعلًا.</p></div></div>
-        </li>
-        <li>
-          <button type="button" aria-expanded="false"><span class="n">٠٦</span><span class="t">أثر محدش يقدر يمسحه</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
-          <div class="d"><div><p>مين غيّر سعر، مين مسح فاتورة، وإمتى. السجل محفوظ في مكان الكل يقدر يقراه، حتى الأدمن، بس محدش يقدر يعدّل فيه.</p></div></div>
-        </li>
-        <li>
-          <button type="button" aria-expanded="false"><span class="n">٠٧</span><span class="t">مدخلات غلط، بالقصد</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button>
-          <div class="d"><div><p>كمية بالسالب، اسم ١٠ آلاف حرف، سكريبت جوه خانة ملاحظات. المستخدمين هيعملوا ده كله من غير قصد. أنا بعمله الأول، بالقصد.</p></div></div>
-        </li>
-      </ol>
-      <aside class="score" aria-live="polite">
-        <span class="mono" style="color:var(--muted)">فتحت لحد دلوقتي</span>
-        <div class="big"><b data-score>0</b><span>/7</span></div>
-        <div class="meter"></div>
-        <p>مبسلّمش غير لما تبقى سبعة من سبعة. وبتاخد تقرير قصير فيه أنا جرّبت إيه وحصل إيه.</p>
-      </aside>
+    <div class="feed">
+      <figure class="reel">
+        <video controls preload="none" playsinline poster="assets/logika/reel-erp-poster.jpg" width="540" height="960"><source src="assets/logika/reel-erp.mp4" type="video/mp4"></video>
+        <figcaption>ريل · الـ ERP في ٢٧ ثانية</figcaption>
+      </figure>
+          <figure class="post"><img src="assets/logika/post-braces.jpg" alt="بوست لوجيكا: اللي جوه أقواسنا محدش يوصله" loading="lazy" width="720" height="900"><figcaption>بوست · اللي جوه أقواسنا</figcaption></figure>
+          <figure class="post"><img src="assets/logika/post-system.jpg" alt="بوست لوجيكا: انت السيستم بتاع شركتك" loading="lazy" width="720" height="900"><figcaption>بوست · انت السيستم</figcaption></figure>
+          <figure class="post"><img src="assets/logika/post-missing.jpg" alt="بوست لوجيكا: مفقود، عميل" loading="lazy" width="720" height="900"><figcaption>بوست · مفقود: عميل</figcaption></figure>
+          <figure class="post"><img src="assets/logika/post-excel.jpg" alt="بوست لوجيكا: شغلك كبر على الإكسيل؟" loading="lazy" width="720" height="900"><figcaption>كاروسيل · كبرت على الإكسيل؟</figcaption></figure>
     </div>
   </div>
 </section>
 
-<!-- 05 · PROCESS -->
-<section class="sec" id="process" style="padding-top:0">
+<!-- 04 · PROCESS + CHECKLIST -->
+<section class="sec" id="process">
   <div class="wrap">
     <div class="sec-head">
-      <span class="no mono">٠٥ / المشروع بيمشي إزاي</span>
+      <span class="no mono">٠٤ / المشروع بيمشي إزاي</span>
       <div>
-        <h2>أربع خطوات، مكتوبة زي ما بكتب <em>الكوميتس.</em></h2>
+        <h2>أربع خطوات. التالتة هي اللي بحاول فيها <em>أخترقه.</em></h2>
+        <p>مكتوبة زي ما بكتب الكوميتس. افتح خطوة الـ break وشوف بهاجم إيه قبل التسليم.</p>
       </div>
     </div>
-    <div class="log" dir="rtl">
+    <div class="log flow" dir="rtl">
       <div class="top"><i></i><i></i><i></i><span>git log --oneline your-app</span></div>
       <div class="commit"><span class="sha">a1c09e2</span><span class="type t-talk">talk</span><div class="msg"><b>سطرين على الواتساب</b><span>تقولي التطبيق المفروض يعمل إيه ومين هيستخدمه. برد في نفس اليوم، ولو انت مش محتاج تطبيق هقولك.</span></div></div>
       <div class="commit"><span class="sha">4be17f0</span><span class="type t-feat">build</span><div class="msg"><b>نسخة شغالة على موبايلك من بدري</b><span>مش سلايدات. بتنزّله وتجرّبه وتقولي إيه اللي مش مظبوط، وهو لسه تعديله رخيص.</span></div></div>
-      <div class="commit"><span class="sha">9d3a5c1</span><span class="type t-sec">break</span><div class="msg"><b>بهاجمه، وانت بتاخد التقرير</b><span>السبع حاجات اللي فوق، وأي حاجة تخص تطبيقك انت. وكل حاجة بلاقيها بتتصلّح قبل التسليم.</span></div></div>
+      <div class="commit open-commit" id="checklist"><span class="sha">9d3a5c1</span><span class="type t-sec">break</span>
+        <div class="msg"><b>بهاجمه، وانت بتاخد التقرير</b><span>سبع حاجات بجرّبها في أي تطبيق، وأي حاجة تخص تطبيقك انت. وكل حاجة بلاقيها بتتصلّح قبل التسليم. فتحت: <em class="tally"><b data-score>0</b>/7</em></span>
+          <ol class="checks-inline checks">
+            <li><button type="button" aria-expanded="false"><span class="n">01</span><span class="t">أسرار جوه التطبيق</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button><div class="d"><div><p>بفك نسخة الريليس بتاعتي زي ما المخترق هيعمل، وبدوّر على مفاتيح API ولينكات قواعد بيانات مكانهاش هناك. ونسخ الريليس بتتعمل بـ <code>--obfuscate --split-debug-info</code>.</p></div></div></li>
+            <li><button type="button" aria-expanded="false"><span class="n">02</span><span class="t">إنك تشوف بيانات غيرك</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button><div class="d"><div><p>تغيّر <code>/orders/1041</code> لـ <code>/orders/1042</code> فيطلعلك أوردر حد تاني. بجرّبها على كل endpoint. السيرفر بيشوف مين اللي بيسأل، مش بس إنه عامل لوجين.</p></div></div></li>
+            <li><button type="button" aria-expanded="false"><span class="n">03</span><span class="t">إيه اللي متخزن على الموبايل</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button><div class="d"><div><p>التوكنز بتتحط في التخزين الآمن بتاع الموبايل (Keychain / Keystore)، مش في ملف عادي. لو الموبايل ضاع، مفيش حاجة مفيدة مرمية.</p></div></div></li>
+            <li><button type="button" aria-expanded="false"><span class="n">04</span><span class="t">إخفاء الزرار مش صلاحية</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button><div class="d"><div><p>إنك تخبّي زرار المسح ده تصميم، مش أمان. كل صلاحية بتتراجع على السيرفر، فلو حد كلّم الـ API مباشرة هياخد نفس الـ «لأ».</p></div></div></li>
+            <li><button type="button" aria-expanded="false"><span class="n">05</span><span class="t">الاتصال نفسه</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button><div class="d"><div><p>HTTPS في كل حتة، وcertificate pinning لما البيانات تستاهل. وبشوف التطبيق بيبعت إيه فعلًا من ورا بروكسي.</p></div></div></li>
+            <li><button type="button" aria-expanded="false"><span class="n">06</span><span class="t">أثر محدش يقدر يمسحه</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button><div class="d"><div><p>مين غيّر سعر، مين مسح فاتورة، وإمتى. الأدمن يقدر يقراه، ومحدش يقدر يعدّل فيه.</p></div></div></li>
+            <li><button type="button" aria-expanded="false"><span class="n">07</span><span class="t">مدخلات غلط، بالقصد</span><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></button><div class="d"><div><p>كمية بالسالب، اسم ١٠ آلاف حرف، سكريبت جوه خانة ملاحظات. المستخدمين هيعملوها من غير قصد. أنا بعملها الأول.</p></div></div></li>
+          </ol>
+        </div>
+      </div>
       <div class="commit"><span class="sha">e70b2d8</span><span class="type t-ship">ship</span><div class="msg"><b>تسليم، والمفاتيح معاك</b><span>الكود والحسابات والنسخ كلها باسمك. مش هتبقى مربوط بيّا.</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- 06 · ABOUT -->
-<section class="sec" id="about" style="padding-top:0">
+<!-- 05 · ABOUT -->
+<section class="sec about-sec" id="about">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="no mono">٠٦ / عنّي</span>
-      <div></div>
-    </div>
-    <div class="about">
-      <p class="quote">أنا طالب هندسة سايبر سيكيوريتي اتعلم فلاتر، وحب البناء لدرجة إنه <em>مرجعش يكسّر بس.</em></p>
-      <div class="body">
-        <p>أنا محمد إيهاب، مؤسس لوجيكا. بدرس سايبر سيكيوريتي وتحليل بيانات في كلية الهندسة الإلكترونية، جامعة المنوفية، فبتعلم أبص للسوفتوير بعين المخترق. واتعلمت فلاتر كمان، وبقيت أبني التطبيقات بنفسي.</p>
-        <p>دلوقتي بعمل الاتنين في كل مشروع: التطبيق بيتبني، وبعدين بهاجمه، وبعدين يتسلّم.</p>
-        <dl class="spec">
-          <div><dt>مقيم في</dt><dd>٦ أكتوبر، الجيزة</dd></div>
-          <div><dt>بدرس</dt><dd>سايبر سيكيوريتي وتحليل بيانات، جامعة المنوفية · ٢٠٢٣ لحد دلوقتي</dd></div>
-          <div><dt>ببني بـ</dt><dd>Flutter, Dart, Supabase, Firebase, REST APIs</dd></div>
-          <div><dt>بأمّن بـ</dt><dd>اختبار اختراق للويب والتطبيقات، أمن شبكات (FortiGate)، Linux، Python، Bash</dd></div>
-          <div><dt>تدريبات</dt><dd>متدرب أمن شبكات، BARQ Systems · سبتمبر ٢٠٢٦<br>Flutter track، IEEE الأزهر · ٢٠٢٥–٢٦<br>أساسيات الشبكات، مهارة تك · ٢٠٢٦<br>ديجيتال ماركتنج، رواد مصر الرقمية (DEPI) · ٢٠٢٥</dd></div>
-          <div><dt>بتكلم</dt><dd>عربي (لغة أم)، إنجليزي (C1)</dd></div>
-        </dl>
+    <div class="about2">
+      <figure class="about-photo"><img src="assets/me-close.jpg" alt="محمد إيهاب" loading="lazy" width="620" height="775"></figure>
+      <div>
+        <span class="no mono">٠٥ / عنّي</span>
+        <p class="quote">كل حاجة رايحة على التطبيقات. وكل تطبيق باب. وأنا كنت عاوز أعرف <em>الأبواب دي بتتفتح إزاي.</em></p>
+        <div class="body"><p>أنا محمد إيهاب، من ٦ أكتوبر. دخلت سايبر سيكيوريتي عشان ده الاتجاه الجاي، ومن أكبر المجالات الموجودة. المحلات والعيادات والشركات في مصر بتنقل شغلها على الموبايل والسيرفرات، ولازم حد يتأكد إن الشغل ده يفضل بتاعهم هما.</p>
+          <p>وبعدين اتعلمت فلاتر، لأن إنك تعرف التطبيقات بتتكسر إزاي نص الشغلانة بس، لو مش عارف تبني واحد. النهارده بدرس سايبر سيكيوريتي وتحليل بيانات في جامعة المنوفية، وبدير لوجيكا، وأغلب أسبوعي ما بين البناء والاختراق.</p></div>
+        <p class="trained mono">اتدربت في BARQ Systems (أمن شبكات) · IEEE الأزهر (فلاتر) · مهارة تك (شبكات) · DEPI (ديجيتال ماركتنج) · عربي وإنجليزي (C1)</p>
+        <div class="row3">
+          <a class="btn solid" href="assets/Muhammad_Ihab_Hammad_CV.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></svg>حمّل السي ڤي <span class="ltr">(PDF)</span></a>
+          <a class="btn" href="https://www.linkedin.com/in/muhammad-ihab-hammad" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
       </div>
     </div>
   </div>
@@ -314,7 +279,7 @@
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="wrap">
-    <span class="mono" style="color:var(--muted)">٠٧ / كلّمني</span>
+    <span class="mono" style="color:var(--muted)">٠٦ / كلّمني</span>
     <h2 style="margin-top:14px">قولّي تطبيقك بيعمل إيه، <em>في سطرين.</em></h2>
     <p class="sub">مين بيستخدمه، وإيه اللي حساس فيه. هرد في نفس اليوم وأقولك هبني إيه الأول، وههاجم إيه الأول.</p>
     <div class="row3">
