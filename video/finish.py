@@ -13,7 +13,7 @@ UP = '/root/.claude/uploads/fbe3b44f-ab48-5b4b-b63d-da610b194d47/'
 REELS = {
     'erp': dict(video=f'{HERE}/reel-erp/reel-erp-v12-music.mp4', voice=f'{SP}/vo/vo_placed.wav', sfx=f'{SP}/mus/sfx_erp.wav', dur=39.0,
                 A=UP + '3c306272-lnplusmusic-suspense-tension-suspenseful-tense-323181.mp3', a_off=0,
-                B=UP + '83999423-jonasblakewood-background-music-618629.mp3', b_off=8, turn=15.4, b_at=16.8),
+                B=UP + '83999423-jonasblakewood-background-music-618629.mp3', b_off=8, turn=15.6, b_at=16.8),
     'crm': dict(video=f'{HERE}/reel-crm/reel-crm-v9.mp4', voice=f'{SP}/vo/crm3_vo.wav', sfx=f'{SP}/mus/sfx_crm.wav', dur=47.4,
                 A=UP + 'e3768a34-maheralhilo-cool-suspense-pizzicato-full-206157.mp3', a_off=0,
                 B=UP + 'c37cdbbf-looperman-l-4228984-0318218-funky-pick-bass-groove-2-100-bpm.wav', b_off=0, turn=19.2, b_at=19.2),
