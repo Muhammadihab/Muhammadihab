@@ -368,3 +368,59 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
   html.break .modules li[data-sec]{outline:0}
   html.break .modules li[data-sec]::after{margin-top:4px}
 }
+
+/* ---------- real screens ---------- */
+.phone{margin:0;flex:0 0 auto;width:var(--pw,200px)}
+.phone .glass{border:1px solid var(--ink);border-radius:26px;padding:6px;background:var(--card)}
+.phone img{width:100%;height:auto;aspect-ratio:9/18.5;object-fit:cover;object-position:top;border-radius:20px;background:#F3F4F8}
+.phone figcaption,.browser figcaption{margin-top:10px;color:var(--muted);font:400 .72rem/1.4 var(--f-mono)}
+.screens{display:flex;gap:clamp(14px,2vw,26px);margin-top:clamp(36px,5vw,56px);overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-bottom:12px;scrollbar-width:thin}
+.screens .phone{scroll-snap-align:start;--pw:clamp(170px,22vw,232px)}
+html.break .phone img,html.break .browser img{filter:grayscale(1) contrast(1.05)}
+html.break .phone[data-sec] img,html.break .browser[data-sec] img{filter:none}
+
+.ledger .app.real{padding:0;overflow:hidden;background:#F3F4F8}
+.ledger .app.real img{width:100%;height:100%;object-fit:cover;object-position:top}
+
+/* case layouts: each one sits differently */
+.case+.case,.screens+.case{margin-top:clamp(80px,11vw,140px);padding-top:clamp(40px,5vw,60px);border-top:1px solid var(--ink)}
+.case.flip{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.case.flip>.visual{order:-1}
+html[dir="rtl"] .case.flip>.visual{order:-1}
+.case .idx{color:var(--muted)}
+.note-demo{display:block;margin-top:14px;color:var(--muted);font:400 .72rem/1.5 var(--f-mono)}
+
+.combo{position:relative;padding-bottom:60px}
+.browser{margin:0;width:88%}
+.browser .chrome{border:1px solid var(--ink);border-radius:10px;overflow:hidden;background:var(--card)}
+.browser .top3{display:flex;gap:6px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--line);font:400 .7rem var(--f-mono);color:var(--muted)}
+.browser .top3 i{width:8px;height:8px;border-radius:50%;border:1px solid var(--muted)}
+.browser .top3 span{margin-inline-start:10px;direction:ltr}
+.browser img{width:100%;height:auto}
+.combo .phone{position:absolute;inset-inline-end:0;bottom:0;--pw:clamp(120px,15vw,180px)}
+.combo .phone .glass{box-shadow:0 18px 40px -18px #0006}
+
+.fan{display:flex;justify-content:center;align-items:flex-end;padding-block:10px 20px}
+.fan .phone{--pw:clamp(130px,15vw,196px);transition:transform .35s}
+.fan .phone:nth-child(1){transform:rotate(-5deg) translateY(14px);margin-inline-end:-26px}
+.fan .phone:nth-child(2){position:relative;z-index:2}
+.fan .phone:nth-child(3){transform:rotate(5deg) translateY(14px);margin-inline-start:-26px}
+html[dir="rtl"] .fan .phone:nth-child(1){transform:rotate(5deg) translateY(14px)}
+html[dir="rtl"] .fan .phone:nth-child(3){transform:rotate(-5deg) translateY(14px)}
+.fan:hover .phone{transform:none}
+.fan .phone figcaption{text-align:center}
+
+@media (max-width:900px){
+  .case.flip{grid-template-columns:1fr}
+  .case.flip>.visual{order:0}
+}
+@media (max-width:520px){
+  .combo{padding-bottom:40px}
+  .browser{width:100%}
+  .combo .phone{--pw:110px;inset-inline-end:-4px;bottom:-10px}
+  .fan .phone{--pw:120px}
+  .fan .phone:nth-child(1){margin-inline-end:-40px}
+  .fan .phone:nth-child(3){margin-inline-start:-40px}
+  .ledger .app.real{max-height:420px}
+}
