@@ -1,11 +1,11 @@
 # ريل الـ ERP: «الموبايل اللي شايل شركة» · سكريبت الـ TTS
 
-المدة المستهدفة: من ٣٦ لـ ٣٩ ثانية.
+المدة المستهدفة: من ٣٤ لـ ٣٨ ثانية. النسخة الأولى طلعت ٤٧٫٥ ثانية وهادية، فالـ style بقى أسرع وأعلى.
 
 ## 1) Style instructions (حطها في خانة الـ style / prompt)
 
 ```
-Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A sharp, slightly dramatic Instagram ad narrator. Brisk reel pace with short, clear pauses; confident, never rushed. Part one builds pressure: quicker and more tense with every line, like the day is running away. Then a sudden stop and a calm, low line after the silence. Part two is relieved and confident, with a small smile. The last line is warm, proud and a little slower.
+Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A sharp, high-energy Instagram ad narrator. Fast reel pace, about 20% faster than normal speech, with almost no pauses between sentences; punchy, loud and confident, never sleepy or soft. Part one builds pressure: quicker and more tense with every line, like the day is running away. Then a sudden stop and a calm, low line after the silence. Part two is relieved and confident, with a small smile. The last line is warm, proud and a little slower.
 ```
 
 ## 2) Script بالـ tags (انسخه زي ما هو)

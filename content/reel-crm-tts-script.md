@@ -5,7 +5,7 @@
 ## 1) Style instructions (حطها في خانة الـ style / prompt)
 
 ```
-Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A young woman with a playful, witty, warm voice. She is a WhatsApp message telling her own story, like a funny confession to a friend. Lively Instagram reel pace with short pauses. Starts cheeky and chatty, slowly turns sad and a bit dramatic as she sinks, then bright and excited when she is rescued, confident and proud about security, and warm at the end.
+Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A young woman with a playful, witty, warm voice. She is a WhatsApp message telling her own story, like a funny confession to a friend. Fast, energetic Instagram reel pace, about 20% faster than normal speech, with almost no pauses between sentences; bright and loud, never sleepy or soft. Starts cheeky and chatty, slowly turns sad and a bit dramatic as she sinks, then bright and excited when she is rescued, confident and proud about security, and warm at the end.
 ```
 
 ## 2) Script بالـ tags (انسخه زي ما هو)

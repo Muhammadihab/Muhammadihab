@@ -1,14 +1,19 @@
 """Cut a short ad version out of a full reel, keeping the beat: every segment starts and ends on the 0.6s grid.
-usage: python3 cutdown.py <erp|crm> <in.mp4> <out.mp4>
+usage: python3 cutdown.py <erp|crm|erp-hookB|…> <in.mp4> <out.mp4>
 Run it again on the voiced master once the voiceover is in; the segments follow whole lines of the script.
 """
 import subprocess, sys
 
 CUTS = {
-    # hook · «كل سؤال بيعدّي عليه هو» · «الشغل كله يقع» · rewind + calm + system · security · end card
-    'erp': [(0, 4.8), (8.4, 10.8), (13.2, 15.6), (15.6, 21.6), (26.4, 30.0), (30.0, 33.6)],
-    # hook + «بكام؟» · arrived · sinking + «يوم ٣» · competitor + «٤٨,٥٠٠» · «بس مع سيستم عملاء» · follow-up + «اتفقنا» · «جرّب تسرقني» · end card
+    # ERP (voiced v11): hook · «ولو موبايله وقع… الشغل كله يقع» + rewind + the system · security · end card
+    'erp': [(0, 4.8), (13.2, 24.0), (27.6, 39.0)],
+    # hook variants for A/B tests: same reel, a different first 3 seconds
+    'erp-hookB': [(11.4, 15.6), (0, 39.0)],             # cold open: 11:48 at night, battery 3%, «ولو موبايله وقع… الشغل كله يقع»
+    'erp-hookC': [(4.8, 8.4), (0, 4.8), (8.4, 39.0)],   # cold open: «الفني وصل؟ القطعة عندنا؟ العميل دفع؟»
+    # CRM (no voice yet): hook + «بكام؟» · arrived · sinking + «يوم ٣» · competitor + «٤٨,٥٠٠» · «بس مع سيستم عملاء» · follow-up + «اتفقنا» · «جرّب تسرقني» · end card
     'crm': [(0, 3.0), (4.8, 6.6), (9.0, 11.4), (11.4, 15.0), (16.2, 19.8), (21.6, 24.6), (27.6, 31.2), (33.0, 36.6)],
+    'crm-hookB': [(12.0, 15.0), (0, 37.8)],             # cold open: the customer goes to the competitor, «٤٨,٥٠٠ جنيه راحوا لغيرك»
+    'crm-hookC': [(9.0, 11.4), (0, 37.8)],              # cold open: sinking, «يوم ٣ ومحدش رد»
 }
 
 kind, src, out = sys.argv[1:4]
