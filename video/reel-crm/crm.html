@@ -459,9 +459,9 @@ function renderFrame(i){
   // ---- camera: drift, beat punch-ins, whip at every cut, shocks
   const cuts=[T.list,T.sink,T.comp,T.split,T.zab,T.pipe,T.fol,T.sec,T.steal,T.cta,T.end];
   let whip=0,dir=1;cuts.forEach((c,k)=>{const d=t-c;if(Math.abs(d)<.13){whip=1-Math.abs(d)/.13;dir=(k%2?1:-1)*(d<0?1:-1);}});
-  const groove=t<T.end;const beatPh=(t%BT)/BT;const deep=t>T.sink&&t<T.split;const punch=groove?Math.exp(-beatPh*7)*(deep?.014:.024):0;
+  const groove=t<T.end;const beatPh=(t%BT)/BT;const deep=t>T.sink&&t<T.split;const ci=cuts.filter(c=>c<=t).length,sa=ci?cuts[ci-1]:0,sb=cuts[ci]??T.DUR;const push=.035*P(t,sa,sb); // slow push-in through each scene, no per-beat pulse
   const sinkY=t>T.sink&&t<T.comp?-L(0,120,eio(P(t,T.sink,T.comp))):0;
-  const dz=t<T.end?1:0;const cs=1.03+.012*Math.sin(t*.9)*dz+punch;
+  const dz=t<T.end?1:0;const cs=1.02+push*dz;
   const shock=(t>T.comp+1.4&&t<T.comp+1.75)||(t>T.stamp&&t<T.stamp+.25)||TKO.some(k=>t>=k[0]&&t<k[0]+.2);
   $('cam').style.transform=`translate(${Math.sin(t*.6)*12*dz+whip*dir*170}px,${Math.cos(t*.5)*10*dz+sinkY}px) scale(${cs}) rotate(${Math.sin(t*.7)*.5*dz}deg)`;
   let f='';if(shock){f+='url(#glitch) ';$('gD').setAttribute('scale',(40+rnd(i)*40).toFixed(0));$('gT').setAttribute('seed',i%97+1);f+='drop-shadow(10px 0 rgba(255,0,80,.55)) drop-shadow(-10px 0 rgba(0,220,255,.55)) ';shake=Math.max(shake,10);}
