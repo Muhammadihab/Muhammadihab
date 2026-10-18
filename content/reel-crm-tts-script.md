@@ -8,31 +8,31 @@
 Egyptian Arabic (Cairo), strictly colloquial, not Modern Standard Arabic. A young woman with a playful, witty, warm voice. She is a WhatsApp message telling her own story, like a funny confession to a friend. Lively Instagram reel pace with short pauses. Starts cheeky and chatty, slowly turns sad and a bit dramatic as she sinks, then bright and excited when she is rescued, confident and proud about security, and warm at the end.
 ```
 
-## 2) Script بالـ expressions (انسخه زي ما هو)
+## 2) Script بالـ tags (انسخه زي ما هو)
 
 ```
-[playful, confiding] أيوه… أنا رسالة «بكام؟».
-[cheerful] اتبعتت للمحل يوم الخميس الساعة تلاتة… ووصلت. صحّين كمان.
+<playful><confiding> أيوه… أنا رسالة «بكام؟».
+<cheerful> اتبعتت للمحل يوم الخميس الساعة تلاتة… ووصلت. صحّين كمان. <laugh>
 
-[hopeful] أول ساعة قلت… أكيد مشغولين.
-[sad] بعدها يوم… يومين…
-[quieter, sinking] وأنا بغرق تحت رسايل الجروب.
+<hopeful> أول ساعة قلت… أكيد مشغولين.
+<sad><sigh> بعدها يوم… يومين…
+<quieter><sinking> وأنا بغرق تحت رسايل الجروب.
 
-[hurt] لحد ما العميل… كلّم حد تاني.
-[bitter, funny] ده كان أوردر بتمانية وأربعين ألف… كان بتاعك.
+<hurt> لحد ما العميل… كلّم حد تاني.
+<bitter><funny> ده كان أوردر بتمانية وأربعين ألف… كان بتاعك.
 
-[short pause] [excited] بس مع سيستم عملاء… الحكاية بتفرق.
-[upbeat] كل رسالة بتبقى كارت باسم صاحبها… بيمشي معاك خطوة بخطوة… والسيستم بيفكّرك تكلّمه قبل ما يبرد.
+<short pause> <gasp><excited> بس مع سيستم عملاء… الحكاية بتفرق.
+<upbeat> كل رسالة بتبقى كارت باسم صاحبها… بيمشي معاك خطوة بخطوة… والسيستم بيفكّرك تكلّمه قبل ما يبرد.
 
-[serious, confident] ولو البيّاع ساب الشغل… وحاول ياخد العملاء معاه؟
-[firm] السيستم يمنعه… وانت تقفل حسابه بضغطة.
+<serious><confident> ولو البيّاع ساب الشغل… وحاول ياخد العملاء معاه؟
+<firm> السيستم يمنعه… وانت تقفل حسابه بضغطة.
 
-[firm, proud] ومحدش يقدر يسرقهم منك.
-[warm, confident] عاوز سيستم زي ده لشغلك؟ كلّمنا على واتساب.
-[warm, proud] كل «بكام؟»… عميل. متسيبهوش يغرق. لوجيكا.
+<firm><proud> ومحدش يقدر يسرقهم منك.
+<warm><confident> عاوز سيستم زي ده لشغلك؟ كلّمنا على واتساب.
+<warm><proud> كل «بكام؟»… عميل. متسيبهوش يغرق. لوجيكا.
 ```
 
-> لو الأداة قرت اسم الـ expression بصوت عالي، يبقى مش بتدعمه. امسحه، أو بدّله باختيار من قايمة «+ Expression».
+> الـ tags بتتكتب بين `< >`. لو الأداة قرت الـ tag بصوت عالي، يبقى مش بتدعمه: امسحه، أو اكتب `<` في الأداة واختار أقرب tag من القايمة.
 
 ## 3) لو حصلت مشكلة
 | المشكلة | الحل |
