@@ -10,10 +10,10 @@ CUTS = {
     # hook variants for A/B tests: same reel, a different first 3 seconds
     'erp-hookB': [(11.4, 15.6), (0, 39.0)],             # cold open: 11:48 at night, battery 3%, «ولو موبايله وقع… الشغل كله يقع»
     'erp-hookC': [(4.8, 8.4), (0, 4.8), (8.4, 39.0)],   # cold open: «الفني وصل؟ القطعة عندنا؟ العميل دفع؟»
-    # CRM (no voice yet): hook + «بكام؟» · arrived · sinking + «يوم ٣» · competitor + «٤٨,٥٠٠» · «بس مع سيستم عملاء» · follow-up + «اتفقنا» · «جرّب تسرقني» · end card
-    'crm': [(0, 3.0), (4.8, 6.6), (9.0, 11.4), (11.4, 15.0), (16.2, 19.8), (21.6, 24.6), (27.6, 31.2), (33.0, 36.6)],
-    'crm-hookB': [(12.0, 15.0), (0, 37.8)],             # cold open: the customer goes to the competitor, «٤٨,٥٠٠ جنيه راحوا لغيرك»
-    'crm-hookC': [(9.0, 11.4), (0, 37.8)],              # cold open: sinking, «يوم ٣ ومحدش رد»
+    # CRM (voiced v7): hook + «بكام؟» · «وأنا بغرق» + «يوم ٣» · competitor + «٤٨,٥٠٠» · «بس مع سيستم عملاء» + card · follow-up + «اتفقنا» · «حاول تسرقه بنفسك» + «٥ من ٥» · CTA + end card
+    'crm': [(0, 3.0), (11.4, 14.4), (14.4, 19.2), (19.2, 23.4), (25.2, 28.8), (33.6, 37.2), (37.2, 44.4)],
+    'crm-hookB': [(16.2, 19.2), (0, 44.4)],             # cold open: «ده كان أوردر بتمانية وأربعين ألف… كان بتاعك»
+    'crm-hookC': [(11.4, 14.4), (0, 44.4)],             # cold open: «وأنا بغرق تحت رسايل الجروب», «يوم ٣ ومحدش رد»
 }
 
 kind, src, out = sys.argv[1:4]
