@@ -90,7 +90,7 @@ def room(x, wet=-15):
 K = {'W': whoosh, 'S': swell, 'P': pop, 'T': tick, 'L': latch, 'I': impact, 'R': riser, 'G': sparkle}
 # cue = (kind, time, dB, {args}); a whoosh peaks `peak` of the way into its length
 CUES = {
-  'hq-06': (6.0, [('S', 0.0, -16, dict(dur=1.25)),   # one quiet rising rush under the piling messages, no hit per message
+  'hq-06': (6.0, [('S', 0.0, -20, dict(dur=1.25)), *[('T', .10 + i * .19, -13 + i * .4, dict(k=1 + i * .04)) for i in range(6)],   # a small tick on every message over a quiet rising rush
             ('W', 1.12, -7, dict(dur=.5, peak=.55, lo=200, hi=3000)), ('T', 1.6, -8, {}), ('S', 1.88, -12, dict(dur=.7)),
             ('W', 2.05, -15, dict(dur=.6, peak=.5, p0=-.4, p1=.6, seed=3)), ('W', 2.75, -10, dict(dur=.75, peak=.55, p0=.7, p1=-.7, seed=5)),
             ('I', 3.45, -18, dict(size=.6)), ('G', 3.47, -9, dict(dur=.9)), ('T', 3.78, -7, dict(k=1.1)), ('L', 4.15, -3, {}), ('I', 4.16, -15, dict(size=.5)),
