@@ -14,13 +14,15 @@ const browser = await chromium.launch();
 const probe = await browser.newPage(); await probe.goto('file://' + here + '/stage.html?id=mg-01');
 const ids = (await probe.evaluate(() => LOGIKA_LIB.LIB.map(e => [e.id, e.cat]))).filter(([id]) => !only || only.split(',').includes(id));
 await probe.close();
+// PARAMS='{"to":72000}' renders the listed elements with those words/numbers (a request line from the gallery)
+const P = process.env.PARAMS ? '&p=' + encodeURIComponent(process.env.PARAMS) : '';
 const sub = { hq: 'hq', viral: 'viral', motion: 'motion', ui: 'ui', transition: 'transitions', overlay: 'overlays' };
 for (const [id, cat] of ids) {
   const dir = path.join(outDir, sub[cat]); fs.mkdirSync(dir, { recursive: true }); fs.rmSync(tmp, { recursive: true, force: true }); fs.mkdirSync(tmp, { recursive: true });
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
-  await page.goto('file://' + here + '/stage.html?id=' + id); await page.waitForFunction(() => window.__ready === true);
+  await page.goto('file://' + here + '/stage.html?id=' + id + P); await page.waitForFunction(() => window.__ready === true);
   const meta = await page.evaluate(() => META); const alpha = meta.blend === 'alpha';
-  if (!alpha) await page.goto('file://' + here + '/stage.html?id=' + id + '&bg=' + encodeURIComponent(meta.bg || '#000')), await page.waitForFunction(() => window.__ready === true);
+  if (!alpha) await page.goto('file://' + here + '/stage.html?id=' + id + P + '&bg=' + encodeURIComponent(meta.bg || '#000')), await page.waitForFunction(() => window.__ready === true);
   const n = Math.round(meta.dur * FPS);
   for (let i = 0; i < n * MB; i++) { const f = Math.floor(i / MB), k = i % MB, t = Math.max(0, f / FPS + (MB > 1 ? (k / (MB - 1) - .5) * .5 / FPS : 0));
     await page.evaluate(t => renderAt(t), t); await page.screenshot({ path: path.join(tmp, String(i).padStart(5, '0') + '.png'), omitBackground: alpha }); }

@@ -71,6 +71,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .sbtn .wv i{flex:1;min-width:1px;background:var(--cyan);opacity:.6;border-radius:1px;display:block}
 .sbtn.playing .wv i{opacity:1}
 .scard .files{margin-top:6px}
+.gen{background:#081627;border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.gen summary{cursor:pointer;font-weight:700;color:var(--cyan)}
+.gen label{font-size:13px;color:var(--muted);margin-top:6px}
+.gen input,.gen textarea{width:100%;box-sizing:border-box;background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 10px;font:400 15px var(--f-ar)}
+.gen input[type=color]{height:40px;padding:2px}
+.gen .req{display:flex;gap:8px;align-items:center;margin-top:10px}
+.gen .req code{flex:1;min-width:0;overflow-wrap:anywhere;font:600 12px var(--f-num);color:var(--ink);background:var(--panel);border-radius:8px;padding:8px 10px;direction:ltr;text-align:left}
+.gen .hint{font-size:12px}
 </style>
 
 <div class="wrap">
@@ -107,9 +115,9 @@ document.getElementById('n').textContent = LIB.length.toLocaleString('ar-EG');
 
 // one live stage per card; only the cards on screen animate
 const players = new Map();
-function mount(box, E) {
+function mount(box, E, params) {
   box.innerHTML = ''; const st = document.createElement('div'); st.className = 'stage'; box.appendChild(st);
-  const s = E.init(st, { ...(E.params || {}) }); const fit = () => st.style.transform = `scale(${box.clientWidth / 1080})`; fit();
+  const s = E.init(st, { ...(E.params || {}), ...(params || {}) }); const fit = () => st.style.transform = `scale(${box.clientWidth / 1080})`; fit();
   const P0 = { E, s, st, fit, t0: performance.now() - poster(E) * 1000, on: false }; E.frame(s, poster(E)); return P0;
 }
 function files(E) { const b = `${SUB[E.cat]}/${E.id}`; return E.blend === 'alpha' ? [b + '.webm', b + '-green.mp4'] : [b + '.mp4']; }
@@ -147,16 +155,35 @@ function openModal(E) {
   L.innerHTML = `<div class="modal" data-close role="dialog" aria-modal="true" aria-label="${E.name}"><div class="mbox"><div class="pv ${bgClass(E)}" id="mpv"></div>
     <div class="mtx"><span class="id">${E.id} · ${E.dur.toFixed(1)}s</span><h2>${E.name}</h2><p>${E.use}</p>
     ${E.blend === 'alpha' ? `<div class="row" role="group" aria-label="الخلفية"><button class="btn on" data-bg="">شفاف</button><button class="btn" data-bg="bg-black">على أسود</button><button class="btn" data-bg="bg-light">على فاتح</button></div>` : `<p>استخدمه بـ <b>${BLEND[E.blend]}</b> فوق الفيديو.</p>`}
+    ${editor(E)}
     <div class="files">${files(E).join('<br>')}</div>
     ${SND.includes(E.id) ? '<p class="snote">العنصر ده ليه صوت متظبّط على الفريم: <code>snd/' + E.id + '.mp3</code></p>' : ''}
     <div class="row">${SND.includes(E.id) ? '<button class="btn on" id="withsound">▶ شغّل بالصوت</button>' : ''}<button class="btn" id="replay">من الأول</button><button class="btn" data-close>قفل</button></div></div></div></div>`;
-  const box = $('#mpv'); modalP = mount(box, E); modalP.box = box; modalP.on = true;
+  const box = $('#mpv'); modalP = mount(box, E); modalP.box = box; modalP.on = true; CUSTOM = {}; reqLine(E);
 }
+// the generator: edit an element's words, numbers and colours, watch it live, then copy one line to ask for the file
+let CUSTOM = {};
+const PLABEL = { text: 'الكلام', sub: 'السطر الصغير', title: 'العنوان', body: 'الرسالة', body2: 'الرسالة التانية', label: 'الوصف', to: 'الرقم', value: 'الرقم', from: 'القديم', key: 'الكلمة المهمة', pre: 'قبلها', tag: 'الجملة', num: 'رقم التليفون', name: 'الاسم', msg: 'الرسالة', ask: 'السطر الصغير', ok: 'جملة النجاح', q: 'السؤال', a: 'الاختيار الأول', b: 'الاختيار التاني', pa: 'نسبة الأول', pb: 'نسبة التاني', handle: 'اسم الحساب', emoji: 'الإيموجي', color: 'اللون', words: 'الكلمات (سطر لكل كلمة)', items: 'السطور (سطر لكل واحدة)', steps: 'الخطوات (سطر لكل خطوة)', msgs: 'الرسايل (سطر لكل رسالة)', set: 'الإيموجي (سطر لكل واحد)', url: 'الرابط', code: 'الكود', done: 'بعد ما يخلص', unit: 'الوحدة', time: 'الوقت', n: 'الرقم', h: 'الساعة', m: 'الدقايق', x: 'مكانه أفقي (x)', y: 'مكانه رأسي (y)', r: 'الحجم (r)', rx: 'العرض', ry: 'الارتفاع', w: 'العرض', size: 'الحجم' };
+function editor(E) {
+  const ps = Object.entries(E.params || {}).filter(([, v]) => typeof v === 'string' || typeof v === 'number' || (Array.isArray(v) && v.every(x => typeof x === 'string')));
+  if (!ps.length) return '';
+  return `<details class="gen" open><summary>✎ عدّل بكلامك</summary>${ps.map(([k, v]) => { const lb = PLABEL[k] || k, id = 'p_' + k;
+    if (Array.isArray(v)) return `<label for="${id}">${lb}</label><textarea id="${id}" data-k="${k}" data-t="arr" rows="${Math.min(6, v.length)}">${v.join('\n')}</textarea>`;
+    if (typeof v === 'string' && /^#[0-9a-f]{6}$/i.test(v)) return `<label for="${id}">${lb}</label><input id="${id}" type="color" data-k="${k}" data-t="str" value="${v}">`;
+    return `<label for="${id}">${lb}</label><input id="${id}" ${typeof v === 'number' ? 'type="number" data-t="num"' : 'type="text" data-t="str"'} data-k="${k}" value="${String(v).replace(/"/g, '&quot;').replace(/\n/g, ' ⏎ ')}">`; }).join('')}
+    <div class="req"><code id="reqline"></code><button class="btn" id="copyreq">انسخ الطلب</button></div><p class="hint">ابعتلي السطر ده وأطلّعلك الملف بكلامك (شفاف وأخضر وبصوته).</p></details>`;
+}
+function reqLine(E) { const el = $('#reqline'); if (!el) return; el.textContent = Object.keys(CUSTOM).length ? `${E.id} ${JSON.stringify(CUSTOM)}` : `${E.id} (عدّل أي خانة فوق)`; }
+document.addEventListener('input', e => { const f = e.target.closest('[data-k]'); if (!f || !modalP) return; const E = modalP.E, k = f.dataset.k, ty = f.dataset.t;
+  let v = ty === 'num' ? +f.value : ty === 'arr' ? f.value.split('\n').filter(Boolean) : f.value.replace(/ ⏎ /g, '\n');
+  if (JSON.stringify(v) === JSON.stringify(E.params[k])) delete CUSTOM[k]; else CUSTOM[k] = v;
+  clearTimeout(window._gt); window._gt = setTimeout(() => { const box = $('#mpv'); const keep = modalP.t0; modalP = mount(box, E, CUSTOM); modalP.box = box; modalP.on = true; modalP.t0 = keep; reqLine(E); }, 120); });
 document.addEventListener('click', e => {
   const t = e.target;
   const tab = t.closest('[data-c]'); if (tab) { CAT = tab.dataset.c; renderGrid(); return; }
   const sb0 = t.closest('[data-snd]'); if (sb0) { const on = sb0.classList.contains('playing'); stopAudio(); if (!on) play('sfx/' + sb0.dataset.snd + '.mp3', sb0); return; }
   const card = t.closest('.card:not(.scard)'); if (card) { openModal(LIB.find(x => x.id === card.dataset.id)); return; }
+  if (t.id === 'copyreq') { const s = $('#reqline').textContent; (navigator.clipboard ? navigator.clipboard.writeText(s) : Promise.reject()).then(() => { t.textContent = 'اتنسخ ✓'; setTimeout(() => t.textContent = 'انسخ الطلب', 1500); }).catch(() => { const r = document.createRange(); r.selectNodeContents($('#reqline')); getSelection().removeAllRanges(); getSelection().addRange(r); }); return; }
   if (t.id === 'replay' && modalP) { stopAudio(); modalP.t0 = performance.now(); return; }
   if (t.id === 'withsound' && modalP) { play('snd/' + modalP.E.id + '.mp3'); modalP.t0 = performance.now(); return; }
   const bgb = t.closest('[data-bg]'); if (bgb) { const box = $('#mpv'); box.classList.remove('bg-black', 'bg-light'); if (bgb.dataset.bg === 'bg-light') box.style.background = '#E9EFF5'; else { box.style.background = ''; if (bgb.dataset.bg) box.classList.add(bgb.dataset.bg); }

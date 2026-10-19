@@ -19,7 +19,8 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:transpa
 const q = new URLSearchParams(location.search), E = LOGIKA_LIB.LIB.find(e => e.id === q.get('id'));
 const bg = q.get('bg') || 'transparent', BG = { transparent: 'transparent', green: '#00FF00', black: '#000', gray: '#808080' };
 document.body.style.background = BG[bg] || bg;
-const root = document.getElementById('root'), st = E.init(root, { ...(E.params || {}) });
+// &p={json} overrides the element's params (the gallery's generator writes these)
+const root = document.getElementById('root'), st = E.init(root, { ...(E.params || {}), ...JSON.parse(q.get('p') || '{}') });
 window.renderAt = t => E.frame(st, t);
 window.META = { id: E.id, dur: E.dur, blend: E.blend, bg: E.bg || null };
 document.fonts.ready.then(() => { renderAt(0); window.__ready = true; });
