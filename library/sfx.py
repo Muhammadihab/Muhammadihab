@@ -98,11 +98,11 @@ CUES = {
   'hq-01': (2.8, [('W', 0.0, -9, dict(dur=.32, peak=.9, lo=300, hi=4500, p0=-.9, p1=0)), ('W', 0.0, -9, dict(dur=.32, peak=.9, lo=320, hi=4800, p0=.9, p1=0, seed=2)),
             ('I', .30, -2, {}), ('G', .31, -13, dict(dur=.6, density=80)), ('P', .38, -11, dict(k=.7)), ('S', .55, -17, dict(dur=.4)),
             ('L', 1.05, -2, {}), ('I', 1.06, -13, dict(size=.5)), ('W', 1.22, -17, dict(dur=.5, peak=.4, lo=600, hi=5000)), ('G', 1.6, -15, dict(dur=.7, density=35))]),
-  'hq-02': (2.6, [*[('P', .1 + i * .34, -11, dict(k=1 + i * .06)) for i in range(4)], ('W', 2.18, -18, dict(dur=.4, peak=.4, lo=500, hi=4000))]),
+  'hq-02': (2.6, []),   # captions stay silent: a sound on every word gets tiring fast
   'hq-03': (1.9, [('W', 0.0, -8, dict(dur=.4, peak=.92, lo=250, hi=4000, p0=-.7, p1=.7)), ('I', .38, -3, {}), ('G', .45, -16, dict(dur=.5)),
             ('S', .48, -18, dict(dur=.35)), ('W', 1.56, -12, dict(dur=.36, peak=.3, lo=300, hi=3500, p0=0, p1=.6))]),
   'hq-04': (3.2, [('P', .02, -8, {}), ('S', 1.0, -11, dict(dur=.7)), ('W', 1.05, -15, dict(dur=.6, peak=.5, lo=300, hi=2500)),
-            *[('P', 1.45 + i * .18, -15, dict(k=.9 + i * .08)) for i in range(3)], ('G', 2.05, -10, dict(dur=.8)), ('T', 2.25, -10, dict(k=1.15))]),
+            ('G', 2.05, -10, dict(dur=.8)), ('T', 2.25, -10, dict(k=1.15))]),
   'hq-05': (.9, [('W', 0.0, -3, dict(dur=.9, peak=.5, lo=180, hi=4200, p0=.8, p1=-.8)), ('I', .45, -16, dict(size=.6))]),
 }
 
