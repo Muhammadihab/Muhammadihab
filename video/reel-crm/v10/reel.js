@@ -80,7 +80,7 @@ add('hq-01', 36.75, { tag: 'السرقة اتمنعت' });
 // CTA and the end
 add('hq-08', 39.2, { text: 'كلّمنا على واتساب', num: '+20 122 641 2843', y: 1120 }, { until: 42.05 });
 add('hq-04', 41.95, { msg: 'بكام؟', name: 'هدى س.', ask: 'سألت: بكام؟', tag: 'عميل جديد', ok: 'اتسجّل في السيستم' }, { until: 44.95 });
-add('hq-09', 44.9, { tag: 'متأمّن من جوّا' }, { until: DUR });
+add('hq-09', 44.9, { tag: 'متأمّن من جوّا' }, { until: DUR + .6 });   // ends on the logo, no fade
 add('hq-05', 18.75);   // the brace sweep: its middle covers the cut into the system at 19.2
 const TAKE = [[.85, 2.45], [12.25, 13.85], [16.35, 19.2], [27.9, 29.4], [35.45, 36.95], [37.9, 39.3], [44.9, DUR]];
 

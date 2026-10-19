@@ -30,7 +30,7 @@ def build():
     mix = sfx.room(mix)[:int(DUR * SR)]; return mix / (np.abs(mix).max() + 1e-9) * .9
 
 if __name__ == '__main__':
-    voice, video, out = sys.argv[1:4]; tmp = os.path.splitext(out)[0]   # working files next to the output; write(tmp + '_fx.wav', build())
+    voice, video, out = sys.argv[1:4]; tmp = os.path.splitext(out)[0]; write(tmp + '_fx.wav', build())   # working files sit next to the output
     fc = ("[0:a]aformat=channel_layouts=stereo,asplit=2[vo][k];[1:a]volume=-5dB[fx0];[fx0][k]sidechaincompress=threshold=0.02:ratio=4:attack=8:release=250[fx];"
           "[vo][fx]amix=inputs=2:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5:LRA=11[m]")
     subprocess.run(['ffmpeg', '-nostdin', '-loglevel', 'error', '-y', '-i', voice, '-i', tmp + '_fx.wav', '-filter_complex', fc, '-map', '[m]', '-ar', '48000', tmp + '_mix.wav'], check=True)
