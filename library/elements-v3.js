@@ -1,0 +1,129 @@
+/* =====================================================================
+   مكتبة لوجيكا · النسخة المحسّنة (hq): نفس الأفكار بحِرفة أعلى.
+   منحنيات أسرع في الأول وأهدى في الآخر، واستعداد قبل الحركة، وحاجات بتكمّل بعدها،
+   وتحوّل أشكال، وتوهّج بطبقات. التصدير بيضيف موشن بلور (MB=8 node render.mjs …).
+   ===================================================================== */
+(function () {
+const { LIB, C, F, H } = window.LOGIKA_LIB;
+const { el, svg, draw, spring, eo, eio, P, L, cl, rnd, BRACE_L, BRACE_R, outFade, WA, panel } = H;
+const def = o => LIB.push(o);
+const ex = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);                     // expo out: fast start, long settle
+const exio = x => x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2;
+const back = (x, s = 1.7) => 1 + (s + 1) * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2);
+const mix = (a, b, x) => { const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)), A = p(a), B = p(b); return `rgb(${A.map((v, i) => Math.round(L(v, B[i], x))).join(',')})`; };
+const shake = (t, at, amp = 14) => t > at && t < at + .25 ? (1 - P(t, at, at + .25)) * amp * (rnd(Math.floor(t * 60)) - .5) * 2 : 0;
+const GLOW = '<filter id="gl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="16" result="b"/><feGaussianBlur in="SourceGraphic" stdDeviation="5" result="c"/><feMerge><feMergeNode in="b"/><feMergeNode in="c"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+
+/* ---------- hq-01 · قفل الأقواس ---------- */
+def({ id: 'hq-01', cat: 'hq', name: 'قفل الأقواس · محسّن', use: 'توقيع لوجيكا بالمستوى الجديد: الأقواس بتخبط بقوة، والقفل بيتشكّل من نقطة ويتقفل بكليك، وبعدين «متأمّن من جوّا».', dur: 2.8, blend: 'alpha',
+  params: { tag: 'متأمّن من جوّا' },
+  init(r, p) {
+    const s = svg(r, `<defs>${GLOW}<linearGradient id="sh" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="bc"><rect id="bcr"/></clipPath></defs>
+      <g id="all"><circle id="fl" cx="540" cy="900" r="260" fill="url(#fg)"/><g id="lines"></g>
+        <g id="L"><path d="${BRACE_L}" class="br"/></g><g id="R"><path d="${BRACE_R}" class="br"/></g>
+        <circle id="r1" cx="540" cy="900" fill="none" stroke="${C.cyan2}"/><circle id="r2" cx="540" cy="900" fill="none" stroke="#fff"/><g id="sp"></g>
+        <g id="lk"><g id="lki"><path id="shk" fill="none" stroke="${C.cyan2}" stroke-width="22" stroke-linecap="round" filter="url(#gl)"/>
+          <rect id="bd" fill="${C.navy}" stroke="${C.cyan2}" stroke-width="9" filter="url(#gl)"/><rect id="shn" fill="url(#sh)" clip-path="url(#bc)"/>
+          <g id="kh"><circle r="20" cy="-6" fill="${C.cyan2}"/><rect x="-8" y="2" width="16" height="44" rx="8" fill="${C.cyan2}"/></g></g></g></g>
+      <defs><radialGradient id="fg"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".35" stop-color="#9FEFFF" stop-opacity=".45"/><stop offset="1" stop-color="#3FD6F5" stop-opacity="0"/></radialGradient></defs>`);
+    s.querySelectorAll('.br').forEach(e => { e.setAttribute('fill', 'none'); e.setAttribute('stroke', C.cyan2); e.setAttribute('stroke-width', 20); e.setAttribute('stroke-linecap', 'round'); e.setAttribute('filter', 'url(#gl)'); });
+    const $ = i => s.querySelector('#' + i);
+    const lines = [...Array(10)].map((_, i) => { const l = document.createElementNS('http://www.w3.org/2000/svg', 'line'); l.setAttribute('stroke', i % 3 ? '#fff' : C.cyan2); l.setAttribute('stroke-linecap', 'round'); l.setAttribute('stroke-width', 4 + rnd(i) * 6); $('lines').appendChild(l); return { l, y: 620 + rnd(i * 3) * 560, side: i % 2 ? 1 : -1, len: 140 + rnd(i * 5) * 260 }; });
+    const sp = [...Array(22)].map((_, i) => { const l = document.createElementNS('http://www.w3.org/2000/svg', 'line'); l.setAttribute('stroke', i % 4 ? C.cyan2 : '#fff'); l.setAttribute('stroke-width', 6); l.setAttribute('stroke-linecap', 'round'); $('sp').appendChild(l); return { l, a: i / 22 * Math.PI * 2 + rnd(i) * .2, v: 300 + rnd(i * 7) * 260 }; });
+    const tag = el('div', `position:absolute;left:0;right:0;top:1300px;display:flex;justify-content:center;gap:24px;direction:rtl;font:700 96px ${F.ar};color:#fff;text-shadow:0 0 40px rgba(0,204,242,.55)`, r);
+    const ws = p.tag.split(' ').map(w => { const m = el('span', 'display:inline-block;overflow:hidden;padding:8px 4px 18px', tag); return el('span', 'display:inline-block', m, w); });
+    const sub = el('div', `position:absolute;left:0;right:0;top:1460px;text-align:center;font:700 34px ${F.num};color:${C.cyan2};direction:ltr`, r, 'L O G I K A');
+    return { s, $, lines, sp, ws, sub, tag }; },
+  frame(o, t) { const $ = o.$, imp = .3, snap = 1.05;
+    // braces: slam in on an expo curve, squash on impact, settle with a spring
+    const a = ex(P(t, 0, imp + .02) * 1.0), sq = t > imp ? 1 - .22 * Math.exp(-(t - imp) * 9) * Math.cos((t - imp) * 30) : 1;
+    const lx = L(-420, 148, a), rx = L(1340, 932, a);
+    $('L').setAttribute('transform', `translate(${lx + 92} 900) scale(${sq} ${2 - sq}) translate(-92 -320)`); $('R').setAttribute('transform', `translate(${rx - 92} 900) scale(${sq} ${2 - sq}) translate(92 -320)`);
+    const vel = t < imp ? 1 - P(t, 0, imp) : 0;
+    o.lines.forEach(q => { const x0 = q.side < 0 ? lx + 40 : rx - 40; q.l.setAttribute('x1', x0); q.l.setAttribute('x2', x0 + q.side * q.len * vel * 2.2); q.l.setAttribute('y1', q.y); q.l.setAttribute('y2', q.y); q.l.style.opacity = vel > .05 ? vel : 0; });
+    const f = P(t, imp, imp + .3); $('fl').style.opacity = f > 0 ? Math.pow(1 - f, 2) : 0; $('fl').setAttribute('r', L(120, 420, ex(f)));
+    [[$('r1'), imp, 12], [$('r2'), snap, 8]].forEach(([c, s0, w]) => { const x = P(t, s0, s0 + .6); c.setAttribute('r', L(40, 560, ex(x))); c.setAttribute('stroke-width', L(w, 1, x)); c.style.opacity = x > 0 && x < 1 ? 1 - x : 0; });
+    o.sp.forEach(q => { const x = P(t, imp, imp + .5), d0 = 60 + ex(x) * q.v, d1 = d0 + 50 * (1 - x); q.l.setAttribute('x1', 540 + Math.cos(q.a) * d0); q.l.setAttribute('y1', 900 + Math.sin(q.a) * d0); q.l.setAttribute('x2', 540 + Math.cos(q.a) * d1); q.l.setAttribute('y2', 900 + Math.sin(q.a) * d1); q.l.style.opacity = x > 0 && x < 1 ? 1 - x : 0; });
+    // lock: a dot that grows into the body, the shackle draws itself, then snaps shut
+    const b = P(t, .36, .72), bb = back(cl(b), 2.2), bw = L(36, 250, bb), bh = L(36, 200, bb), br = L(18, 44, b);
+    const bd = $('bd'); bd.setAttribute('x', -bw / 2); bd.setAttribute('y', -bh / 2 + 30); bd.setAttribute('width', bw); bd.setAttribute('height', bh); bd.setAttribute('rx', br); bd.style.opacity = t > .36 ? 1 : 0;
+    const bcr = $('bcr'); ['x', 'y', 'width', 'height', 'rx'].forEach(k => bcr.setAttribute(k, bd.getAttribute(k)));
+    const lift = t < snap ? 46 : L(46, 0, ex(P(t, snap, snap + .08))); $('shk').setAttribute('d', `M-74 ${-70 + 30} V${-118 - lift} a74 74 0 0 1 148 0 V${t < snap ? -96 - lift : -70 + 30}`);
+    draw($('shk'), ex(P(t, .55, .9))); $('shk').style.opacity = t > .55 ? 1 : 0;
+    const sqz = t > snap ? 1 - .1 * Math.exp(-(t - snap) * 10) * Math.cos((t - snap) * 34) : 1; $('lki').setAttribute('transform', `scale(${2 - sqz} ${sqz})`);
+    const k = spring(P(t, snap + .02, snap + .3), 12); $('kh').setAttribute('transform', `translate(0 30) scale(${k})`);
+    const sh = P(t, 1.3, 1.75); $('shn').setAttribute('x', L(-260, 160, ex(sh)) - 60); $('shn').setAttribute('y', -100); $('shn').setAttribute('width', 120); $('shn').setAttribute('height', 300); $('shn').style.opacity = sh > 0 && sh < 1 ? 1 : 0;
+    const sx = shake(t, imp, 16) + shake(t, snap, 8), push = L(1, 1.05, eio(P(t, 0, this.dur)));
+    $('lk').setAttribute('transform', `translate(540 900)`); $('all').setAttribute('transform', `translate(${540 + sx} ${900 + sx * .6}) scale(${push}) translate(-540 -900)`);
+    o.ws.forEach((w, i) => { const x = ex(P(t, 1.25 + i * .12, 1.85 + i * .12)); w.style.transform = `translateY(${(1 - x) * 115}%) rotate(${(1 - x) * 8}deg)`; w.style.filter = `blur(${(1 - x) * 6}px)`; });
+    const g = P(t, 1.6, 2.2); o.sub.style.opacity = g; o.sub.style.letterSpacing = L(26, 8, ex(g)) + 'px';
+    const out = exio(P(t, this.dur - .3, this.dur)); o.s.style.opacity = 1 - out; o.s.style.transform = `scale(${1 - out * .12})`; o.tag.style.opacity = 1 - out; o.sub.style.opacity = g * (1 - out); } });
+
+/* ---------- hq-02 · كابشن ببرواز بيتنقل ---------- */
+def({ id: 'hq-02', cat: 'hq', name: 'كابشن · محسّن', use: 'الكلمات بتطلع من تحت ماسك، وبرواز سماوي بيتنقل من كلمة للي بعدها وهي بتتقال. الكابشن الأساسي بالمستوى الجديد.', dur: 2.6, blend: 'alpha',
+  params: { text: 'كل رسالة بتبقى كارت', y: 1280 },
+  init(r, p) { const row = el('div', `position:absolute;left:40px;right:40px;top:${p.y}px;display:flex;justify-content:center;gap:26px;direction:rtl;font:700 92px/1.25 ${F.ar}`, r);
+    const pill = el('div', `position:absolute;top:0;height:100%;border-radius:26px;background:${C.cyan};box-shadow:0 12px 40px rgba(0,204,242,.5);z-index:0`, row);
+    const ws = p.text.split(' ').map(w => { const m = el('span', 'position:relative;z-index:1;display:inline-block;overflow:hidden;padding:4px 18px 16px', row); return { m, w: el('span', 'display:inline-block;color:#fff;text-shadow:0 4px 18px rgba(0,0,0,.55)', m, w) }; });
+    return { row, pill, ws }; },
+  frame(o, t) { const n = o.ws.length, at = i => .1 + i * .34, out = P(t, this.dur - .4, this.dur);
+    o.ws.forEach((q, i) => { const x = ex(P(t, at(i), at(i) + .45)), y = exio(P(t, this.dur - .4 + i * .05, this.dur - .1 + i * .05));
+      q.w.style.transform = `translateY(${(1 - x) * 110 + y * 110}%) rotate(${(1 - x) * 10}deg) scale(${L(1.2, 1, x)})`; });
+    let cur = 0; for (let i = 1; i < n; i++) if (t > at(i) - .06) cur = i;
+    const rb = o.row.getBoundingClientRect(), box = i => { const b = o.ws[i].m.getBoundingClientRect(), s = rb.width / o.row.offsetWidth || 1; return [(b.left - rb.left) / s, b.width / s]; };
+    const [x0, w0] = box(Math.max(0, cur - 1)), [x1, w1] = box(cur), m = cur === 0 ? 1 : ex(P(t, at(cur) - .06, at(cur) + .3));
+    const st = ex(P(t, at(0), at(0) + .35)) * (1 - exio(out)); o.pill.style.left = L(x0, x1, m) + 'px'; o.pill.style.width = L(w0, w1, m) + 'px';
+    o.pill.style.transform = `scale(${st}) scaleX(${1 + .08 * Math.sin(Math.PI * m)})`; o.pill.style.opacity = st > .01 ? 1 : 0;
+    o.ws.forEach((q, i) => q.w.style.color = i === cur && st > .5 ? C.navy : '#fff'); o.ws.forEach((q, i) => q.w.style.textShadow = i === cur && st > .5 ? 'none' : '0 4px 18px rgba(0,0,0,.55)'); } });
+
+/* ---------- hq-03 · كلمة كبيرة بتتجمع من شرايح ---------- */
+def({ id: 'hq-03', cat: 'hq', name: 'كلمة كبيرة · محسّنة', use: 'الكلمة بتيجي ٤ شرايح من الناحيتين وتتقفل على بعض بضربة، وظلال ألوان بتتجمع فيها. للحظة المهمة: «بكام؟» أو «صفر» أو «اتفقنا».', dur: 1.9, blend: 'alpha',
+  params: { text: 'بكام؟', sub: 'رسالة واحدة… بس مهمة' },
+  init(r, p) { const w = el('div', 'position:absolute;left:0;right:0;top:640px;height:460px', r), N = 4, mk = (css, c) => el('div', `position:absolute;inset:0;display:flex;align-items:center;justify-content:center;direction:rtl;font:700 330px/1 ${F.ar};white-space:nowrap;color:${c};${css}`, w, p.text);
+    const ghosts = [mk('mix-blend-mode:screen', C.cyan), mk('mix-blend-mode:screen', '#FF3B6B')];
+    const sl = [...Array(N)].map((_, i) => mk(`clip-path:inset(${i * 100 / N}% 0 ${100 - (i + 1) * 100 / N - .3}% 0);text-shadow:0 0 50px rgba(0,204,242,.35)`, '#fff'));
+    const ul = el('div', `position:absolute;left:50%;top:1090px;width:520px;height:16px;margin-left:-260px;border-radius:8px;background:${C.cyan2};box-shadow:0 0 30px rgba(0,204,242,.8)`, r);
+    const m = el('div', 'position:absolute;left:0;right:0;top:1140px;text-align:center;overflow:hidden;padding:6px 0 14px', r), s = el('div', `display:inline-block;font:700 64px ${F.ar};color:${C.cyan2};direction:rtl`, m, p.sub);
+    return { w, ghosts, sl, ul, s }; },
+  frame(o, t) { const lock = .38, out = exio(P(t, this.dur - .32, this.dur));
+    o.sl.forEach((e, i) => { const d = i * .035, x = ex(P(t, d, lock)), dir = i % 2 ? 1 : -1; e.style.transform = `translateX(${dir * ((1 - x) * 900 + out * 1200)}px) skewX(${dir * (1 - x) * -18}deg)`; });
+    const g = 1 - ex(P(t, .1, lock + .25)); o.ghosts.forEach((e, i) => { e.style.transform = `translate(${(i ? 1 : -1) * (g * 40 + 6 * Math.exp(-(t - lock) * 6) * (t > lock))}px,0)`; e.style.opacity = t < .1 ? 0 : (.25 + g * .55) * (1 - out); });
+    const k = t > lock ? 1 + .1 * Math.exp(-(t - lock) * 8) * Math.cos((t - lock) * 24) : 1; o.w.style.transform = `scale(${k})`;
+    o.ul.style.transform = `scaleX(${ex(P(t, lock, lock + .35)) * (1 - out)})`; o.s.style.transform = `translateY(${(1 - ex(P(t, lock + .1, lock + .55))) * 110 + out * 110}%)`; } });
+
+/* ---------- hq-04 · فقاعة شات بتتحول كارت عميل ---------- */
+def({ id: 'hq-04', cat: 'hq', name: 'رسالة بتتحول كارت عميل', use: 'رسالة واتساب بتنزل، وبعدين بتتمط وتتحول قدامك لكارت عميل في السيستم: «كل رسالة بتبقى كارت». قلب أي ريل CRM.', dur: 3.2, blend: 'alpha',
+  params: { msg: 'بكام الأوضة؟', name: 'هدى س.', ask: 'سألت على: الأوضة', tag: 'عميل جديد', ok: 'اتسجّل في السيستم' },
+  init(r, p) { const m = el('div', 'position:absolute;left:50%;top:900px;overflow:hidden;direction:rtl;transform-origin:center', r);
+    const a = el('div', `position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:400 58px ${F.ar};color:#111B21;white-space:nowrap`, m, p.msg + ` <span style="font-size:34px;color:#8696A0;margin-right:16px;font-family:${F.num}">9:41</span>`);
+    const b = el('div', `position:absolute;inset:0;padding:44px 48px;display:flex;flex-direction:column;gap:22px;font:400 40px ${F.ar};color:#fff`, m);
+    const top = el('div', 'display:flex;align-items:center;gap:26px', b), av = el('div', `width:120px;height:120px;flex:none;border-radius:50%;background:${C.cyan};color:${C.navy};display:flex;align-items:center;justify-content:center;font:700 58px ${F.ar}`, top, p.name[0]);
+    const nm = el('div', 'flex:1', top, `<div style="font:700 60px ${F.ar}">${p.name}</div><div style="color:${C.muted}">${p.ask}</div>`);
+    const tg = el('div', `align-self:flex-start;padding:10px 28px 14px;border-radius:99px;background:rgba(0,204,242,.18);border:2px solid rgba(0,204,242,.6);color:${C.cyan2};font:700 36px ${F.ar}`, b, p.tag);
+    const okr = el('div', `display:flex;align-items:center;gap:16px;color:${C.green};font:700 38px ${F.ar}`, b, `<svg viewBox="0 0 40 40" width="48" height="48"><circle cx="20" cy="20" r="18" fill="none" stroke="${C.green}" stroke-width="4"/><path d="M11 21l6 6 12-13" fill="none" stroke="${C.green}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>${p.ok}</span>`);
+    const tail = el('div', 'position:absolute;left:50%;top:900px;width:40px;height:36px;transform-origin:0 0', r, '<svg viewBox="0 0 40 36" width="40" height="36"><path d="M40 0 C30 14 14 26 0 34 C18 34 34 28 40 18 Z" fill="#fff"/></svg>');
+    return { m, a, b, parts: [top, tg, okr], ck: okr.querySelectorAll('circle,path'), tail }; },
+  frame(o, t) { const pin = spring(P(t, 0, .55), 9), mo = P(t, 1.05, 1.65), me = exio(mo), ov = spring(mo, 7), out = exio(P(t, this.dur - .3, this.dur));
+    const w = L(560, 860, ov), h = L(160, 470, me), rr = L(48, 46, me), bg = me < .5 ? mix('#FFFFFF', '#5FA8D8', me * 2) : mix('#5FA8D8', '#0F2C52', me * 2 - 1);
+    o.m.style.width = w + 'px'; o.m.style.height = h + 'px'; o.m.style.borderRadius = `${rr}px ${rr}px ${L(14, 46, me)}px ${rr}px`; o.m.style.background = bg;
+    o.m.style.border = `${L(0, 4, me)}px solid rgba(63,214,245,${me * .7})`; o.m.style.boxSizing = 'border-box';
+    o.m.style.boxShadow = `0 30px 70px rgba(0,0,0,.4),0 0 ${L(0, 80, me)}px rgba(0,204,242,${me * .45})`;
+    const sx = 1 + .06 * Math.sin(Math.PI * P(t, .95, 1.15)), sc = L(.2, 1, pin) * (1 - out * .15);
+    o.m.style.transform = `translate(-50%,-50%) scale(${sc * sx},${sc / sx}) translateY(${Math.sin(t * 1.6) * 6 * P(t, 1.8, 2.4)}px)`; o.m.style.opacity = Math.min(1, pin * 3) * (1 - out);
+    o.a.style.opacity = 1 - P(t, 1.0, 1.15); o.a.style.filter = `blur(${P(t, 1.0, 1.15) * 12}px)`;
+    o.tail.style.transform = `translate(${-w / 2 - 14}px,${h / 2 - 34}px) scale(${pin * (1 - P(t, 1.0, 1.15))})`;
+    o.parts.forEach((q, i) => { const x = ex(P(t, 1.45 + i * .18, 1.95 + i * .18)); q.style.opacity = x; q.style.transform = `translateY(${(1 - x) * 30}px)`; });
+    const c = P(t, 2.05, 2.45); draw(o.ck[0], ex(c)); draw(o.ck[1], ex(P(t, 2.25, 2.55))); } });
+
+/* ---------- hq-05 · مسحة القوس (انتقال) ---------- */
+def({ id: 'hq-05', cat: 'hq', tr: true, name: 'مسحة القوس · محسّنة', use: 'انتقال توقيعنا بالمستوى الجديد: لوح كحلي بشبكة خفيفة، وحرفه قوس منوّر وراه صدى، وخطوط سرعة. نصه يغطي الشاشة كلها.', dur: .9, blend: 'alpha',
+  init(r) { const d = BRACE_L.replace(/-?\d+(\.\d+)?/g, n => +n * 3), echo = (dx, op, w) => `<path d="${d}" transform="translate(${dx} 0)" fill="none" stroke="${C.cyan2}" stroke-width="${w}" stroke-linecap="round" opacity="${op}"/>`;
+    const s = svg(r, `<defs>${GLOW}<pattern id="gd" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="rgba(63,214,245,.12)" stroke-width="2"/></pattern>
+      <linearGradient id="pf" x1="0" x2="1"><stop offset="0" stop-color="#123A68"/><stop offset=".25" stop-color="${C.navy}"/><stop offset="1" stop-color="#061629"/></linearGradient></defs>
+      <g id="g"><path d="${d} L2900 1920 L2900 0 Z" fill="url(#pf)"/><path d="${d} L2900 1920 L2900 0 Z" fill="url(#gd)"/>${echo(150, .25, 8)}${echo(80, .5, 12)}
+      <path d="${d}" fill="none" stroke="${C.cyan2}" stroke-width="30" stroke-linecap="round" filter="url(#gl)"/></g><g id="ln"></g>`);
+    const ln = [...Array(16)].map((_, i) => { const l = document.createElementNS('http://www.w3.org/2000/svg', 'line'); l.setAttribute('stroke', i % 3 ? '#fff' : C.cyan2); l.setAttribute('stroke-width', 3 + rnd(i) * 7); l.setAttribute('stroke-linecap', 'round'); s.querySelector('#ln').appendChild(l); return { l, y: rnd(i * 3) * 1920, len: 200 + rnd(i * 5) * 500, d: rnd(i * 7) * 120 }; });
+    return { g: s.querySelector('#g'), ln }; },
+  frame(o, t) { const pr = P(t, 0, this.dur), x = L(1000, -3100, L(eio(pr), exio(pr), .5)), v = Math.sin(Math.PI * P(t, 0, this.dur)); o.g.setAttribute('transform', `translate(${x} 0)`);
+    o.ln.forEach(q => { const lx = x + 180 + q.d; q.l.setAttribute('x1', lx); q.l.setAttribute('x2', lx + q.len * v); q.l.setAttribute('y1', q.y); q.l.setAttribute('y2', q.y); q.l.style.opacity = v * .8; }); } });
+})();

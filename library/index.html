@@ -65,7 +65,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <div class="wrap">
   <header>
-    <div><h1>مكتبة لوجيكا للفيديو · <b id="n">102</b></h1>
+    <div><h1>مكتبة لوجيكا للفيديو · <b id="n">107</b></h1>
     <p>موشن جرافيك، وشاشات سيستم، وانتقالات، وإيفكتات بألوان لوجيكا وخطوطها. اختار منها وإنت بتخطط للفيديو، وقول رقم العنصر (زي <span class="id">mg-01</span>). كل عنصر له ملف جاهز تحطه فوق الفيديو في أي برنامج مونتاج.</p></div>
   </header>
   <div class="how">
@@ -81,10 +81,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <script src="logo.js"></script>
 <script src="elements.js"></script>
 <script src="elements-v2.js"></script>
+<script src="elements-v3.js"></script>
 <script>
 const { LIB } = LOGIKA_LIB;
-const CATS = [['all', 'الكل'], ['motion', 'موشن جرافيك'], ['ui', 'شاشات سيستم'], ['transition', 'انتقالات'], ['overlay', 'إيفكتات']];
-const SUB = { motion: 'motion', ui: 'ui', transition: 'transitions', overlay: 'overlays' };
+const CATS = [['all', 'الكل'], ['hq', 'محسّن ✦'], ['motion', 'موشن جرافيك'], ['ui', 'شاشات سيستم'], ['transition', 'انتقالات'], ['overlay', 'إيفكتات']];
+const SUB = { hq: 'hq', motion: 'motion', ui: 'ui', transition: 'transitions', overlay: 'overlays' };
 const BLEND = { alpha: 'شفاف', screen: 'وضع Screen', overlay: 'وضع Overlay' };
 let CAT = 'all', Q = '';
 const norm = s => String(s).replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').toLowerCase();
@@ -116,9 +117,9 @@ function renderGrid() {
 const io = new IntersectionObserver(es => es.forEach(e => { const p = players.get(e.target) || modalP; if (p) p.on = e.isIntersecting; }), { rootMargin: '100px' });
 let modalP = null;
 // cards play, then rest on their best frame for a moment; the first frame anyone sees is that resting frame
-const poster = E => E.cat === 'transition' ? E.dur * .5 : E.cat === 'overlay' ? E.dur * .5 : Math.max(.1, E.dur - .32);
-function clock(p, now) { const E = p.E, pe = poster(E), cyc = E.cat === 'transition' ? E.dur + .6 : pe + 1.1, t = ((now - p.t0) / 1000) % cyc;
-  return E.cat === 'transition' ? Math.min(t, E.dur - .001) : E.cat === 'overlay' ? t % E.dur : Math.min(t, pe); }
+const poster = E => (E.cat === 'transition' || E.tr) ? E.dur * .5 : E.cat === 'overlay' ? E.dur * .5 : Math.max(.1, E.dur - .32);
+function clock(p, now) { const E = p.E, pe = poster(E), cyc = (E.cat === 'transition' || E.tr) ? E.dur + .6 : pe + 1.1, t = ((now - p.t0) / 1000) % cyc;
+  return (E.cat === 'transition' || E.tr) ? Math.min(t, E.dur - .001) : E.cat === 'overlay' ? t % E.dur : Math.min(t, pe); }
 function tick(now) {
   const all = [...players.values()]; if (modalP) all.push(modalP);
   for (const p of all) { if (!p.on) continue; try { p.E.frame(p.s, clock(p, now)); } catch (e) {} }
