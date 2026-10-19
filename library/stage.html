@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ar"><head><meta charset="utf-8"><title>Logika library stage</title>
+<style>
+@font-face{font-family:PlexL;src:url(fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2);font-weight:400}
+@font-face{font-family:PlexL;src:url(fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2);font-weight:600}
+@font-face{font-family:PlexL;src:url(fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
+@font-face{font-family:SoraL;src:url(fonts/sora-latin-700-normal.woff2);font-weight:600 700}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:transparent}
+#root{position:relative;width:1080px;height:1920px;overflow:hidden}
+</style></head>
+<body><div id="root"></div>
+<script src="logo.js"></script>
+<script src="elements.js"></script>
+<script>
+// renders one library element full size; ?id=mg-01&bg=transparent|green|black|gray
+const q = new URLSearchParams(location.search), E = LOGIKA_LIB.LIB.find(e => e.id === q.get('id'));
+const bg = q.get('bg') || 'transparent', BG = { transparent: 'transparent', green: '#00FF00', black: '#000', gray: '#808080' };
+document.body.style.background = BG[bg] || bg;
+const root = document.getElementById('root'), st = E.init(root, { ...(E.params || {}) });
+window.renderAt = t => E.frame(st, t);
+window.META = { id: E.id, dur: E.dur, blend: E.blend, bg: E.bg || null };
+document.fonts.ready.then(() => { renderAt(0); window.__ready = true; });
+</script></body></html>

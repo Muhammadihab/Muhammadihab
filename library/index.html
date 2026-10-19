@@ -1,0 +1,150 @@
+<title>مكتبة لوجيكا للفيديو</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Sora:wght@600;700&display=swap">
+<style>
+@font-face{font-family:PlexL;src:url(fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2);font-weight:400}
+@font-face{font-family:PlexL;src:url(fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
+@font-face{font-family:SoraL;src:url(fonts/sora-latin-700-normal.woff2);font-weight:600 700}
+/* Layout: a studio shelf — filter bar on top, a grid of live 9:16 previews, one large preview on tap.
+   Deliberately dark (the brand's navy), the way an editing suite looks; one theme by choice. */
+:root{
+  --bg:#06111F; --panel:#0C1D33; --panel2:#10253F; --line:#1C3657; --ink:#E8F0F8; --muted:#93A8C3;
+  --cyan:#3FD6F5; --orange:#F56A39; --chk1:#0F2238; --chk2:#152C46;
+  --f-ar:"IBM Plex Sans Arabic",PlexL,system-ui,sans-serif; --f-num:Sora,SoraL,"IBM Plex Sans Arabic",sans-serif;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--f-ar);direction:rtl}
+.wrap{max-width:1240px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px 24px}
+header h1{font-size:30px;line-height:1.2;text-wrap:balance}
+header h1 b{font-family:var(--f-num);color:var(--cyan)}
+header p{color:var(--muted);max-width:62ch}
+.count{font:700 13px var(--f-num);color:var(--muted)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:8px 16px;border-radius:999px;font:600 14px var(--f-ar);cursor:pointer}
+.tabs button.on{background:var(--cyan);color:#06111F;border-color:var(--cyan)}
+.tabs button span{font-family:var(--f-num);font-size:12px;opacity:.8;margin-right:4px}
+#q{flex:1;min-width:180px;background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:9px 14px;font:400 15px var(--f-ar)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;text-align:right;color:inherit;font:inherit;padding:0}
+.card:hover{border-color:var(--cyan)}
+.pv{position:relative;width:100%;aspect-ratio:9/16;overflow:hidden;background:conic-gradient(var(--chk1) 25%,var(--chk2) 0 50%,var(--chk1) 0 75%,var(--chk2) 0) 0 0/24px 24px}
+.pv.bg-black{background:#000}.pv.bg-gray{background:#808080}
+.pv .stage{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0;overflow:hidden}
+.pv .stage *{direction:rtl}
+.info{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px}
+.info .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.id{font:700 12px var(--f-num);color:var(--cyan);direction:ltr}
+.dur{font:600 12px var(--f-num);color:var(--muted)}
+.info b{font-size:16px}
+.info small{color:var(--muted);font-size:13px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.blend{align-self:flex-start;margin-top:4px;font:600 11px var(--f-ar);padding:2px 8px;border-radius:999px;background:var(--panel2);color:var(--muted)}
+.blend.o{color:var(--orange)}
+.how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.how div{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.how b{font-size:15px}.how p{color:var(--muted);font-size:14px}
+.how code{font:600 12px var(--f-num);direction:ltr;color:var(--cyan)}
+.modal{position:fixed;inset:0;background:rgba(3,8,16,.82);z-index:20;display:flex;align-items:center;justify-content:center;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px))}
+.mbox{background:var(--panel);border:1px solid var(--line);border-radius:22px;display:flex;gap:22px;padding:18px;max-width:900px;width:100%;max-height:100%;overflow:auto}
+.mbox .pv{width:min(320px,48vw);flex:none;border-radius:14px}
+.mtx{display:flex;flex-direction:column;gap:10px;min-width:0}
+.mtx h2{font-size:24px}
+.mtx p{color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:10px;padding:8px 14px;font:600 14px var(--f-ar);cursor:pointer}
+.btn.on{border-color:var(--cyan);color:var(--cyan)}
+.files{font:600 12px var(--f-num);direction:ltr;text-align:left;color:var(--muted);background:#081627;border-radius:10px;padding:10px 12px;line-height:1.8;overflow-x:auto}
+.empty{color:var(--muted);text-align:center;padding:40px}
+@media (max-width:700px){.how{grid-template-columns:minmax(0,1fr)}.mbox{flex-direction:column;align-items:center}.mbox .pv{width:min(300px,80vw)}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+@media (prefers-reduced-motion:reduce){.pv .stage{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div><h1>مكتبة لوجيكا للفيديو · <b id="n">35</b></h1>
+    <p>موشن جرافيك وانتقالات وإيفكتات بألوان لوجيكا وخطوطها. اختار منها وإنت بتخطط للفيديو، وقول رقم العنصر (زي <span class="id">mg-01</span>). كل عنصر له ملف جاهز تحطه فوق الفيديو في أي برنامج مونتاج.</p></div>
+  </header>
+  <div class="how">
+    <div><b>موشن جرافيك وانتقالات</b><p>ملف <code>.webm</code> شفاف لـ Premiere وAfter Effects وCapCut على الكمبيوتر. وملف <code>-green.mp4</code> لـ CapCut على الموبايل: حطه فوق الفيديو واعمل Chroma Key على الأخضر.</p></div>
+    <div><b>الانتقالات</b><p>كل انتقال بيغطي الشاشة كلها في نصه بالظبط. حطه بحيث نصه ييجي على القطعة بين المشهدين.</p></div>
+    <div><b>الإيفكتات</b><p>الحبيبات بوضع <b>Overlay</b>، والضوء والنقط بوضع <b>Screen</b>. والباقي ملفات شفافة زي الموشن.</p></div>
+  </div>
+  <div class="bar"><div class="tabs" id="tabs"></div><input id="q" type="search" placeholder="دوّر: أقواس، ختم، فلاش، واتساب…" aria-label="بحث"></div>
+  <div class="grid" id="grid"></div>
+</div>
+<div id="layer"></div>
+
+<script src="logo.js"></script>
+<script src="elements.js"></script>
+<script>
+const { LIB } = LOGIKA_LIB;
+const CATS = [['all', 'الكل'], ['motion', 'موشن جرافيك'], ['transition', 'انتقالات'], ['overlay', 'إيفكتات']];
+const SUB = { motion: 'motion', transition: 'transitions', overlay: 'overlays' };
+const BLEND = { alpha: 'شفاف', screen: 'وضع Screen', overlay: 'وضع Overlay' };
+let CAT = 'all', Q = '';
+const norm = s => String(s).replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').toLowerCase();
+const $ = s => document.querySelector(s);
+document.getElementById('n').textContent = LIB.length.toLocaleString('ar-EG');
+
+// one live stage per card; only the cards on screen animate
+const players = new Map();
+function mount(box, E) {
+  box.innerHTML = ''; const st = document.createElement('div'); st.className = 'stage'; box.appendChild(st);
+  const s = E.init(st, { ...(E.params || {}) }); const fit = () => st.style.transform = `scale(${box.clientWidth / 1080})`; fit();
+  const P0 = { E, s, st, fit, t0: performance.now() - poster(E) * 1000, on: false }; E.frame(s, poster(E)); return P0;
+}
+function files(E) { const b = `${SUB[E.cat]}/${E.id}`; return E.blend === 'alpha' ? [b + '.webm', b + '-green.mp4'] : [b + '.mp4']; }
+function bgClass(E) { return E.blend === 'screen' ? 'bg-black' : E.blend === 'overlay' ? 'bg-gray' : ''; }
+
+function renderGrid() {
+  const tabs = CATS.map(([k, n]) => `<button data-c="${k}" class="${CAT === k ? 'on' : ''}">${n}<span>${(k === 'all' ? LIB : LIB.filter(e => e.cat === k)).length}</span></button>`).join('');
+  $('#tabs').innerHTML = tabs;
+  const list = LIB.filter(e => (CAT === 'all' || e.cat === CAT) && (!Q || norm(e.name + ' ' + e.use + ' ' + e.id).includes(norm(Q))));
+  players.forEach(p => io.unobserve(p.box)); players.clear();
+  const g = $('#grid'); g.innerHTML = list.length ? '' : '<div class="empty">مفيش نتايج. جرّب كلمة تانية.</div>';
+  list.forEach(E => {
+    const c = document.createElement('button'); c.className = 'card'; c.dataset.id = E.id;
+    c.innerHTML = `<div class="pv ${bgClass(E)}"></div><div class="info"><div class="top"><span class="id">${E.id}</span><span class="dur">${E.dur.toFixed(1)}s</span></div><b>${E.name}</b><small>${E.use}</small><span class="blend ${E.blend !== 'alpha' ? 'o' : ''}">${BLEND[E.blend]}</span></div>`;
+    g.appendChild(c); const box = c.querySelector('.pv'); const p = mount(box, E); p.box = box; players.set(box, p); io.observe(box);
+  });
+}
+const io = new IntersectionObserver(es => es.forEach(e => { const p = players.get(e.target) || modalP; if (p) p.on = e.isIntersecting; }), { rootMargin: '100px' });
+let modalP = null;
+// cards play, then rest on their best frame for a moment; the first frame anyone sees is that resting frame
+const poster = E => E.cat === 'transition' ? E.dur * .5 : E.cat === 'overlay' ? E.dur * .5 : Math.max(.1, E.dur - .32);
+function clock(p, now) { const E = p.E, pe = poster(E), cyc = E.cat === 'transition' ? E.dur + .6 : pe + 1.1, t = ((now - p.t0) / 1000) % cyc;
+  return E.cat === 'transition' ? Math.min(t, E.dur - .001) : E.cat === 'overlay' ? t % E.dur : Math.min(t, pe); }
+function tick(now) {
+  const all = [...players.values()]; if (modalP) all.push(modalP);
+  for (const p of all) { if (!p.on) continue; try { p.E.frame(p.s, clock(p, now)); } catch (e) {} }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+addEventListener('resize', () => { players.forEach(p => p.fit()); if (modalP) modalP.fit(); });
+
+function openModal(E) {
+  const L = $('#layer');
+  L.innerHTML = `<div class="modal" data-close role="dialog" aria-modal="true" aria-label="${E.name}"><div class="mbox"><div class="pv ${bgClass(E)}" id="mpv"></div>
+    <div class="mtx"><span class="id">${E.id} · ${E.dur.toFixed(1)}s</span><h2>${E.name}</h2><p>${E.use}</p>
+    ${E.blend === 'alpha' ? `<div class="row" role="group" aria-label="الخلفية"><button class="btn on" data-bg="">شفاف</button><button class="btn" data-bg="bg-black">على أسود</button><button class="btn" data-bg="bg-light">على فاتح</button></div>` : `<p>استخدمه بـ <b>${BLEND[E.blend]}</b> فوق الفيديو.</p>`}
+    <div class="files">${files(E).join('<br>')}</div>
+    <div class="row"><button class="btn" id="replay">من الأول</button><button class="btn" data-close>قفل</button></div></div></div></div>`;
+  const box = $('#mpv'); modalP = mount(box, E); modalP.box = box; modalP.on = true;
+}
+document.addEventListener('click', e => {
+  const t = e.target;
+  const tab = t.closest('[data-c]'); if (tab) { CAT = tab.dataset.c; renderGrid(); return; }
+  const card = t.closest('.card'); if (card) { openModal(LIB.find(x => x.id === card.dataset.id)); return; }
+  if (t.id === 'replay' && modalP) { modalP.t0 = performance.now(); return; }
+  const bgb = t.closest('[data-bg]'); if (bgb) { const box = $('#mpv'); box.classList.remove('bg-black', 'bg-light'); if (bgb.dataset.bg === 'bg-light') box.style.background = '#E9EFF5'; else { box.style.background = ''; if (bgb.dataset.bg) box.classList.add(bgb.dataset.bg); }
+    document.querySelectorAll('[data-bg]').forEach(b => b.classList.toggle('on', b === bgb)); return; }
+  if (t.matches('[data-close]')) { modalP = null; $('#layer').innerHTML = ''; }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalP) { modalP = null; $('#layer').innerHTML = ''; } });
+let qt; $('#q').addEventListener('input', e => { Q = e.target.value; clearTimeout(qt); qt = setTimeout(renderGrid, 150); });
+renderGrid();
+</script>
