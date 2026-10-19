@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ar"><head><meta charset="utf-8"><title>Logika pro stage</title>
+<style>
+@font-face{font-family:PlexL;src:url(../fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2);font-weight:400}
+@font-face{font-family:PlexL;src:url(../fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2);font-weight:600}
+@font-face{font-family:PlexL;src:url(../fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2);font-weight:700}
+@font-face{font-family:SoraL;src:url(../fonts/sora-latin-700-normal.woff2);font-weight:600 700}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:transparent}
+#out{position:absolute;left:0;top:0;width:1080px;height:1920px}
+#ov{position:absolute;inset:0;direction:rtl}
+</style>
+<script>
+// three.js comes from a local copy when rendering, from the CDN anywhere else
+const base = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? '/vendor/three/' : 'https://cdn.jsdelivr.net/npm/three@0.160.0/';
+document.write(`<script type="importmap">{"imports":{"three":"${base}build/three.module.js","three/addons/":"${base}examples/jsm/"}}<\/script>`);
+</script>
+</head>
+<body><canvas id="out" width="1080" height="1920"></canvas><div id="ov"></div>
+<script type="module" src="pro.js"></script>
+</body></html>
