@@ -5,7 +5,7 @@ import sys, subprocess, wave, numpy as np, os
 SR = 48000
 HERE = os.path.dirname(os.path.abspath(__file__))
 # sample name -> (file, where its hit is inside the file, in seconds)
-S = {'pop': ('button-2.wav', 0.0), 'tap': ('button-1.wav', 0.0), 'click': ('scifi-click.mp3', 0.375),
+S = {'click': ('scifi-click.mp3', 0.375),
      'win': ('correct-woosh.mp3', 0.5), 'ticks': ('spin-clicks.mp3', 0.0)}
 
 def load(name, rate=1.0):
@@ -28,18 +28,28 @@ def hit(dur=.6, f0=70, f1=38):
     y = np.sin(ph) * np.exp(-t * 7) + .25 * np.random.default_rng(3).standard_normal(n) * np.exp(-t * 90); y = y / np.abs(y).max() * .9
     return np.stack([y, y], 1).astype(np.float32)
 
+def blip(f0=880, f1=560, dur=.09):
+    """soft bubble pop: a short sine that drops in pitch, rounded attack, no click"""
+    n = int(dur * SR); t = np.arange(n) / SR; f = f1 + (f0 - f1) * np.exp(-t * 45); ph = 2 * np.pi * np.cumsum(f) / SR
+    env = np.minimum(1, t / .004) * np.exp(-t * 38); y = (np.sin(ph) + .25 * np.sin(2 * ph)) * env * .7
+    return np.stack([y, y], 1).astype(np.float32)
+
+def tick():
+    """one tick cut from the spin-clicks sample"""
+    x = load('ticks')[:int(.07 * SR)].copy(); f = int(.01 * SR); x[-f:] *= np.linspace(1, 0, f)[:, None]; return x
+
 def place(mix, clip, at, db=0.0, anchor=0.0):
     i = int((at - anchor) * SR); s = max(0, -i); i = max(0, i); clip = clip[s:]; m = min(len(clip), len(mix) - i)
     if m > 0: mix[i:i + m] += clip[:m] * 10 ** (db / 20)
 
 CUES = {
   # hq-06: messages pop in, the camera whips out, the message becomes a card, the card closes, the lock snaps, the camera dives in
-  'hq-06': (6.0, [('pop', .10, -8, 1.0), ('pop', .29, -6, 1.06), ('pop', .48, -8, .96), ('pop', .67, -8, 1.1), ('pop', .86, -9, 1.0), ('pop', 1.05, -9, 1.12),
-                  ('W', 1.15, .45, -10, .55, 250, 2600), ('click', 1.6, -6, 1.0), ('W', 1.9, .7, -14, .5, 400, 3500), ('pop', 2.5, -10, .9),
-                  ('W', 2.05, .6, -15, .5, 200, 1800), ('W', 2.75, .7, -12, .55, 250, 2400), ('win', 3.45, -5, 1.0), ('tap', 3.78, -6, 1.0),
+  'hq-06': (6.0, [('B', .10, -9, 1.0), ('B', .29, -8, 1.06), ('B', .48, -9, .95), ('B', .67, -9, 1.12), ('B', .86, -10, 1.0), ('B', 1.05, -10, 1.19),
+                  ('W', 1.15, .45, -10, .55, 250, 2600), ('click', 1.6, -6, 1.0), ('W', 1.9, .7, -14, .5, 400, 3500), ('B', 2.5, -10, .8),
+                  ('W', 2.05, .6, -15, .5, 200, 1800), ('W', 2.75, .7, -12, .55, 250, 2400), ('win', 3.45, -5, 1.0), ('T', 3.78, -4),
                   ('click', 4.15, -3, .85), ('H', 4.16, -14), ('W', 4.25, .55, -8, .85, 200, 5000), ('H', 4.78, -4)]),
   # hq-01: braces slam, sparks, the lock grows, the shackle draws and snaps, the words come in
-  'hq-01': (2.8, [('W', 0.0, .32, -9, .9, 300, 4000), ('H', .3, -4), ('pop', .38, -10, .8), ('W', .55, .4, -16, .7, 800, 5000),
+  'hq-01': (2.8, [('W', 0.0, .32, -9, .9, 300, 4000), ('H', .3, -4), ('B', .38, -10, .75), ('W', .55, .4, -16, .7, 800, 5000),
                   ('click', 1.05, -2, .9), ('H', 1.06, -12), ('win', 1.3, -9, 1.0)]),
 }
 
@@ -48,6 +58,8 @@ if __name__ == '__main__':
     for c in cues:
         if c[0] == 'W': _, at, d, db, pk, lo, hi = c; place(mix, whoosh(d, pk, lo, hi, seed=int(at * 100)), at, db)
         elif c[0] == 'H': _, at, db = c; place(mix, hit(), at, db)
+        elif c[0] == 'B': _, at, db, k = c; place(mix, blip(880 * k, 560 * k), at, db)
+        elif c[0] == 'T': _, at, db = c; place(mix, tick(), at, db)
         else: name, at, db, rate = c; place(mix, load(name, rate), at, db, S[name][1] / rate)
     mix = mix[:int(dur * SR)]; mix /= max(1, np.abs(mix).max() / .95)
     w = wave.open(out, 'wb'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((mix * 32767).astype('<i2').tobytes()); print(out, dur, 's')
