@@ -131,7 +131,7 @@ def({ id: 'mg-10', cat: 'motion', name: 'زرار واتساب', use: 'الـ CT
     o.sh.style.left = (P(t, .7, 1.4) * 1100 - 250) + 'px'; const q = P(t, .5, .8); o.n.style.opacity = q; o.n.style.transform = `translateY(${(1 - eo(q)) * 20}px)`; o.w.style.opacity = outFade(t, this.dur); } });
 
 def({ id: 'mg-11', cat: 'motion', name: 'شريط اسم', use: 'اسم وصفة (عميل، أو مكان، أو موظف) أول ما يظهر في الفيديو.', dur: 2.6, blend: 'alpha',
-  params: { title: 'شركة النور للصيانة', sub: 'من ٦,٠٠٠ سطر في دفتر… لسيستم', y: 1380 },
+  params: { title: 'اسم الشركة هنا', sub: 'من ٦,٠٠٠ سطر في دفتر… لسيستم', y: 1380 },
   init(r, p) { const w = el('div', `position:absolute;right:60px;top:${p.y}px;direction:rtl;overflow:hidden;padding:6px 0`, r);
     const bar = el('div', `display:flex;flex-direction:column;gap:6px;padding:26px 40px 30px 60px;background:rgba(10,36,68,.92);border-radius:20px;border-right:12px solid ${C.cyan}`, w);
     const a = el('div', `font:700 60px ${F.ar};color:#fff;white-space:nowrap`, bar, p.title), b = el('div', `font:400 40px ${F.ar};color:${C.muted};white-space:nowrap`, bar, p.sub);
@@ -309,5 +309,6 @@ def({ id: 'fx-10', cat: 'overlay', name: 'فقاعات مية', use: 'فقاعا
   init(r) { return { b: [...Array(34)].map((_, i) => { const s = 10 + rnd(i) * 46; return { d: panel(r, `width:${s}px;height:${s}px;border-radius:50%;border:${Math.max(2, s / 12)}px solid rgba(220,250,255,.7);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.55),rgba(255,255,255,.05) 60%)`), s, x: rnd(i * 7) * 1080, ph: rnd(i * 3), v: .25 + rnd(i * 5) * .5 }; }) }; },
   frame(o, t) { o.b.forEach((k, j) => { const y = 1980 - ((t * k.v + k.ph) % 1) * 2100; k.d.style.left = (k.x + Math.sin(t * 2 + j) * 24) + 'px'; k.d.style.top = y + 'px'; }); } });
 
-window.LOGIKA_LIB = { LIB, C, F };
+// helpers shared with elements-v2.js
+window.LOGIKA_LIB = { LIB, C, F, H: { el, svg, draw, spring, eo, ei, eio, P, L, cl, rnd, AR, NS, BRACE_L, BRACE_R, glow, outFade, WA, panel, canvas } };
 })();

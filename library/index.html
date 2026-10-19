@@ -65,25 +65,26 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <div class="wrap">
   <header>
-    <div><h1>مكتبة لوجيكا للفيديو · <b id="n">35</b></h1>
-    <p>موشن جرافيك وانتقالات وإيفكتات بألوان لوجيكا وخطوطها. اختار منها وإنت بتخطط للفيديو، وقول رقم العنصر (زي <span class="id">mg-01</span>). كل عنصر له ملف جاهز تحطه فوق الفيديو في أي برنامج مونتاج.</p></div>
+    <div><h1>مكتبة لوجيكا للفيديو · <b id="n">102</b></h1>
+    <p>موشن جرافيك، وشاشات سيستم، وانتقالات، وإيفكتات بألوان لوجيكا وخطوطها. اختار منها وإنت بتخطط للفيديو، وقول رقم العنصر (زي <span class="id">mg-01</span>). كل عنصر له ملف جاهز تحطه فوق الفيديو في أي برنامج مونتاج.</p></div>
   </header>
   <div class="how">
-    <div><b>موشن جرافيك وانتقالات</b><p>ملف <code>.webm</code> شفاف لـ Premiere وAfter Effects وCapCut على الكمبيوتر. وملف <code>-green.mp4</code> لـ CapCut على الموبايل: حطه فوق الفيديو واعمل Chroma Key على الأخضر.</p></div>
+    <div><b>موشن جرافيك وشاشات سيستم</b><p>ملف <code>.webm</code> شفاف لـ Premiere وAfter Effects وCapCut على الكمبيوتر. وملف <code>-green.mp4</code> لـ CapCut على الموبايل: حطه فوق الفيديو واعمل Chroma Key على الأخضر.</p></div>
     <div><b>الانتقالات</b><p>كل انتقال بيغطي الشاشة كلها في نصه بالظبط. حطه بحيث نصه ييجي على القطعة بين المشهدين.</p></div>
     <div><b>الإيفكتات</b><p>الحبيبات بوضع <b>Overlay</b>، والضوء والنقط بوضع <b>Screen</b>. والباقي ملفات شفافة زي الموشن.</p></div>
   </div>
-  <div class="bar"><div class="tabs" id="tabs"></div><input id="q" type="search" placeholder="دوّر: أقواس، ختم، فلاش، واتساب…" aria-label="بحث"></div>
+  <div class="bar"><div class="tabs" id="tabs"></div><input id="q" type="search" placeholder="دوّر: أقواس، ختم، فاتورة، موبايل، فلاش…" aria-label="بحث"></div>
   <div class="grid" id="grid"></div>
 </div>
 <div id="layer"></div>
 
 <script src="logo.js"></script>
 <script src="elements.js"></script>
+<script src="elements-v2.js"></script>
 <script>
 const { LIB } = LOGIKA_LIB;
-const CATS = [['all', 'الكل'], ['motion', 'موشن جرافيك'], ['transition', 'انتقالات'], ['overlay', 'إيفكتات']];
-const SUB = { motion: 'motion', transition: 'transitions', overlay: 'overlays' };
+const CATS = [['all', 'الكل'], ['motion', 'موشن جرافيك'], ['ui', 'شاشات سيستم'], ['transition', 'انتقالات'], ['overlay', 'إيفكتات']];
+const SUB = { motion: 'motion', ui: 'ui', transition: 'transitions', overlay: 'overlays' };
 const BLEND = { alpha: 'شفاف', screen: 'وضع Screen', overlay: 'وضع Overlay' };
 let CAT = 'all', Q = '';
 const norm = s => String(s).replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').toLowerCase();

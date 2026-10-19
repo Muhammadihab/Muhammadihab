@@ -14,7 +14,7 @@ const browser = await chromium.launch();
 const probe = await browser.newPage(); await probe.goto('file://' + here + '/stage.html?id=mg-01');
 const ids = (await probe.evaluate(() => LOGIKA_LIB.LIB.map(e => [e.id, e.cat]))).filter(([id]) => !only || only.split(',').includes(id));
 await probe.close();
-const sub = { motion: 'motion', transition: 'transitions', overlay: 'overlays' };
+const sub = { motion: 'motion', ui: 'ui', transition: 'transitions', overlay: 'overlays' };
 for (const [id, cat] of ids) {
   const dir = path.join(outDir, sub[cat]); fs.mkdirSync(dir, { recursive: true }); fs.rmSync(tmp, { recursive: true, force: true }); fs.mkdirSync(tmp, { recursive: true });
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
