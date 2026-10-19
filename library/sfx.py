@@ -90,18 +90,18 @@ def room(x, wet=-15):
 K = {'W': whoosh, 'S': swell, 'P': pop, 'T': tick, 'L': latch, 'I': impact, 'R': riser, 'G': sparkle}
 # cue = (kind, time, dB, {args}); a whoosh peaks `peak` of the way into its length
 CUES = {
-  'hq-06': (6.0, [*[('P', .10 + i * .19 if i < 1 else .10 + i * .19, -9 - (i > 3), dict(k=1 + i * .05)) for i in range(6)],
-            ('W', 1.12, -7, dict(dur=.5, peak=.55, lo=200, hi=3000)), ('T', 1.6, -8, {}), ('S', 1.88, -12, dict(dur=.7)), ('P', 2.5, -12, dict(k=.75)),
+  'hq-06': (6.0, [('S', 0.0, -16, dict(dur=1.25)),   # one quiet rising rush under the piling messages, no hit per message
+            ('W', 1.12, -7, dict(dur=.5, peak=.55, lo=200, hi=3000)), ('T', 1.6, -8, {}), ('S', 1.88, -12, dict(dur=.7)),
             ('W', 2.05, -15, dict(dur=.6, peak=.5, p0=-.4, p1=.6, seed=3)), ('W', 2.75, -10, dict(dur=.75, peak=.55, p0=.7, p1=-.7, seed=5)),
             ('I', 3.45, -18, dict(size=.6)), ('G', 3.47, -9, dict(dur=.9)), ('T', 3.78, -7, dict(k=1.1)), ('L', 4.15, -3, {}), ('I', 4.16, -15, dict(size=.5)),
             ('R', 4.27, -8, dict(dur=.5)), ('I', 4.77, -2, dict(size=1.3)), ('G', 5.1, -15, dict(dur=.7, density=40))]),
   'hq-01': (2.8, [('W', 0.0, -9, dict(dur=.32, peak=.9, lo=300, hi=4500, p0=-.9, p1=0)), ('W', 0.0, -9, dict(dur=.32, peak=.9, lo=320, hi=4800, p0=.9, p1=0, seed=2)),
-            ('I', .30, -2, {}), ('G', .31, -13, dict(dur=.6, density=80)), ('P', .38, -11, dict(k=.7)), ('S', .55, -17, dict(dur=.4)),
+            ('I', .30, -2, {}), ('G', .31, -13, dict(dur=.6, density=80)), ('S', .55, -17, dict(dur=.4)),
             ('L', 1.05, -2, {}), ('I', 1.06, -13, dict(size=.5)), ('W', 1.22, -17, dict(dur=.5, peak=.4, lo=600, hi=5000)), ('G', 1.6, -15, dict(dur=.7, density=35))]),
   'hq-02': (2.6, []),   # captions stay silent: a sound on every word gets tiring fast
   'hq-03': (1.9, [('W', 0.0, -8, dict(dur=.4, peak=.92, lo=250, hi=4000, p0=-.7, p1=.7)), ('I', .38, -3, {}), ('G', .45, -16, dict(dur=.5)),
             ('S', .48, -18, dict(dur=.35)), ('W', 1.56, -12, dict(dur=.36, peak=.3, lo=300, hi=3500, p0=0, p1=.6))]),
-  'hq-04': (3.2, [('P', .02, -8, {}), ('S', 1.0, -11, dict(dur=.7)), ('W', 1.05, -15, dict(dur=.6, peak=.5, lo=300, hi=2500)),
+  'hq-04': (3.2, [('S', 1.0, -11, dict(dur=.7)), ('W', 1.05, -15, dict(dur=.6, peak=.5, lo=300, hi=2500)),
             ('G', 2.05, -10, dict(dur=.8)), ('T', 2.25, -10, dict(k=1.15))]),
   'hq-05': (.9, [('W', 0.0, -3, dict(dur=.9, peak=.5, lo=180, hi=4200, p0=.8, p1=-.8)), ('I', .45, -16, dict(size=.6))]),
 }
