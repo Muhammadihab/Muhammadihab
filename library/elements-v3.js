@@ -186,3 +186,71 @@ LIB.push({ id: 'hq-06', cat: 'hq', name: 'كاميرا بتتابع الحكاي
     o.blur.setAttribute('stdDeviation', `${(bx / c.z).toFixed(2)} ${(by / c.z).toFixed(2)}`); o.cam.style.filter = bx > .4 || by > .4 ? 'url(#cmb)' : '';
     const e = P(t, 4.6, 4.8); o.end.style.opacity = e; o.ew.style.transform = `translateY(${(1 - ex(P(t, 4.8, 5.3))) * 115}%)`; o.es.style.opacity = P(t, 5.1, 5.5); o.es.style.letterSpacing = L(26, 10, ex(P(t, 5.1, 5.7))) + 'px'; } });
 })();
+
+/* ---------- hq-07 … hq-10: the most used pieces, rebuilt ---------- */
+(function () {
+const { LIB, C, F, H } = window.LOGIKA_LIB;
+const { el, svg, draw, spring, eio, P, L, cl, rnd, BRACE_L, BRACE_R, WA } = H;
+const ex = x => x >= 1 ? 1 : x <= 0 ? 0 : 1 - Math.pow(2, -10 * x);
+const exio = x => x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2;
+const def = o => LIB.push(Object.assign({ cat: 'hq', blend: 'alpha' }, o));
+const shake = (t, at, amp) => t > at && t < at + .3 ? (1 - P(t, at, at + .3)) * amp * (rnd(Math.floor(t * 60) + at * 100) - .5) * 2 : 0;
+const GLOW = '<filter id="gl2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="16" result="b"/><feGaussianBlur in="SourceGraphic" stdDeviation="5" result="c"/><feMerge><feMergeNode in="b"/><feMergeNode in="c"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+
+def({ id: 'hq-07', name: 'ختم · محسّن', use: 'الختم بيتشال لفوق، وبعدين ينزل بخبطة وحبر بيطرطش، وعليه ملمس حبر حقيقي. «اتمنع» أو «اتقفل» أو «اتدفع».', dur: 2.0,
+  params: { text: 'اتمنع', color: '#FF453A' },
+  init(r, p) { const s = svg(r, `<defs><filter id="ink" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="9" result="d"/>
+        <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="7" result="sp"/><feColorMatrix in="sp" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.6" result="holes"/><feComposite in="d" in2="holes" operator="in"/></filter></defs>
+      <g id="sh"><g id="st" filter="url(#ink)"><rect id="bx" fill="none" stroke="${p.color}" stroke-width="16" rx="30"/><text id="tx" text-anchor="middle" font-family='${F.ar}' font-weight="700" font-size="190" fill="${p.color}">${p.text}</text></g><g id="spl"></g></g>`);
+    const $ = i => s.querySelector('#' + i), spl = [...Array(16)].map((_, i) => { const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); c.setAttribute('fill', p.color); $('spl').appendChild(c); return { c, a: rnd(i) * Math.PI * 2, d: 260 + rnd(i * 3) * 220, r: 4 + rnd(i * 5) * 12 }; });
+    return { s, $, spl, p }; },
+  frame(o, t) { const $ = o.$, tx = $('tx'), bb = tx.getBBox(); if (bb.width) { const bx = $('bx'); bx.setAttribute('x', bb.x - 60); bx.setAttribute('y', bb.y - 10); bx.setAttribute('width', bb.width + 120); bx.setAttribute('height', bb.height + 30); }
+    const hit = .32, lift = ex(P(t, 0, .22)), fall = Math.pow(P(t, .22, hit), 2.5), sc = t < hit ? L(1, 2.2, lift) - (L(1, 2.2, lift) - 1) * fall : 1 + .06 * Math.exp(-(t - hit) * 10) * Math.cos((t - hit) * 30);
+    tx.setAttribute('x', 0); tx.setAttribute('y', 66); const sx = shake(t, hit, 18);
+    $('sh').setAttribute('transform', `translate(${540 + sx} ${930 + sx * .6}) rotate(-12) scale(${sc})`); $('st').style.opacity = t < hit ? L(0, .55, lift) : 1;
+    o.spl.forEach(q => { const x = ex(P(t, hit, hit + .35)); q.c.setAttribute('cx', Math.cos(q.a) * q.d * x); q.c.setAttribute('cy', Math.sin(q.a) * q.d * .6 * x); q.c.setAttribute('r', t > hit ? q.r * (1 - P(t, hit + .2, hit + .6) * .4) : 0); });
+    o.s.style.opacity = 1 - exio(P(t, this.dur - .25, this.dur)); } });
+
+def({ id: 'hq-08', name: 'زرار واتساب · محسّن', use: 'أيقونة واتساب بتنزل وتتمط لزرار برتقاني، والماوس بيدوس عليه بموجة، والرقم بيتكتب تحته. الـ CTA بالمستوى الجديد.', dur: 3.0,
+  params: { text: 'ابعتلنا على واتساب', num: '+20 122 641 2843', y: 1120 },
+  init(r, p) { const w = el('div', `position:absolute;left:0;right:0;top:${p.y}px;height:170px;display:flex;justify-content:center`, r);
+    const b = el('div', `position:relative;height:160px;border-radius:80px;background:${C.orange};overflow:hidden;box-shadow:0 24px 70px rgba(245,106,57,.55);display:flex;align-items:center;justify-content:center;gap:22px;direction:rtl;color:#fff;font:700 58px ${F.ar}`, w);
+    const ic = el('span', 'width:76px;height:76px;flex:none;display:block', b, WA), tx = el('span', 'white-space:nowrap;display:inline-block', b, p.text);
+    const sh = el('i', 'position:absolute;top:-30px;bottom:-30px;width:150px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);display:block', b);
+    const rp = el('i', 'position:absolute;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:rgba(255,255,255,.55);display:block;left:65%;top:55%', b);
+    const n = el('div', `position:absolute;left:0;right:0;top:${p.y + 200}px;text-align:center;font:700 52px ${F.num};color:#fff;direction:ltr;text-shadow:0 4px 20px rgba(0,0,0,.5)`, r);
+    const cu = el('div', 'position:absolute;left:0;top:0;width:90px;height:90px;z-index:5;filter:drop-shadow(0 8px 14px rgba(0,0,0,.45))', r, '<svg viewBox="0 0 24 24" width="90" height="90"><path d="M5 2.5l13.5 12.2-6.1.6 3.6 7.1-2.8 1.4-3.6-7.2L5 21z" fill="#fff" stroke="#0A2444" stroke-width="1.4" stroke-linejoin="round"/></svg>');
+    return { b, ic, tx, sh, rp, n, cu, p }; },
+  frame(o, t) { const k = spring(P(t, 0, .45), 9), m = ex(P(t, .45, 1.0)), w = L(160, 760, m); o.b.style.width = w + 'px'; o.b.style.transform = `translateY(${(1 - k) * -300}px) scale(${L(.3, 1, k) * (1 - .07 * Math.sin(Math.PI * P(t, 1.5, 1.68)))})`; o.b.style.opacity = Math.min(1, k * 3);
+    o.tx.style.opacity = P(t, .7, .95); o.tx.style.transform = `translateX(${(1 - ex(P(t, .7, 1.1))) * -40}px)`; o.tx.style.display = m > .2 ? 'inline-block' : 'none';
+    o.sh.style.left = (P(t, 1.05, 1.5) * (w + 300) - 200) + 'px'; const rq = P(t, 1.55, 2.1); o.rp.style.transform = `scale(${L(.2, 18, ex(rq))})`; o.rp.style.opacity = rq > 0 && rq < 1 ? (1 - rq) * .8 : 0;
+    const s = o.p.num, c = Math.floor(cl(P(t, 1.9, 2.6)) * s.length); o.n.textContent = s.slice(0, c);
+    const cm = ex(P(t, 1.0, 1.5)), cx = L(960, 640, cm), cy = L(1720, o.p.y + 100, cm); o.cu.style.transform = `translate(${cx - 19}px,${cy - 9}px) scale(${t > 1.5 && t < 1.68 ? .85 : 1})`; o.cu.style.opacity = P(t, .9, 1.05) * (1 - P(t, 2.1, 2.4));
+    const op = 1 - exio(P(t, this.dur - .25, this.dur)); o.b.parentNode.style.opacity = op; o.n.style.opacity = op; } });
+
+def({ id: 'hq-09', name: 'نهاية لوجيكا · محسّنة', use: 'الأقواس بتخبط من الجنبين، واللوجو بيطلع من بلور ونور بيعدّي عليه، و«متأمّن من جوّا» كلمة كلمة. آخر ٣ ثواني في أي فيديو.', dur: 3.2,
+  params: { tag: 'متأمّن من جوّا' },
+  init(r, p) { const s = svg(r, `<defs>${GLOW}</defs><g id="L"><path d="${BRACE_L}"/></g><g id="R"><path d="${BRACE_R}"/></g><circle id="rg" cx="540" cy="900" fill="none" stroke="${C.cyan2}"/>`);
+    s.querySelectorAll('path').forEach(e => { e.setAttribute('fill', 'none'); e.setAttribute('stroke', C.cyan2); e.setAttribute('stroke-width', 18); e.setAttribute('stroke-linecap', 'round'); e.setAttribute('filter', 'url(#gl2)'); });
+    const lw = el('div', 'position:absolute;left:50%;top:740px;width:560px;margin-left:-280px;overflow:hidden', r), img = el('img', 'display:block;width:560px', lw); img.src = window.LOGIKA_LOGO || '';
+    const sh = el('i', 'position:absolute;top:-40px;bottom:-40px;width:160px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg);mix-blend-mode:overlay;display:block', lw);
+    const tag = el('div', `position:absolute;left:0;right:0;top:1150px;display:flex;justify-content:center;gap:22px;direction:rtl;font:700 76px ${F.ar};color:${C.cyan2};text-shadow:0 0 30px rgba(0,204,242,.5)`, r);
+    const ws = p.tag.split(' ').map(x => { const m = el('span', 'display:inline-block;overflow:hidden;padding:6px 2px 14px', tag); return el('span', 'display:inline-block', m, x); });
+    return { s, L: s.querySelector('#L'), R: s.querySelector('#R'), rg: s.querySelector('#rg'), lw, img, sh, ws, tag }; },
+  frame(o, t) { const hit = .32, a = ex(P(t, 0, hit)), sq = t > hit ? 1 - .2 * Math.exp(-(t - hit) * 9) * Math.cos((t - hit) * 30) : 1, sx = shake(t, hit, 14);
+    o.L.setAttribute('transform', `translate(${L(-400, 120, a) + 92 + sx} 900) scale(${sq} ${2 - sq}) translate(-92 -320)`); o.R.setAttribute('transform', `translate(${L(1480, 960, a) - 92 + sx} 900) scale(${sq} ${2 - sq}) translate(92 -320)`);
+    const q = P(t, hit, hit + .7); o.rg.setAttribute('r', L(60, 600, ex(q))); o.rg.setAttribute('stroke-width', L(12, 1, q)); o.rg.style.opacity = q > 0 && q < 1 ? 1 - q : 0;
+    const g = ex(P(t, .45, 1.1)); o.img.style.transform = `scale(${L(1.4, 1, g)})`; o.img.style.filter = `blur(${(1 - g) * 24}px)`; o.img.style.opacity = g;
+    o.sh.style.left = (P(t, 1.2, 1.75) * 900 - 250) + 'px'; o.ws.forEach((w, i) => { const x = ex(P(t, 1.25 + i * .12, 1.85 + i * .12)); w.style.transform = `translateY(${(1 - x) * 115}%)`; });
+    const op = 1 - exio(P(t, this.dur - .3, this.dur)); o.s.style.opacity = op; o.lw.style.opacity = op; o.tag.style.opacity = op; } });
+
+def({ id: 'hq-10', name: 'إشعار · محسّن', use: 'إشعار بينزل من فوق بميلة 3D خفيفة، وإشعار تاني بيبان وراه، وبعدين يتسحب لفوق. للرسايل والعملاء الجداد.', dur: 2.8,
+  params: { title: 'واتساب', body: 'هدى س.: بكام الأوضة؟', body2: 'عميل جديد: لسه متاح؟', y: 150 },
+  init(r, p) { const st = el('div', 'position:absolute;inset:0;perspective:1400px', r), card = (body, z) => { const c = el('div', `position:absolute;left:60px;right:60px;top:${p.y}px;display:flex;gap:26px;align-items:center;padding:30px 34px;border-radius:44px;direction:rtl;background:rgba(30,36,48,.94);box-shadow:0 30px 70px rgba(0,0,0,.45);transform-origin:center top;z-index:${z}`, st);
+      el('div', `width:96px;height:96px;border-radius:24px;background:${C.wa};flex:none;padding:16px;box-sizing:border-box`, c, WA);
+      el('div', `flex:1;min-width:0;color:#fff;font:400 40px ${F.ar}`, c, `<div style="display:flex;justify-content:space-between;color:#AEB4BE;font-size:32px"><b style="color:#fff;font-weight:600">${p.title}</b><span>الآن</span></div><div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${body}</div>`); return c; };
+    return { a: card(p.body, 2), b: card(p.body2, 1) }; },
+  frame(o, t) { const k = spring(P(t, 0, .7), 7), out = exio(P(t, this.dur - .45, this.dur));
+    o.a.style.transform = `translateY(${(1 - k) * -380 - out * 420}px) rotateX(${(1 - k) * 35}deg) scale(${L(.85, 1, k)})`; o.a.style.opacity = Math.min(1, k * 3); o.a.style.filter = `blur(${Math.max(0, 1 - k * 1.4) * 10}px)`;
+    const k2 = spring(P(t, .7, 1.3), 8); o.b.style.transform = `translateY(${L(-60, 34, k2) - out * 420}px) scale(${L(.85, .94, k2)})`; o.b.style.opacity = t > .7 ? Math.min(.8, k2 * 2) : 0; o.b.style.filter = 'brightness(.75)'; } });
+})();

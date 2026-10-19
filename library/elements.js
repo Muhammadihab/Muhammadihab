@@ -9,7 +9,9 @@ const C = { navy: '#0A2444', ink: '#071A33', cyan: '#00CCF2', cyan2: '#3FD6F5', 
   white: '#F4F7FB', muted: '#AFC1D8', red: '#FF453A', green: '#30D158', wa: '#25D366' };
 const F = { ar: '"IBM Plex Sans Arabic",PlexL,sans-serif', num: 'Sora,SoraL,"IBM Plex Sans Arabic",PlexL,sans-serif' };
 const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), P = (t, a, b) => cl((t - a) / (b - a)), L = (a, b, x) => a + (b - a) * x;
-const eo = x => 1 - Math.pow(1 - x, 3), ei = x => x * x * x, eio = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+// motion curves (v3): out = fast start and a long settle (expo), in-out = between cubic and expo, so moves snap through the middle
+const eo = x => x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.pow(2, -10 * x), ei = x => x * x * x;
+const eio = x => { if (x <= 0) return 0; if (x >= 1) return 1; const c = x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2, e = x < .5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2; return (c + e) / 2; };
 const spring = (x, k = 9) => x <= 0 ? 0 : 1 - Math.exp(-k * x) * Math.cos(k * 1.3 * x);
 const rnd = n => { const s = Math.sin(n * 12.9898 + 78.233) * 43758.5453; return s - Math.floor(s); };
 const AR = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);

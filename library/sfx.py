@@ -295,6 +295,82 @@ CUES.update({
 })
 K['X'] = X
 
+# ---------- sound for every element of the first two library versions (and hq-07 … hq-10) ----------
+def _w(at, dur, db=-12, peak=.5, lo=250, hi=3500, p0=0., p1=0.): return ('W', at, db, dict(dur=dur, peak=peak, lo=lo, hi=hi, p0=p0, p1=p1, seed=int(at * 97 + dur * 13)))
+def _x(at, id, db=-10): return ('X', at, db, dict(id=id))
+def _ticks(times, db=-13): return [('T', a, db, dict(k=1 + i * .03)) for i, a in enumerate(times)]
+DUR = {}   # filled from the element list when the cues are built (python3 sfx.py --all reads lib-durations.json)
+MORE = {
+  'mg-01': [_w(0, .6, -11, .85), _x(.5, 'sx-07', -12), ('L', .95, -3, {}), ('G', 1.0, -15, dict(dur=.6))],
+  'mg-02': [_w(0, .65, -13, .8), _x(.6, 'sx-17', -10)],
+  'mg-03': [],
+  'mg-04': [_w(0, .36, -9, .92, 300, 4500), _x(.34, 'sx-10', -4)],
+  'mg-05': _ticks([.1 + (1 - (1 - i / 14) ** 2) * 1.15 for i in range(14)]) + [_x(1.3, 'sx-10', -6), _x(1.32, 'sx-29', -13)],
+  'mg-06': [_w(0, .16, -14, .95, 300, 3000), _x(.13, 'sx-06', -3)],
+  'mg-07': [_w(0, .45, -18, .8, 600, 5000), _x(.68, 'sx-17', -9), _x(.7, 'sx-26', -11)],
+  'mg-08': [_x(0, 'sx-22', -12), _x(.25, 'sx-17', -9)],
+  'mg-09': [_x(.05, 'sx-19', -16), _x(.7, 'sx-17', -10), _x(1.4, 'sx-17', -10)],
+  'mg-10': [_x(0, 'sx-22', -12), _x(.3, 'sx-07', -10), _x(.7, 'sx-26', -14)],
+  'mg-11': [_w(0, .5, -13, .7, 300, 3000, .8, 0), _w(2.25, .35, -17, .3, 300, 3000, 0, .8)],
+  'mg-12': [_w(0, .6, -14, .8), *_ticks([.5 + i * .07 for i in range(7)], -16), _x(1.4, 'sx-26', -15)],
+  'mg-13': [_x(0, 'sx-32', -10), _x(.5, 'sx-32', -13)],
+  'mg-14': [_w(0, .7, -10, .85, 200, 3000), _x(.55, 'sx-07', -8), _x(.85, 'sx-26', -12)],
+  'mg-15': [_x(0, 'sx-07', -12), _x(.25, 'sx-27', -9), _x(.55, 'sx-15', -16), ('L', 1.17, -3, {}), _x(1.2, 'sx-26', -15)],
+  'mg-16': _ticks([.4, .95, 1.5], -9) + [_x(1.6, 'sx-26', -15)],
+  'mg-17': [_x(0, 'sx-07', -13), _x(.55, 'sx-22', -9), _x(.95, 'sx-10', -6)],
+  'mg-18': _ticks([.05 + i * .26 for i in range(8)], -11) + [_x(2.1, 'sx-10', -6)],
+  'mg-19': [_x(.3, 'sx-25', -14), _x(1.65, 'sx-17', -9), _x(1.66, 'sx-26', -12)],
+  'mg-20': [_x(.1, 'sx-19', -11)],
+  'mg-21': [_x(.42, 'sx-32', -10)],
+  'mg-22': [_w(0, .45, -16, .8)] + _ticks([x for j in range(3) for x in (.5 + j * .45, .68 + j * .45)], -12),
+  'mg-23': _ticks([.2 + (1 - (1 - i / 18) ** 2) * 1.25 for i in range(18)], -15) + [_x(1.4, 'sx-10', -7)],
+  'mg-24': [_x(.3, 'sx-14', -10), _x(1.5, 'sx-27', -10)],
+  'mg-25': [('G', 0, -9, dict(dur=1.8, density=40))],
+  'mg-26': _ticks([.4, 1.1, 1.8], -9) + [_w(.4, 1.6, -20, .5, 400, 2500)],
+  'mg-27': [_w(0, .5, -12, .85, 400, 5000), _x(.4, 'sx-10', -6)],
+  'mg-28': [_x(0, 'sx-07', -8), ('G', .05, -8, dict(dur=1.8, density=90))],
+  'mg-29': [('R', .2, -14, dict(dur=1.3)), _x(1.5, 'sx-17', -9), _x(1.52, 'sx-26', -12)],
+  'mg-30': [_w(0, .4, -12, .7, 300, 4000, -.6, 0), _x(.15, 'sx-10', -8)],
+  'ui-01': [_w(0, .9, -9, .8, 150, 2500), _x(.85, 'sx-07', -9)],
+  'ui-02': [_x(0, 'sx-07', -13), _x(.35, 'sx-19', -11), _x(1.12, 'sx-18', -8), _w(1.3, .4, -18, .4, 600, 4000)],
+  'ui-03': [_w(0, .5, -14, .8)] + _ticks([.4 + i * .22 for i in range(4)], -12) + [_x(1.3, 'sx-26', -14)],
+  'ui-04': [_x(.95, 'sx-18', -6), _w(1.2, 1.0, -12, .5, 250, 2500, .6, -.6), _x(2.3, 'sx-07', -8), _x(2.35, 'sx-26', -13)],
+  'ui-05': [_x(0, 'sx-32', -10)] + _ticks([.45 + i * .3 for i in range(3)], -12) + [_x(1.4, 'sx-29', -14), _x(2.1, 'sx-06', -5)],
+  'ui-06': [_x(0, 'sx-22', -12), _x(.3, 'sx-17', -8)],
+  'ui-07': _ticks([.4 + i * .35 for i in range(4)], -11) + [_x(1.12, 'sx-27', -11)],
+  'ui-08': [_w(0, .8, -20, .7, 800, 5000), _x(.85, 'sx-18', -5)],
+  'ui-09': [_x(.6, 'sx-18', -6), _x(.8, 'sx-25', -16), _x(1.6, 'sx-17', -8), _x(1.62, 'sx-26', -12)],
+  'ui-10': [_x(.6, 'sx-19', -11), _x(1.35, 'sx-22', -13)],
+  'ui-11': _ticks([.5 + i * .22 for i in range(4)], -9) + [_x(1.5, 'sx-21', -4), _x(1.6, 'sx-26', -12)],
+  'ui-12': _ticks([.4 + i * .22 for i in range(5)], -12),
+  'tr-05': [_x(0, 'sx-10', -4), _w(0, .5, -16, .1, 2000, 9000)],
+  'tr-06': [_x(0, 'sx-15', -6)],
+  'tr-08': [_x(-.6, 'sx-05', -6), _x(.35, 'sx-10', -5)],
+  'tr-21': [_x(0, 'sx-15', -16), _w(0, 1.0, -14, .5)],
+  'tr-22': [_w(0, .8, -10, .5, 1500, 9000)],
+  'tr-24': [_x(0, 'sx-25', -8)],
+  'tr-27': [_x(.2, 'sx-25', -12), _x(1.0, 'sx-17', -8), _w(1.0, .4, -14, .4)],
+  'tr-28': [_x(0, 'sx-19', -14), _w(0, 1.2, -13, .5, 200, 3000)],
+  'tr-29': [_w(0, .9, -9, .45), _x(.42, 'sx-10', -6)],
+  'tr-30': [_w(0, 1.2, -9, .5, 120, 1500)],
+  'fx-05': [_x(0, 'sx-30', -10), _x(.3, 'sx-16', -18)],
+  'fx-06': [_x(0, 'sx-15', -16), _x(1.6, 'sx-15', -18)],
+  'fx-09': [_x(0, 'sx-14', -6)],
+  'fx-16': [_x(0, 'sx-28', -6), _x(1.0, 'sx-28', -7)],
+  'fx-18': [_x(0, 'sx-06', -5)],
+  'fx-21': [_x(0, 'sx-16', -8)],
+  'fx-29': [_x(0, 'sx-25', -14), _x(1.5, 'sx-25', -16)],
+  'hq-07': [_w(0, .32, -14, .95, 300, 3000), _x(.32, 'sx-06', -2), ('G', .34, -17, dict(dur=.4, density=60))],
+  'hq-08': [_x(0, 'sx-07', -12), ('S', .45, -14, dict(dur=.6)), _w(1.05, .45, -18, .5, 1500, 8000), _x(1.53, 'sx-18', -5), _x(1.9, 'sx-19', -15)],
+  'hq-09': [_w(0, .32, -9, .9, 300, 4500, -.8, 0), _w(0, .32, -9, .9, 320, 4800, .8, 0), _x(.32, 'sx-08', -4), _x(1.2, 'sx-26', -13)],
+  'hq-10': [_x(0, 'sx-22', -11), _x(.3, 'sx-17', -9), _x(.72, 'sx-17', -13), _w(2.35, .4, -15, .3, 500, 5000)],
+}
+def auto_cues(eid, dur):
+    """a cue list for elements without one: transitions get a whoosh centred on their middle, ambient overlays stay silent"""
+    if eid in MORE: return MORE[eid]
+    if eid.startswith('tr-'): return [_w(0, dur, -9, .5, 220, 3800, .5 * (-1) ** int(eid[-1]), -.5 * (-1) ** int(eid[-1]))]
+    return []
+
 def build(eid):
     dur, cues = CUES[eid]; mix = np.zeros((int(dur * SR) + SR, 2), np.float32)
     for kind, at, db, kw in cues: place(mix, K[kind](**kw), at, db)
@@ -312,5 +388,12 @@ if __name__ == '__main__':
             env = np.abs(x).max(1); b = max(1, len(env) // 48); meta.append(dict(id=k, name=name, use=use, dur=round(len(x) / SR, 2), wave=[round(float(env[i:i + b].max()), 2) for i in range(0, b * 48, b)]))
             print(k, name, round(len(x) / SR, 2))
         open(os.path.join(sys.argv[2], 'sfx-list.json'), 'w').write(json.dumps(meta, ensure_ascii=False)); sys.exit()
+    if sys.argv[1] == '--all':   # python3 sfx.py --all <durations.json> <outDir>: a sound for every element that has one
+        import os, json; durs = json.load(open(sys.argv[2])); os.makedirs(sys.argv[3], exist_ok=True)
+        for eid, d in durs.items():
+            cues = CUES[eid][1] if eid in CUES else auto_cues(eid, d)
+            if not cues: continue
+            CUES[eid] = (d, cues); write(os.path.join(sys.argv[3], eid + '.wav'), build(eid)); print(eid)
+        sys.exit()
     eid, out = sys.argv[1:3]; x = build(eid)
     w = wave.open(out, 'wb'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((x * 32767).astype('<i2').tobytes()); print(out, round(len(x) / SR, 2), 's')
