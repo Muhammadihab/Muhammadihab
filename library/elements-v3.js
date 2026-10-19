@@ -127,3 +127,62 @@ def({ id: 'hq-05', cat: 'hq', tr: true, name: 'مسحة القوس · محسّن
   frame(o, t) { const pr = P(t, 0, this.dur), x = L(1000, -3100, L(eio(pr), exio(pr), .5)), v = Math.sin(Math.PI * P(t, 0, this.dur)); o.g.setAttribute('transform', `translate(${x} 0)`);
     o.ln.forEach(q => { const lx = x + 180 + q.d; q.l.setAttribute('x1', lx); q.l.setAttribute('x2', lx + q.len * v); q.l.setAttribute('y1', q.y); q.l.setAttribute('y2', q.y); q.l.style.opacity = v * .8; }); } });
 })();
+
+/* ---------- hq-06 · مشهد بكاميرا بتتابع اللي بيحصل ---------- */
+(function () {
+const { LIB, C, F, H } = window.LOGIKA_LIB;
+const { el, spring, eo, eio, P, L, cl, rnd, WA } = H;
+const ex = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
+const mix = (a, b, x) => { const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)), A = p(a), B = p(b); return `rgb(${A.map((v, i) => Math.round(L(v, B[i], x))).join(',')})`; };
+// camera path: [time, x, y, zoom]; the camera eases from key to key, zoom moves in log space
+const KEYS = [[0, 760, 330, 2.3], [1.15, 760, 680, 2.1], [1.55, 540, 960, 1.0], [2.05, 540, 960, 1.0], [2.65, 880, 1240, 1.9], [3.5, 205, 1240, 1.9], [3.95, 208, 1235, 2.7], [4.25, 113, 1285, 3.2], [4.75, 113, 1285, 18]];
+function camAt(t) { let i = 0; while (i < KEYS.length - 1 && t > KEYS[i + 1][0]) i++; const a = KEYS[i], b = KEYS[Math.min(i + 1, KEYS.length - 1)];
+  const x = b === a ? 1 : eio(P(t, a[0], b[0])), z = Math.exp(L(Math.log(a[3]), Math.log(b[3]), x)); return { x: L(a[1], b[1], x), y: L(a[2], b[2], x), z }; }
+LIB.push({ id: 'hq-06', cat: 'hq', name: 'كاميرا بتتابع الحكاية', use: 'مشهد كامل (CRM): الكاميرا بتمشي ورا اللي بيحصل. بتزوّم على الرسايل، وتطلع تكشف اللوحة، وتتابع الكارت لحد «اتقفل»، وتدخل جوّه القفل. فيه بلور حركة زي فيديو الـ IDOR.', dur: 6.0, blend: 'scene', bg: '#000',
+  init(r) { const ns = 'http://www.w3.org/2000/svg';
+    const f = document.createElementNS(ns, 'svg'); f.setAttribute('width', 0); f.setAttribute('height', 0); f.style.position = 'absolute'; f.innerHTML = '<filter id="cmb" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur id="cmbb" stdDeviation="0 0"/></filter>'; r.appendChild(f);
+    const bg = el('div', 'position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,#123A68,#06142A 75%)', r);
+    const cam = el('div', 'position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0', r);
+    el('div', 'position:absolute;inset:-400px;background-image:linear-gradient(rgba(63,214,245,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(63,214,245,.07) 2px,transparent 2px);background-size:60px 60px', cam);
+    // chat panel
+    const chat = el('div', `position:absolute;left:60px;top:150px;width:960px;height:820px;border-radius:44px;background:#0B141A;box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden;direction:rtl`, cam);
+    el('div', `height:110px;display:flex;align-items:center;gap:20px;padding:0 36px;background:#1F2C34;color:#fff;font:700 40px ${F.ar}`, chat, `<span style="width:70px;height:70px;border-radius:50%;background:${C.wa};padding:12px;box-sizing:border-box">${WA}</span>واتساب الشغل<span style="margin-right:auto;background:${C.red};border-radius:99px;padding:4px 20px;font:700 32px ${F.num}">99+</span>`);
+    const msgs = ['لسه متاح؟', 'بكام الأوضة؟', 'فين العنوان؟', 'ممكن صور تاني؟', 'حد يرد بقا 🙏', 'عاوز أحجز النهارده'];
+    const bub = msgs.map((m, i) => el('div', `position:absolute;right:${i === 1 ? 60 : 60}px;top:${150 + i * 112}px;padding:18px 30px;border-radius:30px 30px 30px 8px;background:#202C33;color:#E9EDEF;font:400 40px ${F.ar};white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.3)`, chat, m));
+    bub[1].style.visibility = 'hidden';
+    // pipeline board
+    const board = el('div', 'position:absolute;left:40px;top:1060px;width:1000px;height:640px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;direction:rtl', cam);
+    ['جديد', 'بنتفاوض', 'اتقفل'].forEach((n, i) => { const c = el('div', 'background:rgba(244,247,251,.96);border-radius:30px;padding:22px 16px;display:flex;flex-direction:column;gap:16px;box-shadow:0 24px 50px rgba(0,0,0,.35)', board);
+      el('div', `font:700 36px ${F.ar};color:${C.navy};display:flex;justify-content:space-between;align-items:center;height:48px`, c, `${n}<i style="width:22px;height:22px;border-radius:50%;display:block;background:${['#00CCF2', '#FFB020', '#30D158'][i]}"></i>`);
+      [...Array(i === 1 ? 1 : 0)].forEach((_, j) => el('div', 'height:130px;border-radius:20px;background:#fff;box-shadow:0 4px 14px rgba(10,36,68,.08);padding:20px;box-sizing:border-box', c, `<div style="height:22px;width:${60 + rnd(i * 3 + j) * 30}%;border-radius:11px;background:#DDE6F0"></div><div style="height:18px;width:${40 + rnd(i * 5 + j) * 30}%;border-radius:9px;background:#EBF0F6;margin-top:16px"></div>`)); });
+    // the message that becomes a customer card (lives on the camera layer so it can travel)
+    const mv = el('div', `position:absolute;overflow:hidden;direction:rtl;box-sizing:border-box;z-index:5`, cam);
+    const ma = el('div', `position:absolute;inset:0;display:flex;align-items:center;padding:0 30px;color:#E9EDEF;font:400 40px ${F.ar};white-space:nowrap`, mv, msgs[1]);
+    const mb = el('div', `position:absolute;inset:0;padding:18px 22px;color:${C.navy};font:400 24px ${F.ar}`, mv,
+      `<div style="display:flex;align-items:center;gap:12px"><i style="width:52px;height:52px;flex:none;border-radius:50%;background:${C.cyan};display:flex;align-items:center;justify-content:center;font:700 28px ${F.ar};font-style:normal">ه</i><div style="white-space:nowrap"><b style="font-size:30px;display:block">هدى س.</b>سألت على الأوضة</div></div>`);
+    const lk = el('div', `position:absolute;left:14px;bottom:12px;width:46px;height:46px;border-radius:12px;background:${C.navy};display:flex;align-items:center;justify-content:center`, mv,
+      `<svg viewBox="-40 -50 80 100" width="26" height="32"><rect x="-30" y="-6" width="60" height="46" rx="9" fill="${C.cyan2}"/><path id="cs" d="M-18 -6 V-24 a18 18 0 0 1 36 0 V-14" fill="none" stroke="${C.cyan2}" stroke-width="9" stroke-linecap="round"/></svg>`);
+    const ok = el('div', `position:absolute;right:16px;bottom:14px;padding:4px 14px;border-radius:99px;background:#E6F9EC;color:#1FA34A;font:700 22px ${F.ar}`, mv, 'اتفقنا ✓');
+    const end = el('div', `position:absolute;inset:0;background:${C.navy};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px`, r);
+    const et = el('div', `font:700 104px ${F.ar};color:#fff;direction:rtl;text-shadow:0 0 40px rgba(0,204,242,.6);overflow:hidden;padding:8px 10px 20px`, end), ew = el('div', 'display:inline-block', et, 'متأمّن من جوّا');
+    const es = el('div', `font:700 36px ${F.num};color:${C.cyan2};letter-spacing:10px;direction:ltr`, end, '{ LOGIKA }');
+    return { cam, bub, mv, ma, mb, lk, cs: lk.querySelector('#cs'), ok, end, ew, es, blur: f.querySelector('#cmbb') }; },
+  frame(o, t) {
+    o.bub.forEach((b, i) => { if (i === 1) return; const a = .1 + i * .19, k = spring(P(t, a, a + .4), 9); b.style.opacity = Math.min(1, k * 2); b.style.transform = `translateY(${(1 - k) * 40}px) scale(${L(.7, 1, k)})`; b.style.transformOrigin = 'right bottom'; });
+    // message -> card -> «جديد» -> «اتقفل»
+    const bubR = [1020 - 60 - 360, 150 + 150 + 112, 360, 80], cardN = [748, 1150, 264, 170], cardD = [76, 1150, 264, 170];
+    const a1 = .29, k1 = spring(P(t, a1, a1 + .4), 9), m = ex(P(t, 1.9, 2.55)), g = eio(P(t, 2.75, 3.45));
+    let [x, y, w, h] = bubR.map((v, i) => L(v, cardN[i], m)); if (g > 0) { x = L(cardN[0], cardD[0], g); y = L(cardN[1], cardD[1], g) - Math.sin(Math.PI * g) * 120; }
+    o.mv.style.left = x + 'px'; o.mv.style.top = y + 'px'; o.mv.style.width = w + 'px'; o.mv.style.height = h + 'px';
+    o.mv.style.borderRadius = `${L(30, 22, m)}px ${L(30, 22, m)}px ${L(8, 22, m)}px ${L(30, 22, m)}px`; o.mv.style.background = m < .5 ? mix('#202C33', '#6FA9CF', m * 2) : mix('#6FA9CF', '#FFFFFF', m * 2 - 1);
+    const hl = P(t, 1.55, 1.75) * (1 - m); o.mv.style.boxShadow = `0 0 0 ${4 * (hl + m)}px ${t > 3.45 ? C.green : C.cyan}, 0 ${L(6, 30, m)}px ${L(16, 50, m)}px rgba(0,0,0,${L(.3, .4, m)})`;
+    o.mv.style.opacity = Math.min(1, k1 * 2); o.mv.style.transform = `scale(${L(.7, 1, k1) * (1 + .08 * Math.sin(Math.PI * P(t, 3.45, 3.7)))}) rotate(${Math.sin(Math.PI * g) * -5}deg)`;
+    o.ma.style.opacity = 1 - P(t, 1.9, 2.05); o.mb.style.opacity = P(t, 2.25, 2.5); o.ok.style.opacity = P(t, 3.5, 3.7); o.ok.style.transform = `scale(${spring(P(t, 3.5, 3.8), 10)})`;
+    o.lk.style.opacity = P(t, 3.75, 3.9); o.lk.style.transform = `scale(${spring(P(t, 3.75, 4.05), 10)})`; o.cs.setAttribute('d', t < 4.15 ? 'M-18 -6 V-34 a18 18 0 0 1 36 0 V-24' : 'M-18 -6 V-24 a18 18 0 0 1 36 0 V-6');
+    // camera + blur from its own speed
+    const c = camAt(t), pc = camAt(Math.max(0, t - 1 / 30));
+    o.cam.style.transform = `translate(540px,960px) scale(${c.z}) translate(${-c.x}px,${-c.y}px)`;
+    const vx = Math.abs(c.x - pc.x) * c.z, vy = Math.abs(c.y - pc.y) * c.z, vz = Math.abs(Math.log(c.z / pc.z)) * 260, bx = cl(vx * .25 + vz * .4, 0, 14), by = cl(vy * .25 + vz * .6, 0, 14);
+    o.blur.setAttribute('stdDeviation', `${(bx / c.z).toFixed(2)} ${(by / c.z).toFixed(2)}`); o.cam.style.filter = bx > .4 || by > .4 ? 'url(#cmb)' : '';
+    const e = P(t, 4.6, 4.8); o.end.style.opacity = e; o.ew.style.transform = `translateY(${(1 - ex(P(t, 4.8, 5.3))) * 115}%)`; o.es.style.opacity = P(t, 5.1, 5.5); o.es.style.letterSpacing = L(26, 10, ex(P(t, 5.1, 5.7))) + 'px'; } });
+})();
