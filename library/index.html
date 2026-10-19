@@ -61,12 +61,22 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .empty{color:var(--muted);text-align:center;padding:40px}
 @media (max-width:700px){.how{grid-template-columns:minmax(0,1fr)}.mbox{flex-direction:column;align-items:center}.mbox .pv{width:min(300px,80vw)}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
 @media (prefers-reduced-motion:reduce){.pv .stage{transition:none}}
+.row .blend{margin-top:4px}
+.snote{font-size:13px}.snote code{font:600 12px var(--f-num);color:var(--cyan)}
+.scard{cursor:default}
+.sbtn{display:flex;align-items:center;gap:12px;width:100%;height:110px;padding:0 16px;border:0;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));color:var(--ink);cursor:pointer;direction:ltr}
+.sbtn .pl{flex:none;width:44px;height:44px;border-radius:50%;background:var(--cyan);color:#06111F;display:flex;align-items:center;justify-content:center;font-size:18px}
+.sbtn.playing .pl{background:#fff;color:#06111F}
+.sbtn .wv{flex:1;min-width:0;height:64px;display:flex;align-items:center;gap:1px}
+.sbtn .wv i{flex:1;min-width:1px;background:var(--cyan);opacity:.6;border-radius:1px;display:block}
+.sbtn.playing .wv i{opacity:1}
+.scard .files{margin-top:6px}
 </style>
 
 <div class="wrap">
   <header>
     <div><h1>مكتبة لوجيكا للفيديو · <b id="n">108</b></h1>
-    <p>موشن جرافيك، وشاشات سيستم، وانتقالات، وإيفكتات بألوان لوجيكا وخطوطها. اختار منها وإنت بتخطط للفيديو، وقول رقم العنصر (زي <span class="id">mg-01</span>). كل عنصر له ملف جاهز تحطه فوق الفيديو في أي برنامج مونتاج.</p></div>
+    <p>موشن جرافيك، وفايرال، وشاشات سيستم، وانتقالات، وإيفكتات، ومكتبة أصوات، بألوان لوجيكا وخطوطها. اختار منها وإنت بتخطط للفيديو، وقول رقم العنصر (زي <span class="id">mg-01</span>). كل عنصر له ملف جاهز تحطه فوق الفيديو في أي برنامج مونتاج.</p></div>
   </header>
   <div class="how">
     <div><b>موشن جرافيك وشاشات سيستم</b><p>ملف <code>.webm</code> شفاف لـ Premiere وAfter Effects وCapCut على الكمبيوتر. وملف <code>-green.mp4</code> لـ CapCut على الموبايل: حطه فوق الفيديو واعمل Chroma Key على الأخضر.</p></div>
@@ -82,10 +92,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <script src="elements.js"></script>
 <script src="elements-v2.js"></script>
 <script src="elements-v3.js"></script>
+<script src="elements-v4.js"></script>
+<script src="sfx-list.js"></script>
+<script src="snd-list.js"></script>
 <script>
 const { LIB } = LOGIKA_LIB;
-const CATS = [['all', 'الكل'], ['hq', 'محسّن ✦'], ['motion', 'موشن جرافيك'], ['ui', 'شاشات سيستم'], ['transition', 'انتقالات'], ['overlay', 'إيفكتات']];
-const SUB = { hq: 'hq', motion: 'motion', ui: 'ui', transition: 'transitions', overlay: 'overlays' };
+const CATS = [['all', 'الكل'], ['hq', 'محسّن ✦'], ['viral', 'فايرال 🔥'], ['motion', 'موشن جرافيك'], ['ui', 'شاشات سيستم'], ['transition', 'انتقالات'], ['overlay', 'إيفكتات'], ['sfx', 'أصوات 🔊']];
+const SUB = { hq: 'hq', viral: 'viral', motion: 'motion', ui: 'ui', transition: 'transitions', overlay: 'overlays' };
 const BLEND = { scene: 'مشهد كامل', alpha: 'شفاف', screen: 'وضع Screen', overlay: 'وضع Overlay' };
 let CAT = 'all', Q = '';
 const norm = s => String(s).replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').toLowerCase();
@@ -103,14 +116,15 @@ function files(E) { const b = `${SUB[E.cat]}/${E.id}`; return E.blend === 'alpha
 function bgClass(E) { return E.blend === 'screen' ? 'bg-black' : E.blend === 'overlay' ? 'bg-gray' : ''; }
 
 function renderGrid() {
-  const tabs = CATS.map(([k, n]) => `<button data-c="${k}" class="${CAT === k ? 'on' : ''}">${n}<span>${(k === 'all' ? LIB : LIB.filter(e => e.cat === k)).length}</span></button>`).join('');
+  const tabs = CATS.map(([k, n]) => `<button data-c="${k}" class="${CAT === k ? 'on' : ''}">${n}<span>${k === 'sfx' ? SFX_LIST.length : (k === 'all' ? LIB : LIB.filter(e => e.cat === k)).length}</span></button>`).join('');
   $('#tabs').innerHTML = tabs;
   const list = LIB.filter(e => (CAT === 'all' || e.cat === CAT) && (!Q || norm(e.name + ' ' + e.use + ' ' + e.id).includes(norm(Q))));
   players.forEach(p => io.unobserve(p.box)); players.clear();
+  if (CAT === 'sfx') return renderSfx();
   const g = $('#grid'); g.innerHTML = list.length ? '' : '<div class="empty">مفيش نتايج. جرّب كلمة تانية.</div>';
   list.forEach(E => {
     const c = document.createElement('button'); c.className = 'card'; c.dataset.id = E.id;
-    c.innerHTML = `<div class="pv ${bgClass(E)}"></div><div class="info"><div class="top"><span class="id">${E.id}</span><span class="dur">${E.dur.toFixed(1)}s</span></div><b>${E.name}</b><small>${E.use}</small><span class="blend ${E.blend !== 'alpha' ? 'o' : ''}">${BLEND[E.blend]}</span></div>`;
+    c.innerHTML = `<div class="pv ${bgClass(E)}"></div><div class="info"><div class="top"><span class="id">${E.id}</span><span class="dur">${E.dur.toFixed(1)}s</span></div><b>${E.name}</b><small>${E.use}</small><span class="row"><span class="blend ${E.blend !== 'alpha' ? 'o' : ''}">${BLEND[E.blend]}</span>${SND.includes(E.id) ? '<span class="blend">🔊 بصوته</span>' : ''}</span></div>`;
     g.appendChild(c); const box = c.querySelector('.pv'); const p = mount(box, E); p.box = box; players.set(box, p); io.observe(box);
   });
 }
@@ -134,19 +148,33 @@ function openModal(E) {
     <div class="mtx"><span class="id">${E.id} · ${E.dur.toFixed(1)}s</span><h2>${E.name}</h2><p>${E.use}</p>
     ${E.blend === 'alpha' ? `<div class="row" role="group" aria-label="الخلفية"><button class="btn on" data-bg="">شفاف</button><button class="btn" data-bg="bg-black">على أسود</button><button class="btn" data-bg="bg-light">على فاتح</button></div>` : `<p>استخدمه بـ <b>${BLEND[E.blend]}</b> فوق الفيديو.</p>`}
     <div class="files">${files(E).join('<br>')}</div>
-    <div class="row"><button class="btn" id="replay">من الأول</button><button class="btn" data-close>قفل</button></div></div></div></div>`;
+    ${SND.includes(E.id) ? '<p class="snote">العنصر ده ليه صوت متظبّط على الفريم: <code>snd/' + E.id + '.mp3</code></p>' : ''}
+    <div class="row">${SND.includes(E.id) ? '<button class="btn on" id="withsound">▶ شغّل بالصوت</button>' : ''}<button class="btn" id="replay">من الأول</button><button class="btn" data-close>قفل</button></div></div></div></div>`;
   const box = $('#mpv'); modalP = mount(box, E); modalP.box = box; modalP.on = true;
 }
 document.addEventListener('click', e => {
   const t = e.target;
   const tab = t.closest('[data-c]'); if (tab) { CAT = tab.dataset.c; renderGrid(); return; }
-  const card = t.closest('.card'); if (card) { openModal(LIB.find(x => x.id === card.dataset.id)); return; }
-  if (t.id === 'replay' && modalP) { modalP.t0 = performance.now(); return; }
+  const sb0 = t.closest('[data-snd]'); if (sb0) { const on = sb0.classList.contains('playing'); stopAudio(); if (!on) play('sfx/' + sb0.dataset.snd + '.mp3', sb0); return; }
+  const card = t.closest('.card:not(.scard)'); if (card) { openModal(LIB.find(x => x.id === card.dataset.id)); return; }
+  if (t.id === 'replay' && modalP) { stopAudio(); modalP.t0 = performance.now(); return; }
+  if (t.id === 'withsound' && modalP) { play('snd/' + modalP.E.id + '.mp3'); modalP.t0 = performance.now(); return; }
   const bgb = t.closest('[data-bg]'); if (bgb) { const box = $('#mpv'); box.classList.remove('bg-black', 'bg-light'); if (bgb.dataset.bg === 'bg-light') box.style.background = '#E9EFF5'; else { box.style.background = ''; if (bgb.dataset.bg) box.classList.add(bgb.dataset.bg); }
     document.querySelectorAll('[data-bg]').forEach(b => b.classList.toggle('on', b === bgb)); return; }
-  if (t.matches('[data-close]')) { modalP = null; $('#layer').innerHTML = ''; }
+  if (t.matches('[data-close]')) { stopAudio(); modalP = null; $('#layer').innerHTML = ''; }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalP) { modalP = null; $('#layer').innerHTML = ''; } });
 let qt; $('#q').addEventListener('input', e => { Q = e.target.value; clearTimeout(qt); qt = setTimeout(renderGrid, 150); });
+// sound: one player for the whole page
+let AU = null, AUbtn = null;
+function stopAudio() { if (AU) { AU.pause(); AU = null; } if (AUbtn) { AUbtn.classList.remove('playing'); AUbtn = null; } }
+function play(src, btn) { stopAudio(); AU = new Audio(src); AU.play().catch(() => {}); if (btn) { AUbtn = btn; btn.classList.add('playing'); AU.onended = () => btn.classList.remove('playing'); } }
+function renderSfx() {
+  const list = SFX_LIST.filter(s => !Q || norm(s.name + ' ' + s.use + ' ' + s.id).includes(norm(Q))), g = $('#grid');
+  g.innerHTML = list.length ? '' : '<div class="empty">مفيش نتايج. جرّب كلمة تانية.</div>';
+  list.forEach(s => { const c = document.createElement('div'); c.className = 'card scard';
+    c.innerHTML = `<button class="sbtn" data-snd="${s.id}" aria-label="شغّل ${s.name}"><span class="pl">▶</span><span class="wv">${s.wave.map(v => `<i style="height:${Math.max(6, v * 100)}%"></i>`).join('')}</span></button>
+      <div class="info"><div class="top"><span class="id">${s.id}</span><span class="dur">${s.dur.toFixed(1)}s</span></div><b>${s.name}</b><small>${s.use}</small><span class="files">sfx/${s.id}.mp3</span></div>`; g.appendChild(c); });
+}
 renderGrid();
 </script>
