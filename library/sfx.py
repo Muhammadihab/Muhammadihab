@@ -33,12 +33,12 @@ def swell(dur, seed=4):
     n = int(dur * SR); t = np.linspace(0, 1, n, dtype=np.float32); env = np.sin(np.pi * t) ** 2
     return norm(filt(noise(n, seed), 'lowpass', 900) * env[:, None], .7)
 
-def pop(k=1.0, dur=.09):
-    """soft bubble pop: a falling sine with a rounded attack and a breath of noise"""
-    n = int(dur * SR); t = np.arange(n) / SR; f = 560 * k + 380 * k * np.exp(-t * 45); ph = 2 * np.pi * np.cumsum(f) / SR
-    env = np.minimum(1, t / .004) * np.exp(-t * 40); y = (np.sin(ph) + .2 * np.sin(2 * ph)) * env
-    y += filt(noise(n, 7)[:, 0:1], 'bandpass', [1500 * k, 4000 * k])[:, 0] * np.exp(-t * 160) * .25
-    return mono(y * .8)
+def pop(k=1.0, dur=.12, seed=12):
+    """soft appear: a muted knock (like a card set down on a table) with a breath of air; no pitch, so it never beeps"""
+    n = int(dur * SR); t = np.arange(n) / SR; x = noise(n, seed + int(k * 100))
+    knock = filt(x, 'bandpass', [220 * k, 900 * k]) * (np.minimum(1, t / .002) * np.exp(-t * 55))[:, None]
+    air = filt(x[::-1].copy(), 'bandpass', [2500, 7000]) * (np.minimum(1, t / .012) * np.exp(-t * 45))[:, None] * .25
+    return norm(knock + air, .8)
 
 def tick(k=1.0):
     """a dry UI tick"""
