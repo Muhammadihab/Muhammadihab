@@ -138,8 +138,8 @@ const mix = (a, b, x) => { const p = h => [1, 3, 5].map(i => parseInt(h.slice(i,
 const KEYS = [[0, 760, 330, 2.3], [1.15, 760, 680, 2.1], [1.55, 540, 960, 1.0], [2.05, 540, 960, 1.0], [2.65, 880, 1240, 1.9], [3.5, 205, 1240, 1.9], [3.95, 208, 1235, 2.7], [4.25, 113, 1285, 3.2], [4.75, 113, 1285, 18]];
 function camAt(t) { let i = 0; while (i < KEYS.length - 1 && t > KEYS[i + 1][0]) i++; const a = KEYS[i], b = KEYS[Math.min(i + 1, KEYS.length - 1)];
   const x = b === a ? 1 : eio(P(t, a[0], b[0])), z = Math.exp(L(Math.log(a[3]), Math.log(b[3]), x)); return { x: L(a[1], b[1], x), y: L(a[2], b[2], x), z }; }
-LIB.push({ id: 'hq-06', cat: 'hq', name: 'كاميرا بتتابع الحكاية', use: 'مشهد كامل (CRM): الكاميرا بتمشي ورا اللي بيحصل. بتزوّم على الرسايل، وتطلع تكشف اللوحة، وتتابع الكارت لحد «اتقفل»، وتدخل جوّه القفل. فيه بلور حركة زي فيديو الـ IDOR.', dur: 6.0, blend: 'scene', bg: '#000',
-  init(r) { const ns = 'http://www.w3.org/2000/svg';
+LIB.push({ id: 'hq-06', cat: 'hq', name: 'كاميرا بتتابع الحكاية', params: { msgs: ['لسه متاح؟', 'بكام الأوضة؟', 'فين العنوان؟', 'ممكن صور تاني؟', 'حد يرد بقا 🙏', 'عاوز أحجز النهارده'], ask: 'سألت على الأوضة' }, use: 'مشهد كامل (CRM): الكاميرا بتمشي ورا اللي بيحصل. بتزوّم على الرسايل، وتطلع تكشف اللوحة، وتتابع الكارت لحد «اتقفل»، وتدخل جوّه القفل. فيه بلور حركة زي فيديو الـ IDOR.', dur: 6.0, blend: 'scene', bg: '#000',
+  init(r, p) { const ns = 'http://www.w3.org/2000/svg';
     const f = document.createElementNS(ns, 'svg'); f.setAttribute('width', 0); f.setAttribute('height', 0); f.style.position = 'absolute'; f.innerHTML = '<filter id="cmb" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur id="cmbb" stdDeviation="0 0"/></filter>'; r.appendChild(f);
     const bg = el('div', 'position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,#123A68,#06142A 75%)', r);
     const cam = el('div', 'position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0', r);
@@ -147,7 +147,7 @@ LIB.push({ id: 'hq-06', cat: 'hq', name: 'كاميرا بتتابع الحكاي
     // chat panel
     const chat = el('div', `position:absolute;left:60px;top:150px;width:960px;height:820px;border-radius:44px;background:#0B141A;box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden;direction:rtl`, cam);
     el('div', `height:110px;display:flex;align-items:center;gap:20px;padding:0 36px;background:#1F2C34;color:#fff;font:700 40px ${F.ar}`, chat, `<span style="width:70px;height:70px;border-radius:50%;background:${C.wa};padding:12px;box-sizing:border-box">${WA}</span>واتساب الشغل<span style="margin-right:auto;background:${C.red};border-radius:99px;padding:4px 20px;font:700 32px ${F.num}">99+</span>`);
-    const msgs = ['لسه متاح؟', 'بكام الأوضة؟', 'فين العنوان؟', 'ممكن صور تاني؟', 'حد يرد بقا 🙏', 'عاوز أحجز النهارده'];
+    const msgs = p.msgs;
     const bub = msgs.map((m, i) => el('div', `position:absolute;right:${i === 1 ? 60 : 60}px;top:${150 + i * 112}px;padding:18px 30px;border-radius:30px 30px 30px 8px;background:#202C33;color:#E9EDEF;font:400 40px ${F.ar};white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.3)`, chat, m));
     bub[1].style.visibility = 'hidden';
     // pipeline board
@@ -159,7 +159,7 @@ LIB.push({ id: 'hq-06', cat: 'hq', name: 'كاميرا بتتابع الحكاي
     const mv = el('div', `position:absolute;overflow:hidden;direction:rtl;box-sizing:border-box;z-index:5`, cam);
     const ma = el('div', `position:absolute;inset:0;display:flex;align-items:center;padding:0 30px;color:#E9EDEF;font:400 40px ${F.ar};white-space:nowrap`, mv, msgs[1]);
     const mb = el('div', `position:absolute;inset:0;padding:18px 22px;color:${C.navy};font:400 24px ${F.ar}`, mv,
-      `<div style="display:flex;align-items:center;gap:12px"><i style="width:52px;height:52px;flex:none;border-radius:50%;background:${C.cyan};display:flex;align-items:center;justify-content:center;font:700 28px ${F.ar};font-style:normal">ه</i><div style="white-space:nowrap"><b style="font-size:30px;display:block">هدى س.</b>سألت على الأوضة</div></div>`);
+      `<div style="display:flex;align-items:center;gap:12px"><i style="width:52px;height:52px;flex:none;border-radius:50%;background:${C.cyan};display:flex;align-items:center;justify-content:center;font:700 28px ${F.ar};font-style:normal">ه</i><div style="white-space:nowrap"><b style="font-size:30px;display:block">هدى س.</b>${p.ask}</div></div>`);
     const lk = el('div', `position:absolute;left:14px;bottom:12px;width:46px;height:46px;border-radius:12px;background:${C.navy};display:flex;align-items:center;justify-content:center`, mv,
       `<svg viewBox="-40 -50 80 100" width="26" height="32"><rect x="-30" y="-6" width="60" height="46" rx="9" fill="${C.cyan2}"/><path id="cs" d="M-18 -6 V-24 a18 18 0 0 1 36 0 V-14" fill="none" stroke="${C.cyan2}" stroke-width="9" stroke-linecap="round"/></svg>`);
     const ok = el('div', `position:absolute;right:16px;bottom:14px;padding:4px 14px;border-radius:99px;background:#E6F9EC;color:#1FA34A;font:700 22px ${F.ar}`, mv, 'اتفقنا ✓');
@@ -170,7 +170,7 @@ LIB.push({ id: 'hq-06', cat: 'hq', name: 'كاميرا بتتابع الحكاي
   frame(o, t) {
     o.bub.forEach((b, i) => { if (i === 1) return; const a = .1 + i * .19, k = spring(P(t, a, a + .4), 9); b.style.opacity = Math.min(1, k * 2); b.style.transform = `translateY(${(1 - k) * 40}px) scale(${L(.7, 1, k)})`; b.style.transformOrigin = 'right bottom'; });
     // message -> card -> «جديد» -> «اتقفل»
-    const bubR = [1020 - 60 - 360, 150 + 150 + 112, 360, 80], cardN = [748, 1150, 264, 170], cardD = [76, 1150, 264, 170];
+    const bw = o.bub[1].offsetWidth || 360, bubR = [1020 - 60 - bw, 150 + 150 + 112, bw, 80], cardN = [748, 1150, 264, 170], cardD = [76, 1150, 264, 170];
     const a1 = .29, k1 = spring(P(t, a1, a1 + .4), 9), m = ex(P(t, 1.9, 2.55)), g = eio(P(t, 2.75, 3.45));
     let [x, y, w, h] = bubR.map((v, i) => L(v, cardN[i], m)); if (g > 0) { x = L(cardN[0], cardD[0], g); y = L(cardN[1], cardD[1], g) - Math.sin(Math.PI * g) * 120; }
     o.mv.style.left = x + 'px'; o.mv.style.top = y + 'px'; o.mv.style.width = w + 'px'; o.mv.style.height = h + 'px';
