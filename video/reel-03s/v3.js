@@ -91,7 +91,7 @@ const veil = div('inset:0;background:radial-gradient(ellipse at 50% 50%,transpar
 const prog = div(`left:70px;top:300px;padding:8px 22px 12px;border-radius:99px;background:rgba(5,16,32,.85);border:2px solid rgba(63,214,245,.6);color:${C.cyan2};font:700 36px ${F.ar};direction:rtl`);
 const clock = div('left:0;right:0;top:120px;flex-direction:column;align-items:center;text-align:center;direction:ltr');
 const cN = el('div', `font:700 128px ${F.num};color:#fff;text-shadow:0 0 40px rgba(0,204,242,.7)`, clock), cL = el('div', `font:600 38px ${F.ar};color:${C.cyan2};direction:rtl`, clock);
-const capBox = div('left:0;right:0;top:1580px;display:flex;justify-content:center'), cap = el('div', `max-width:920px;padding:16px 34px 22px;border-radius:28px;background:rgba(3,10,22,.8);text-align:center;direction:rtl;font:700 60px/1.35 ${F.ar};color:#fff`, capBox);
+const capBox = div('left:60px;right:160px;top:1290px;display:flex;justify-content:center'), cap = el('div', `max-width:920px;padding:16px 34px 22px;border-radius:28px;background:rgba(3,10,22,.8);text-align:center;direction:rtl;font:700 60px/1.35 ${F.ar};color:#fff`, capBox);
 
 /* ---------- camera ---------- */
 const CAM = [[TUN0, -300], [5.4, 600], [9.2, 960], [9.8, 1600], [10.2, 2200], [14.0, 2560], [14.6, 3200], [15.3, 3800], [19.1, 4160], [19.7, 4800], [20.1, 5300], [24.6, 5760], [25.2, 6100], [28.6, 6250], [29.2, 6900]];

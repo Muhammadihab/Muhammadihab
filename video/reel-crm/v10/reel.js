@@ -85,7 +85,7 @@ add('hq-05', 18.75);   // the brace sweep: its middle covers the cut into the sy
 const TAKE = [[.85, 2.45], [12.25, 13.85], [16.35, 19.2], [27.9, 29.4], [35.45, 36.95], [37.9, 39.3], [44.9, DUR]];
 
 /* ---------- 4) captions: word by word, a cyan frame that moves to the word being said ---------- */
-const capL = layer(''), back = el('div', 'position:absolute;left:0;right:0;bottom:0;height:640px;background:linear-gradient(180deg,rgba(3,9,20,0),rgba(3,9,20,.72) 60%)', capL), row = el('div', `position:absolute;left:40px;right:40px;top:1520px;display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;direction:rtl;font:700 76px/1.25 ${F.ar}`, capL);
+const capL = layer(''), back = el('div', 'position:absolute;left:0;right:0;bottom:0;height:640px;background:linear-gradient(180deg,rgba(3,9,20,0),rgba(3,9,20,.72) 60%)', capL), row = el('div', `position:absolute;left:60px;right:160px;top:1300px;display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;direction:rtl;font:700 76px/1.25 ${F.ar}`, capL);
 const pill = el('div', `position:absolute;border-radius:22px;background:${C.cyan};box-shadow:0 10px 34px rgba(0,204,242,.45);z-index:0`, capL);
 let segI = -1, spans = [];
 function caption(t) { const W = window.WORDS, i = W.findIndex(([a, b]) => t >= a - .05 && t < b + .12), hide = TAKE.some(([a, b]) => t > a && t < b);

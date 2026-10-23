@@ -92,7 +92,7 @@ add('hq-05', 2.15); add('tr-06', 12.75); add('tr-06', 17.0); add('hq-09', END, {
 const veil = div('inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(0,0,0,.55))');
 const clock = div('left:0;right:0;top:130px;flex-direction:column;align-items:center;text-align:center;direction:ltr');
 const cN = el('div', `font:700 128px ${F.num};color:#fff;text-shadow:0 0 40px rgba(0,204,242,.7)`, clock), cL = el('div', `font:600 38px ${F.ar};color:${C.cyan2};direction:rtl`, clock);
-const capBox = div(`left:0;right:0;top:1580px;display:flex;justify-content:center`), cap = el('div', `max-width:900px;padding:16px 34px 22px;border-radius:28px;background:rgba(3,10,22,.78);text-align:center;direction:rtl;font:700 60px/1.35 ${F.ar};color:#fff`, capBox);
+const capBox = div(`left:60px;right:160px;top:1290px;display:flex;justify-content:center`), cap = el('div', `max-width:900px;padding:16px 34px 22px;border-radius:28px;background:rgba(3,10,22,.78);text-align:center;direction:rtl;font:700 60px/1.35 ${F.ar};color:#fff`, capBox);
 
 /* ---------- camera: slow at each problem, a rush between gates ---------- */
 const CAM = [[2.6, -300], [3.4, 600], [7.6, 960], [8.2, 1600], [8.6, 2200], [12.3, 2560], [12.9, 3200], [17.2, 3360], [17.4, 3800], [21.4, 4160], [22.0, 4800], [22.3, 5400], [25.8, 5760], [26.4, 6700]];
